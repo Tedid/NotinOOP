@@ -4,7 +4,7 @@
 
 class User{
     protected:
-        int userID;
+        int userID;                 // unique
         std::string username;
         std::string password;
     public:
