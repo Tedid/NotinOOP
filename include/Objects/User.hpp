@@ -13,8 +13,6 @@ class User{
         int getUserID() const;
         std::string getUsername() const;
 
-        bool checkPassword(const std::string& pass) const;
-
         //ensures every subclass has its own help menu
         virtual void showHelp() const = 0;
 };
