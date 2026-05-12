@@ -36,5 +36,25 @@ class Buyer : public User
     std::vector<Discount> &discounts;
 
 public:
+    Buyer(int id, const std::string &name, const std::string &pass, float balance = 0);
+
+    void addToBalance(float money);
+
+    void addToWishlist(const std::string &fragranceName);
+    void removeFromWishlist(const std::string &fragranceName);
+    void viewWishlist() const;
+
+    void addToCart(const std::string &fragranceNamee);
+    void removeFromCart(const std::string &fragranceName);
+    void viewCart() const;
+    void checkout();
+    void cancel(int purchaseID);
+
+    void viewBought() const;
+    void viewPurchases() const;
+
+    void Recommend() const;
+    void makeReview(const std::string &fragranceName, int rating, const std::string &comment);
+
     void showHelp() const override;
 };
