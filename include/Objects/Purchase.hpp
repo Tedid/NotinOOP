@@ -7,7 +7,7 @@
 
 class Purchase
 {
-    int purchaseId;
+    int purchaseId;                     //unique
     std::vector<Fragrance> fragrances;
     PurchaseStatus status;
     int userID;
