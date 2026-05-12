@@ -5,6 +5,7 @@
 
 #include "Fragrance.hpp"
 #include "Purchase.hpp"
+#include "Discounts.hpp"
 
 class User
 {
@@ -20,6 +21,7 @@ public:
 
     int getUserID() const;
     std::string getUsername() const;
+    std::string getPassword() const;
 
     // ensures every subclass has its own help menu
     virtual void showHelp() const = 0;
