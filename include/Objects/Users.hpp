@@ -1,6 +1,11 @@
 #pragma once
 
 #include <string>
+#include <vector>
+
+#include "Fragrance.hpp"
+#include "Purchase.hpp"
+
 
 class User{
     protected:
@@ -17,4 +22,18 @@ class User{
 
         //ensures every subclass has its own help menu
         virtual void showHelp() const = 0;
+};
+
+
+class Buyer : public User{
+    std::vector<Fragrance>& cart;
+    std::vector<Purchase>& purchases;
+    std::vector<Fragrance>& wishlist;
+    float balance;
+    std::vector<Discount>& discounts;
+
+    public:
+
+
+    void showHelp() const override;
 };
