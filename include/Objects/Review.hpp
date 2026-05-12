@@ -4,18 +4,18 @@
 
 class Review
 {
-    int reviewID;        // unique
+    size_t reviewID;        // unique
     std::string fragranceName;
-    int userID;
+    size_t userID;
     std::string comment; // <=1000 characters
     int rating;          // between 0 and 5
 
 public:
-    Review(const std::string &name, int userID, const std::string &comment, int rating);
+    Review(const std::string &name, size_t userID, const std::string &comment, int rating);
 
-    int getReviewID() const;
+    size_t getReviewID() const;
     std::string getName() const;
-    int getUserID() const;
+    size_t getUserID() const;
     std::string getComent() const;
     int getRating() const;
 };

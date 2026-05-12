@@ -10,16 +10,16 @@
 class User
 {
 protected:
-    int userID; // unique
+    size_t userID; // unique
     std::string username;
     std::string password;
 
 public:
-    User(int id, const std::string &name, const std::string &pass);
+    User(size_t id, const std::string &name, const std::string &pass);
     // ensures proper deletion of subclass objects through a User pointer
     virtual ~User() = default;
 
-    int getUserID() const;
+    size_t getUserID() const;
     std::string getUsername() const;
     std::string getPassword() const;
 
@@ -36,7 +36,7 @@ class Buyer : public User
     std::vector<Discount> &discounts;
 
 public:
-    Buyer(int id, const std::string &name, const std::string &pass, float balance = 0);
+    Buyer(size_t id, const std::string &name, const std::string &pass, float balance = 0);
 
     void addToBalance(float money);
 
@@ -48,7 +48,7 @@ public:
     void removeFromCart(const std::string &fragranceName);
     void viewCart() const;
     void checkout();
-    void cancel(int purchaseID);
+    void cancel(size_t purchaseID);
 
     void viewBought() const;
     void viewPurchases() const;

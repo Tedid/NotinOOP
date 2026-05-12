@@ -7,17 +7,17 @@
 
 class Purchase
 {
-    int purchaseId; // unique
+    size_t purchaseId; // unique
     std::vector<Fragrance> fragrances;
     PurchaseStatus status;
     int userID;
 
 public:
-    Purchase(int id, std::vector<Fragrance> fragrances, PurchaseStatus status, int userID); // will use move for fragrances
+    Purchase(size_t id, std::vector<Fragrance> fragrances, PurchaseStatus status, size_t userID); // will use move for fragrances
 
-    int getPurchaseID() const;
+    size_t getPurchaseID() const;
     PurchaseStatus getStatus() const;
-    int getUserID() const;
+    size_t getUserID() const;
 
     void show() const;
 };
