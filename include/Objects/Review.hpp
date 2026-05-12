@@ -11,4 +11,10 @@ class Review{
 
     public:
     Review(const std::string& name, int userID, const std::string& comment, int rating);
+
+    int getReviewID() const;
+    std::string getName() const;
+    int getUserID() const;
+    std::string getComent() const;
+    int getRating() const;
 };
