@@ -46,4 +46,9 @@ class NotinOOP{
     void handleDeliverPurchase(int purchaseId);
     void handleRemoveReview(int fragranceId, int reviewId);
 
+    public:
+    NotinOOP();
+    ~NotinOOP();
+
+    void run();
 };
