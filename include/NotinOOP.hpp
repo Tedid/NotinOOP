@@ -29,14 +29,11 @@ class NotinOOP{
     void handleAddToBalance(float amount);
     void handleAddToWishlist(const std::string& fragranceName);
     void handleRemoveFromWishlist(const std::string& fragranceName);
-
     void handleAddToCart(const std::string& fragranceName);
     void handleRemoveFromCart(const std::string& fragranceName);
     void handleViewCart() const;
-
     void handleViewBought() const;
     void handleViewPurchases() const;
-
     void handleRecommend();
     void handleCheckout();
     void handleCancelPurchase(int purchaseId);
