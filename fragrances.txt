@@ -1,1 +1,30 @@
-1|Bergamot2|Lavender3|Sandalwood4|Vanilla5|Musk6|Amber7|Patchouli8|Jasmine9|Rose10|Pink Pepper11|Cedarwood12|Oud13|Vetiver14|Neroli15|Cardamom16|Tonka Bean17|Lemon18|Mandarin19|Iris20|Saffron21|Tobacco22|Leather23|Sea Salt24|Sage25|Grapefruit26|White Tea27|Coconut28|Fig29|Myrrh30|Benzoin
+1|Bergamot
+2|Lavender
+3|Sandalwood
+4|Vanilla
+5|Musk
+6|Amber
+7|Patchouli
+8|Jasmine
+9|Rose
+10|Pink Pepper
+11|Cedarwood
+12|Oud
+13|Vetiver
+14|Neroli
+15|Cardamom
+16|Tonka Bean
+17|Lemon
+18|Mandarin
+19|Iris
+20|Saffron
+21|Tobacco
+22|Leather
+23|Sea Salt
+24|Sage
+25|Grapefruit
+26|White Tea
+27|Coconut
+28|Fig
+29|Myrrh
+30|Benzoin
