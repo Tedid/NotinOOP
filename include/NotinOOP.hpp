@@ -16,7 +16,7 @@ class NotinOOP
     std::vector<Fragrance> catalog;
     std::vector<Purchase> purchases;
     std::vector<Review> reviews;
-    // std::vector<Discount*> vouchers;  //I don't think I need to store these  here
+    // std::vector<Discount*> vouchers;  //I don't think I need to store these here
 
     User *activeUser;
 
@@ -37,14 +37,14 @@ class NotinOOP
     void handleViewPurchases() const;
     void handleRecommend();
     void handleCheckout();
-    void handleCancelPurchase(int purchaseId);
+    void handleCancelPurchase(int purchaseID);
     void handleMakeReview(const std::string &fragranceName, double rating, const std::string &comment);
 
     // Admin handling:
     void handleBlockUser(const std::string &username);
     void handleCreateFragrance(const std::string &name, const std::string &brand, float price, const std::string &ingredientsList);
     void handleAddQuantity(const std::string &fragranceName, int quantity);
-    void handleDeliverPurchase(int purchaseId);
+    void handleDeliverPurchase(int purchaseID);
     void handleRemoveReview(int fragranceId, int reviewId);
 
 public:
