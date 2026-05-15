@@ -8,7 +8,7 @@ int main() {
         engine.run();
     } 
     catch (const std::exception& e) {
-        std::cerr << "Critical Error: " << e.what() << std::endl;
+        std::cout << "Critical Error: " << e.what() << std::endl;
         return 1;
     }
 
