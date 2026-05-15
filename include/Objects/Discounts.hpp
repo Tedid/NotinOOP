@@ -11,10 +11,9 @@ protected:
     float discountPercent;
 
 public:
+    Discount();
     Discount(size_t id, float percent);
     virtual ~Discount() = default;
-
-    virtual float apply(const Fragrance &frag) const;
 };
 
 class BonusDiscount : public Discount
@@ -23,8 +22,6 @@ class BonusDiscount : public Discount
 
 public:
     BonusDiscount(size_t id, float percent, float bonus);
-
-    float apply(const Fragrance &frag) const override;
 };
 
 class BrandDiscount : public Discount
@@ -33,5 +30,4 @@ class BrandDiscount : public Discount
 
 public:
     BrandDiscount(size_t id, float percent, const std::string &brandName);
-    float apply(const Fragrance &frag) const override;
 };
