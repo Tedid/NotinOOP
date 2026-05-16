@@ -29,3 +29,28 @@ Review::Review(size_t ID, const std::string &name, size_t uID, const std::string
         rating = rat;
     }
 }
+
+size_t Review::getReviewID() const
+{
+    return reviewID;
+}
+
+std::string Review::getName() const
+{
+    return fragranceName;
+}
+
+size_t Review::getUserID() const
+{
+    return userID;
+}
+
+std::string Review::getComent() const
+{
+    return comment;
+}
+
+int Review::getRating() const
+{
+    return rating;
+}
