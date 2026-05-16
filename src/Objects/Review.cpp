@@ -1,7 +1,8 @@
 #include "Objects/Review.hpp"
 
-Review::Review(const std::string &name, size_t uID, const std::string &comm, int rat)
+Review::Review(size_t ID, const std::string &name, size_t uID, const std::string &comm, int rat)
 {
+    reviewID = ID;
     fragranceName = name;
     userID = uID;
 

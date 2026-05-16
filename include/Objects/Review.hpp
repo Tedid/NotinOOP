@@ -11,7 +11,7 @@ class Review
     int rating;          // between 0 and 5
 
 public:
-    Review(const std::string &name, size_t userID, const std::string &comment, int rating);
+    Review(size_t ID, const std::string &name, size_t userID, const std::string &comment, int rating);
 
     size_t getReviewID() const;
     std::string getName() const;
