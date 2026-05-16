@@ -16,7 +16,7 @@ class Fragrance
     std::vector<Review> reviews;
 
 public:
-    Fragrance(const std::string &name, const std::string &brand, float price, const std::vector<int> &ingredientIDs);
+    Fragrance(size_t fragranceID, const std::string &name, const std::string &brand, float price, const std::vector<size_t> &ingredientIDs, int quantity = 0);
 
     size_t getID() const;
     std::string getName() const;
