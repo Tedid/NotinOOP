@@ -29,11 +29,11 @@ public:
 
 class Buyer : public User
 {
-    std::vector<Fragrance> &cart;
-    std::vector<Purchase> &purchases;
-    std::vector<Fragrance> &wishlist;
+    std::vector<Fragrance> cart;
+    std::vector<Purchase> purchases;
+    std::vector<Fragrance> wishlist;
     float balance;
-    std::vector<Discount> &discounts;
+    std::vector<Discount> discounts;
 
 public:
     Buyer(size_t id, const std::string &name, const std::string &pass, float balance = 0);
