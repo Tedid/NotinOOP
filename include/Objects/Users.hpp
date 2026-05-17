@@ -51,14 +51,16 @@ public:
     void addToCart(const Fragrance &fragrance);
     void removeFromCart(const Fragrance &fragrance);
     void viewCart() const;
-    // void checkout(); [Write into NotinOOP.cpp]
-    void cancel(size_t purchaseID);
+    // [Write into NotinOOP.cpp]
+    // void checkout();
+    // void cancel(size_t purchaseID);
 
     void viewBought() const;
     void viewPurchases() const;
+    void viewDiscounts() const;
 
-    void Recommend() const;
-    void makeReview(const std::string &fragranceName, int rating, const std::string &comment);
+    // void Recommend() const;
+    // void makeReview(const std::string &fragranceName, int rating, const std::string &comment);
 
     void showHelp() const override;
 };
