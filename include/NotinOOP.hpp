@@ -16,7 +16,7 @@ class NotinOOP
     std::vector<Purchase> purchases;
     std::vector<Review> reviews;
 
-    User *activeUser;
+    User *activeUser = nullptr;
 
     void processCommand(const std::string &command);
 
