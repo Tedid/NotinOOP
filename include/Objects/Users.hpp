@@ -40,12 +40,12 @@ public:
 
     void addToBalance(float money);
 
-    void addToWishlist(const std::string &fragranceName);
-    void removeFromWishlist(const std::string &fragranceName);
+    void addToWishlist(const Fragrance &fragrance);
+    void removeFromWishlist(const Fragrance &fragrance);
     void viewWishlist() const;
 
-    void addToCart(const std::string &fragranceNamee);
-    void removeFromCart(const std::string &fragranceName);
+    void addToCart(const Fragrance &fragrance);
+    void removeFromCart(const Fragrance &fragrance);
     void viewCart() const;
     void checkout();
     void cancel(size_t purchaseID);
@@ -61,7 +61,6 @@ public:
 
 class Admin : public User
 {
-
 public:
     void blockUser(std::string username);
     void removeReview(size_t fragranceID, size_t reviewID);
