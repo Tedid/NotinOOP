@@ -36,17 +36,4 @@ namespace Utils
             firstRowIdentation = true; // It's not the first row anymore
         }
     }
-
-    void Utils::removeFragranceFromVector(std::vector<Fragrance> frags, const Fragrance &frag)
-    {
-        for (int i = 0; i < frags.size(); i++)
-        {
-            if (frag == frags[i])
-            {
-                frags.erase(frags.begin() + i);
-                break;
-            }
-        }
-    }
-
 }

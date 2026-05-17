@@ -35,6 +35,8 @@ class Buyer : public User
     float balance;
     std::vector<Discount> discounts;
 
+    void removeFragranceFromVector(std::vector<Fragrance> frags, const Fragrance &frag);
+
 public:
     Buyer(size_t id, const std::string &name, const std::string &pass, float balance = 0);
 
