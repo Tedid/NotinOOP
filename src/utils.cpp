@@ -6,6 +6,11 @@ namespace Utils
 
     void printFragrancesByType(std::vector<Fragrance> frags)
     {
+        if (frags.empty()) {
+            std::cout << "No fragrances available." << std::endl;
+            return;
+        }
+
         std::cout << "Items ordered: ";
         const char SPACES[16] = "               "; // 15x spaces
         bool spacesNeeded = false;
