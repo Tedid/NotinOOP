@@ -3,13 +3,13 @@
 #include <iostream>
 #include "util/utils.hpp"
 
-Purchase::Purchase(size_t ID, std::vector<Fragrance> frags, PurchaseStatus stat, size_t uID)
+Purchase::Purchase(size_t ID, std::vector<Fragrance> frags, PurchaseStatus stat, size_t uID, float finalPrice = 0)
 {
     purchaseID = ID;
     fragrances = frags;
     status = stat;
     userID = uID;
-    finalPrice = 0;
+    this->finalPrice = finalPrice;
 }
 
 size_t Purchase::getPurchaseID() const

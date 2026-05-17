@@ -14,11 +14,12 @@ class Purchase
     float finalPrice;
 
 public:
-    Purchase(size_t id, std::vector<Fragrance> fragrances, PurchaseStatus status, size_t userID); // will use move for fragrances
+    // will use move for fragrances
+    Purchase(size_t id, std::vector<Fragrance> fragrances, PurchaseStatus status, size_t userID, float finalPrice = 0);
 
     size_t getPurchaseID() const;
     PurchaseStatus getStatus() const;
     size_t getUserID() const;
 
-    void show(const std::string& userName) const;
+    void show(const std::string &userName) const;
 };
