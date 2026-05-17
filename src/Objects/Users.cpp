@@ -58,3 +58,20 @@ void Buyer::viewWishlist() const
     std::cout << message;
     Utils::printFragrancesByType(wishlist, message.size());
 }
+
+void Buyer::addToCart(const Fragrance &fragrance)
+{
+    cart.push_back(fragrance);
+}
+
+void Buyer::removeFromCart(const Fragrance &fragrance)
+{
+    for (int i = 0; i < wishlist.size(); i++)
+    {
+        if (fragrance == wishlist[i])
+        {
+            wishlist.erase(wishlist.begin() + i);
+            break;
+        }
+    }
+}
