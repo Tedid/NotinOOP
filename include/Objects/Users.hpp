@@ -51,7 +51,7 @@ public:
     void addToCart(const Fragrance &fragrance);
     void removeFromCart(const Fragrance &fragrance);
     void viewCart() const;
-    void checkout();
+    // void checkout(); [Write into NotinOOP.cpp]
     void cancel(size_t purchaseID);
 
     void viewBought() const;

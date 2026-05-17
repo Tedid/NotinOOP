@@ -141,36 +141,36 @@ void Buyer::viewCart() const
     Utils::printFragrancesByType(wishlist, message.size());
 }
 
-void Buyer::checkout()
-{
-    // WRITE CHECK FOR SUFFICIENT FUNDS IN ENGINE
+// void Buyer::checkout()
+// {
+//     WRITE CHECK FOR SUFFICIENT FUNDS IN ENGINE
 
-    // PASTE INTO COMMAND HANDLING:
-    // if (cart.empty())
-    // {
-    //     std::cout << "Cart is empty!" << std::endl;
-    //     return;
-    // }
+//     PASTE INTO COMMAND HANDLING:
+//     if (cart.empty())
+//     {
+//         std::cout << "Cart is empty!" << std::endl;
+//         return;
+//     }
 
-    // float finalPrice = 0.0f;
-    // for (int i = 0; i < cart.size(); i++)
-    // {
-    //     finalPrice += cart[i].getPrice();
-    // }
+//     float finalPrice = 0.0f;
+//     for (int i = 0; i < cart.size(); i++)
+//     {
+//         finalPrice += cart[i].getPrice();
+//     }
 
-    // int bestVoucherIndex = GetBestDiscountIndex();
-    // if (bestVoucherIndex != -1)
-    // {
-    //     finalPrice = FragrancesDiscountedPrice(cart, *discounts[bestVoucherIndex]);
-    // }
+//     int bestVoucherIndex = GetBestDiscountIndex();
+//     if (bestVoucherIndex != -1)
+//     {
+//         finalPrice = FragrancesDiscountedPrice(cart, *discounts[bestVoucherIndex]);
+//     }
 
-    // if (this->balance < finalPrice)
-    // {
-    //     std::cout << "Not enough money for the transaction!" << std::endl;
-    //     return;
-    // }
+//     if (this->balance < finalPrice)
+//     {
+//         std::cout << "Not enough money for the transaction!" << std::endl;
+//         return;
+//     }
 
-    // this->balance -= finalPrice;
+//     this->balance -= finalPrice;
 
-    // Purchase newPurchase();
-}
+//     Purchase newPurchase();
+// }
