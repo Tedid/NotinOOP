@@ -48,6 +48,8 @@ void Purchase::show(const std::string &userName) const
 
     std::cout << "Purchase №[" << purchaseID << "] (" << statusString << "):" << std::endl;
     std::cout << "Ordered by: " << userName << std::endl;
-    Utils::printFragrancesByType(fragrances);
+    std::string message = "Items ordered: ";
+    std::cout << message;
+    Utils::printFragrancesByType(fragrances, message.size());
     std::cout << "Summed price: " << finalPrice << std::endl;
 }

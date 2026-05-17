@@ -1,19 +1,19 @@
 #include "util/utils.hpp"
 #include <iostream>
+#include <string>
 
 namespace Utils
 {
 
-    void printFragrancesByType(std::vector<Fragrance> frags)
+    void printFragrancesByType(std::vector<Fragrance> frags, int identationSize = 0, bool firstRowIdentation = false)
     {
-        if (frags.empty()) {
+        if (frags.empty())
+        {
             std::cout << "No fragrances available." << std::endl;
             return;
         }
 
-        std::cout << "Items ordered: ";
-        const char SPACES[16] = "               "; // 15x spaces
-        bool spacesNeeded = false;
+        const std::string SPACES = (identationSize, " ");
         while (frags.size() > 0)
         {
             Fragrance temp = frags[0];
@@ -30,10 +30,10 @@ namespace Utils
 
             float FragrancePrice = temp.getPrice();
 
-            std::cout << (spacesNeeded ? SPACES : "") << numberOfFragrances << "x " << temp.getName();
+            std::cout << (firstRowIdentation ? SPACES : "") << numberOfFragrances << "x " << temp.getName();
             std::cout << " - (€" << numberOfFragrances * FragrancePrice << " (€" << FragrancePrice << " each)" << std::endl;
 
-            spacesNeeded = true;
+            firstRowIdentation = true; // It's not the first row anymore
         }
     }
 

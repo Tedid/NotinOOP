@@ -5,5 +5,5 @@
 
 namespace Utils
 {
-    void printFragrancesByType(std::vector<Fragrance> frags);
+    void printFragrancesByType(std::vector<Fragrance> frags, int identationSize = 0, bool firstRowIdentation = false);
 }
