@@ -33,7 +33,7 @@ class Buyer : public User
     std::vector<Purchase> purchases;
     std::vector<Fragrance> wishlist;
     float balance;
-    std::vector<Discount> discounts;
+    std::vector<Discount*> discounts;
 
     void removeFragranceFromVector(std::vector<Fragrance> frags, const Fragrance &frag);
 
