@@ -5,6 +5,7 @@
 
 namespace Utils
 {
+    // firstRowIdentation should be true if no message is displayed beforehand
     void printFragrancesByType(std::vector<Fragrance> frags, int identationSize = 0, bool firstRowIdentation = false);
 
     void removeFragranceFromVector(std::vector<Fragrance> frags, const Fragrance& frag);
