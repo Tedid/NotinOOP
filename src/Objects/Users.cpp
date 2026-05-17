@@ -42,14 +42,7 @@ void Buyer::addToWishlist(const Fragrance &fragrance)
 
 void Buyer::removeFromWishlist(const Fragrance &fragrance)
 {
-    for (int i = 0; i < wishlist.size(); i++)
-    {
-        if (fragrance == wishlist[i])
-        {
-            wishlist.erase(wishlist.begin() + i);
-            break;
-        }
-    }
+    Utils::removeFragranceFromVector(wishlist, fragrance);
 }
 
 void Buyer::viewWishlist() const
@@ -66,12 +59,5 @@ void Buyer::addToCart(const Fragrance &fragrance)
 
 void Buyer::removeFromCart(const Fragrance &fragrance)
 {
-    for (int i = 0; i < wishlist.size(); i++)
-    {
-        if (fragrance == wishlist[i])
-        {
-            wishlist.erase(wishlist.begin() + i);
-            break;
-        }
-    }
+    Utils::removeFragranceFromVector(cart, fragrance);
 }

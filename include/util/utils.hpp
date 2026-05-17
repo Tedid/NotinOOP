@@ -6,4 +6,6 @@
 namespace Utils
 {
     void printFragrancesByType(std::vector<Fragrance> frags, int identationSize = 0, bool firstRowIdentation = false);
+
+    void removeFragranceFromVector(std::vector<Fragrance> frags, const Fragrance& frag);
 }
