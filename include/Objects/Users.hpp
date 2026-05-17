@@ -69,10 +69,11 @@ public:
 class Admin : public User
 {
 public:
-    void blockUser(std::string username);
-    void removeReview(size_t fragranceID, size_t reviewID);
-    void deliver(size_t purchaseID);
+    // All of them will be defined in NotinOOP.cpp:
+    // void blockUser(std::string username);
+    // void removeReview(size_t fragranceID, size_t reviewID);
+    // void deliver(size_t purchaseID);
 
-    void createFragrance(const std::string &name, const std::string &brand, float price, const std::vector<size_t> &ingredientIDs);
-    void addQuantity(const std::string &name, int quantity);
+    // void createFragrance(const std::string &name, const std::string &brand, float price, const std::vector<size_t> &ingredientIDs);
+    // void addQuantity(const std::string &name, int quantity);
 };

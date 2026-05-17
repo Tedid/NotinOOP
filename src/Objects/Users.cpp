@@ -260,3 +260,9 @@ void Buyer::viewDiscounts() const
         std::cout << std::endl;
     }
 }
+
+
+void Buyer::showHelp() const
+{
+    //Will be written in the end
+}
