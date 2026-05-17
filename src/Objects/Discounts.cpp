@@ -12,6 +12,12 @@ DiscountType Discount::getType() const
     return DiscountType::DISCOUNT;
 }
 
+float Discount::getPercent()
+{
+    return discountPercent;
+}
+
+
 BonusDiscount::BonusDiscount(size_t id, float percent, float bon) : Discount(id, percent)
 {
     bonus = bon;
@@ -20,6 +26,11 @@ BonusDiscount::BonusDiscount(size_t id, float percent, float bon) : Discount(id,
 DiscountType BonusDiscount::getType() const
 {
     return DiscountType::BONUS_DISCOUNT;
+}
+
+float BonusDiscount::getBonus()
+{
+    return bonus;
 }
 
 
@@ -31,4 +42,9 @@ BrandDiscount::BrandDiscount(size_t id, float percent, const std::string &name) 
 DiscountType BrandDiscount::getType() const
 {
     return DiscountType::BRAND_DISCOUNT;
+}
+
+std::string BrandDiscount::getBrandName()
+{
+    return brandName;
 }
