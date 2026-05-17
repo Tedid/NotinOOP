@@ -174,3 +174,55 @@ void Buyer::viewCart() const
 
 //     Purchase newPurchase();
 // }
+
+void Buyer::viewBought() const
+{
+    if (purchases.empty())
+    {
+        std::cout << "There aren't any past puchases";
+        return;
+    }
+
+    bool areThereDeliveredPurchases = false;
+    for (int i = 0; i <= purchases.size(); i++)
+    {
+        if (purchases[i].getStatus() == PurchaseStatus::DELIVERED)
+        {
+            areThereDeliveredPurchases = true;
+            break;
+        }
+    }
+
+    if (!areThereDeliveredPurchases)
+    {
+        std::cout << "There aren't any delivered purchases!";
+        return;
+    }
+
+    std::string message = "Delivered orders: ";
+
+    for (int i = 0; i <= purchases.size(); i++)
+    {
+        Purchase currentPurchase = purchases[i];
+        if (currentPurchase.getStatus() == PurchaseStatus::DELIVERED)
+        {
+            currentPurchase.show(username);
+        }
+    }
+}
+
+void Buyer::viewPurchases() const
+{
+    if (purchases.empty())
+    {
+        std::cout << "There aren't any past puchases";
+        return;
+    }
+
+    std::string message = "All orders: ";
+
+    for (int i = 0; i <= purchases.size(); i++)
+    {
+        purchases[i].show(username);
+    }
+}
