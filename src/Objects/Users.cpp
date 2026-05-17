@@ -3,9 +3,9 @@
 
 #include <iostream>
 
-void Buyer::removeFragranceFromVector(std::vector<Fragrance> frags, const Fragrance &frag)
+void Buyer::removeFragranceFromVector(std::vector<Fragrance> &frags, const Fragrance &frag)
 {
-    for (int i = 0; i < frags.size(); i++)
+    for (size_t i = 0; i < frags.size(); i++)
     {
         if (frag == frags[i])
         {
@@ -13,6 +13,66 @@ void Buyer::removeFragranceFromVector(std::vector<Fragrance> frags, const Fragra
             break;
         }
     }
+}
+
+float Buyer::FragrancesDiscountedPrice(const std::vector<Fragrance> &frags, Discount &discount)
+{
+    float totalPrice = 0.0f;
+
+    for (int i = 0; i < frags.size(); i++)
+    {
+        float currentFragPrice = frags[i].getPrice();
+
+        if (discount.getType() == DiscountType::BRAND_DISCOUNT)
+        {
+            BrandDiscount *brandDsc = (BrandDiscount *)&discount;
+            if (frags[i].getBrand() == brandDsc->getBrandName())
+            {
+                currentFragPrice -= currentFragPrice * (brandDsc->getPercent() / 100.0f);
+            }
+        }
+        else
+        {
+            currentFragPrice -= currentFragPrice * (discount.getPercent() / 100.0f);
+        }
+
+        totalPrice += currentFragPrice;
+    }
+
+    if (discount.getType() == DiscountType::BONUS_DISCOUNT)
+    {
+        BonusDiscount *bonusDsc = (BonusDiscount *)&discount;
+        totalPrice -= bonusDsc->getBonus();
+    }
+
+    return (totalPrice < 0.0f) ? 0.0f : totalPrice;
+}
+
+int Buyer::GetBestDiscountIndex()
+{
+    if (discounts.empty())
+    {
+        return -1;
+    }
+
+    float fragsPrice = 0.0f;
+    for (int i = 0; i < cart.size(); i++)
+    {
+        fragsPrice += cart[i].getPrice();
+    }
+
+    int minDiscountIndex = -1;
+    for (int i = 0; i < discounts.size(); i++)
+    {
+        float currentDiscountPrice = FragrancesDiscountedPrice(cart, *discounts[i]);
+        if (currentDiscountPrice < fragsPrice)
+        {
+            fragsPrice = currentDiscountPrice;
+            minDiscountIndex = i;
+        }
+    }
+
+    return minDiscountIndex;
 }
 
 User::User(size_t id, const std::string &name, const std::string &pass)
@@ -85,15 +145,32 @@ void Buyer::checkout()
 {
     // WRITE CHECK FOR SUFFICIENT FUNDS IN ENGINE
 
-    float fragsPrice = 0;
-    for (int i = 0; i < cart.size(); i++)
-    {
-        fragsPrice += cart[i].getPrice();
-    }
+    // PASTE INTO COMMAND HANDLING:
+    // if (cart.empty())
+    // {
+    //     std::cout << "Cart is empty!" << std::endl;
+    //     return;
+    // }
 
-    int maxDiscountedPrice = fragsPrice;
-    int maxDiscountIndex = 0;
-    for (int i = 0; i < discounts.size(); i++)
-    {
-    }
+    // float finalPrice = 0.0f;
+    // for (int i = 0; i < cart.size(); i++)
+    // {
+    //     finalPrice += cart[i].getPrice();
+    // }
+
+    // int bestVoucherIndex = GetBestDiscountIndex();
+    // if (bestVoucherIndex != -1)
+    // {
+    //     finalPrice = FragrancesDiscountedPrice(cart, *discounts[bestVoucherIndex]);
+    // }
+
+    // if (this->balance < finalPrice)
+    // {
+    //     std::cout << "Not enough money for the transaction!" << std::endl;
+    //     return;
+    // }
+
+    // this->balance -= finalPrice;
+
+    // Purchase newPurchase();
 }

@@ -33,9 +33,11 @@ class Buyer : public User
     std::vector<Purchase> purchases;
     std::vector<Fragrance> wishlist;
     float balance;
-    std::vector<Discount*> discounts;
+    std::vector<Discount *> discounts;
 
-    void removeFragranceFromVector(std::vector<Fragrance> frags, const Fragrance &frag);
+    void removeFragranceFromVector(std::vector<Fragrance> &frags, const Fragrance &frag);
+    float Buyer::FragrancesDiscountedPrice(const std::vector<Fragrance> &frags, Discount &discount);
+    int GetBestDiscountIndex();
 
 public:
     Buyer(size_t id, const std::string &name, const std::string &pass, float balance = 0);
