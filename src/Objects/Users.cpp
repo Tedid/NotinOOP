@@ -226,3 +226,37 @@ void Buyer::viewPurchases() const
         purchases[i].show(username);
     }
 }
+
+void Buyer::viewDiscounts() const
+{
+    if (discounts.empty())
+    {
+        std::cout << "There aren't any discounts!";
+        return;
+    }
+
+    for (int i = 0; i < discounts.size(); i++)
+    {
+        Discount currentDiscount = *discounts[i];
+        if (currentDiscount.getType() == DiscountType::DISCOUNT)
+        {
+            currentDiscount.view();
+        }
+        else if (currentDiscount.getType() == DiscountType::BONUS_DISCOUNT)
+        {
+            BonusDiscount *bonusDsc = (BonusDiscount *)&currentDiscount;
+            bonusDsc->view();
+        }
+        else if (currentDiscount.getType() == DiscountType::BRAND_DISCOUNT)
+        {
+            BrandDiscount *brandDsc = (BrandDiscount *)&currentDiscount;
+            brandDsc->view();
+        }
+        else
+        {
+            std::cout << "Unknown discunt type" << std::endl;
+        }
+
+        std::cout << std::endl;
+    }
+}

@@ -14,6 +14,7 @@ public:
     Discount(size_t id, float percent);
 
     virtual DiscountType getType() const;
+    virtual void view() const;
     float getPercent();
 
     virtual ~Discount() = default;
@@ -27,6 +28,7 @@ public:
     BonusDiscount(size_t id, float percent, float bonus);
 
     DiscountType getType() const override;
+    void view() const override;
     float getBonus();
 };
 
@@ -38,5 +40,6 @@ public:
     BrandDiscount(size_t id, float percent, const std::string &brandName);
 
     DiscountType getType() const override;
+    void view() const override;
     std::string getBrandName();
 };
