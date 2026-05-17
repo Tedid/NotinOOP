@@ -3,6 +3,18 @@
 
 #include <iostream>
 
+void Buyer::removeFragranceFromVector(std::vector<Fragrance> frags, const Fragrance &frag)
+{
+    for (int i = 0; i < frags.size(); i++)
+    {
+        if (frag == frags[i])
+        {
+            frags.erase(frags.begin() + i);
+            break;
+        }
+    }
+}
+
 User::User(size_t id, const std::string &name, const std::string &pass)
 {
     userID = id;
@@ -59,5 +71,29 @@ void Buyer::addToCart(const Fragrance &fragrance)
 
 void Buyer::removeFromCart(const Fragrance &fragrance)
 {
-    Utils::removeFragranceFromVector(cart, fragrance);
+    removeFragranceFromVector(cart, fragrance);
+}
+
+void Buyer::viewCart() const
+{
+    std::string message = "Items in cart: ";
+    std::cout << message;
+    Utils::printFragrancesByType(wishlist, message.size());
+}
+
+void Buyer::checkout()
+{
+    // WRITE CHECK FOR SUFFICIENT FUNDS IN ENGINE
+
+    float fragsPrice = 0;
+    for (int i = 0; i < cart.size(); i++)
+    {
+        fragsPrice += cart[i].getPrice();
+    }
+
+    int maxDiscountedPrice = fragsPrice;
+    int maxDiscountIndex = 0;
+    for (int i = 0; i < discounts.size(); i++)
+    {
+    }
 }
