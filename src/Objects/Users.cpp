@@ -42,7 +42,7 @@ void Buyer::addToWishlist(const Fragrance &fragrance)
 
 void Buyer::removeFromWishlist(const Fragrance &fragrance)
 {
-    Utils::removeFragranceFromVector(wishlist, fragrance);
+    removeFragranceFromVector(wishlist, fragrance);
 }
 
 void Buyer::viewWishlist() const
