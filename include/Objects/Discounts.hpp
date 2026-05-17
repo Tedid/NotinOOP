@@ -11,7 +11,6 @@ protected:
     float discountPercent;
 
 public:
-    Discount();
     Discount(size_t id, float percent);
     virtual ~Discount() = default;
 };
