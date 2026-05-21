@@ -100,6 +100,7 @@ std::string User::getPassword() const
 Buyer::Buyer(size_t id, const std::string &name, const std::string &pass, float balance) : User(id, name, pass)
 {
     this->balance = balance;
+    type = UserType::BUYER;
 }
 
 void Buyer::addToBalance(float money)
@@ -265,4 +266,9 @@ void Buyer::viewDiscounts() const
 void Buyer::showHelp() const
 {
     //Will be written in the end
+}
+
+Admin::Admin(size_t id, const std::string &name, const std::string &pass) : User(id, name, pass)
+{
+    type = UserType::ADMIN;
 }

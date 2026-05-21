@@ -6,11 +6,13 @@
 #include "Fragrance.hpp"
 #include "Purchase.hpp"
 #include "Discounts.hpp"
+#include "util/enums.hpp"
 
 class User
 {
 protected:
     size_t userID; // unique
+    UserType type;
     std::string username;
     std::string password;
 
@@ -69,6 +71,7 @@ public:
 class Admin : public User
 {
 public:
+    Admin(size_t id, const std::string &name, const std::string &pass);
     // All of them will be defined in NotinOOP.cpp:
     // void blockUser(std::string username);
     // void removeReview(size_t fragranceID, size_t reviewID);
