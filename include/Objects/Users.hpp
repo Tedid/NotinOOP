@@ -22,6 +22,7 @@ public:
     virtual ~User() = default;
 
     size_t getUserID() const;
+    UserType getType() const;
     std::string getUsername() const;
     std::string getPassword() const;
 

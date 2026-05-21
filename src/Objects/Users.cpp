@@ -87,6 +87,11 @@ size_t User::getUserID() const
     return userID;
 }
 
+UserType User::getType() const
+{
+    return type;
+}
+
 std::string User::getUsername() const
 {
     return username;
