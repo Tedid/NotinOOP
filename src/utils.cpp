@@ -1,6 +1,5 @@
 #include "util/utils.hpp"
 #include <iostream>
-#include <string>
 
 namespace Utils
 {
@@ -34,6 +33,14 @@ namespace Utils
             std::cout << " - (€" << numberOfFragrances * FragrancePrice << " (€" << FragrancePrice << " each)" << std::endl;
 
             firstRowIdentation = true; // It's not the first row anymore
+        }
+    }
+
+    void Utils::toLower(std::string &string)
+    {
+        for (int i = 0; i < string.size(); i++)
+        {
+            string[i] = std::tolower(string[i]);
         }
     }
 }
