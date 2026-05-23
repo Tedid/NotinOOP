@@ -232,6 +232,13 @@ void NotinOOP::handleRegister(const std::string &name, const std::string &pass)
     users.push_back(newBuyer);
 
     std::cout << "Registered successfully! New User ID: " << newBuyer->getUserID() << std::endl;
+
+    // add [number] of discounts to new users:
+    const int NEW_USER_DISCOUNT_NUMBER = 5;
+    for (int i = 0; i < NEW_USER_DISCOUNT_NUMBER; i++)
+    {
+        newBuyer->addToDiscounts(generateNewDiscount());
+    }
 }
 
 void NotinOOP::handleLogin(const std::string &name, const std::string &pass)
