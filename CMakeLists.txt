@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-add_executable(NotinOOP main.cpp)
+add_executable(NotinOOP)
 
 file(GLOB_RECURSE SOURCES "src/*.cpp")
 target_sources(NotinOOP PRIVATE ${SOURCES})
