@@ -84,7 +84,12 @@ void Buyer::viewCart() const
 {
     std::string message = "Items in cart: ";
     std::cout << message;
-    Utils::printFragrancesByType(wishlist, message.size());
+    Utils::printFragrancesByType(cart, message.size());
+}
+
+void Buyer::clearCart()
+{
+    cart.clear();
 }
 
 // void Buyer::checkout()

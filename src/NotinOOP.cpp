@@ -659,7 +659,8 @@ void NotinOOP::handleCheckout()
         std::cout << "Final price: €" << discountedPrice << std::endl;
     }
 
-    //remove fragrances from stock
+    currentBuyer->clearCart();
+    
     //remove used discount from buyer's discounts
     //remove money from account
     //implement order creation.

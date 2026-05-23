@@ -52,6 +52,7 @@ public:
     void addToCart(const Fragrance &fragrance);
     void removeFromCart(const Fragrance &fragrance);
     void viewCart() const;
+    void clearCart();
 
     float getBalance() const;
     std::vector<Fragrance> getCart() const;
