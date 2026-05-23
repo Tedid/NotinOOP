@@ -38,7 +38,7 @@ class NotinOOP
     void handleViewCart() const;
     void handleViewBought() const;
     void handleViewPurchases() const;
-    void handleRecommend();
+    void handleRecommend(const size_t numberOfRecommendations) const;
     void handleCheckout();
     void handleCancelPurchase(int purchaseID);
     void handleMakeReview(const std::string &fragranceName, double rating, const std::string &comment);

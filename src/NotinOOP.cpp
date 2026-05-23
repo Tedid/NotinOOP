@@ -71,7 +71,18 @@ void NotinOOP::processCommand(const std::string &commandLine)
         }
         else if (command == "recommend")
         {
-            handleRecommend();
+            const int DEFAULT_RECOMMENDATIONS = 5;
+            const int MAX_RECOMMENDATIONS = 100;
+
+            size_t numberOfRecommendations;
+            ss >> numberOfRecommendations;
+            if (ss.fail() || numberOfRecommendations <= 0 || numberOfRecommendations > MAX_RECOMMENDATIONS)
+            {
+                std::cout << "Using default value for number of recommendations: " << DEFAULT_RECOMMENDATIONS << std::endl;
+                numberOfRecommendations = DEFAULT_RECOMMENDATIONS;
+            }
+
+            handleRecommend(numberOfRecommendations);
         }
         else if (command == "checkout")
         {
@@ -329,7 +340,7 @@ void NotinOOP::handleViewPurchases() const
     currentBuyer->viewPurchases();
 }
 
-void NotinOOP::handleRecommend()
+void NotinOOP::handleRecommend(const size_t numberOfRecommendations) const
 {
     /*
      It gets the most prominent ingredients from the user's wishlist and
@@ -378,7 +389,6 @@ void NotinOOP::handleRecommend()
     }
 
     std::vector<Fragrance> recommendations;
-    const int MAX_RECOMMENDATIONS = 5;
 
     bool isReccomendationsFilled = false;
 
@@ -420,7 +430,7 @@ void NotinOOP::handleRecommend()
             if (!isInWishlist)
             {
                 recommendations.push_back(fragrance);
-                if (recommendations.size() == MAX_RECOMMENDATIONS)
+                if (recommendations.size() == numberOfRecommendations)
                 {
                     isReccomendationsFilled = true;
                     break;
@@ -469,7 +479,7 @@ void NotinOOP::handleRecommend()
                 if (!isInWishlist)
                 {
                     recommendations.push_back(fragrance);
-                    if (recommendations.size() == MAX_RECOMMENDATIONS)
+                    if (recommendations.size() == numberOfRecommendations)
                     {
                         isReccomendationsFilled = true;
                         break;
@@ -519,7 +529,7 @@ void NotinOOP::handleRecommend()
                 if (!isInWishlist)
                 {
                     recommendations.push_back(fragrance);
-                    if (recommendations.size() == MAX_RECOMMENDATIONS)
+                    if (recommendations.size() == numberOfRecommendations)
                     {
                         break;
                     }
