@@ -582,7 +582,6 @@ float NotinOOP::FragrancesDiscountedPrice(const std::vector<Fragrance> &frags, D
     return (totalPrice < 0.0f) ? 0.0f : totalPrice;
 }
 
-
 int NotinOOP::GetBestDiscountIndex()
 {
     Buyer *currentBuyer = (Buyer *)activeUser;
@@ -645,7 +644,7 @@ void NotinOOP::handleCheckout()
         return;
     }
 
-    if(bestVoucherIndex != -1)
+    if (bestVoucherIndex != -1)
     {
         std::cout << "Original price: €" << originalPrice << ". Applied discount: " << discounts[bestVoucherIndex]->getPercent() << "% off";
         if (discounts[bestVoucherIndex]->getType() == DiscountType::BONUS_DISCOUNT)
@@ -655,18 +654,22 @@ void NotinOOP::handleCheckout()
         }
         std::cout << std::endl;
         std::cout << "Final price: €" << discountedPrice << std::endl;
-    } else {
+    }
+    else
+    {
         std::cout << "Final price: €" << discountedPrice << std::endl;
     }
+
+    Purchase newPurchase(nextPurchaseID++, cart, PurchaseStatus::PENDING, currentBuyer->getUserID(), discountedPrice);
+    purchases.push_back(newPurchase);
 
     currentBuyer->clearCart();
 
     currentBuyer->removeDiscount(discounts[bestVoucherIndex]->getID());
-    
-    //remove money from account
-    //implement order creation.
 
-    //implement Discount generation.
+    currentBuyer->addToBalance(-discountedPrice);
+
+    // implement Discount generation.
 }
 
 void NotinOOP::handleCancelPurchase(int purchaseID)
