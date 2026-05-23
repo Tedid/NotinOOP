@@ -14,6 +14,7 @@ class NotinOOP
     size_t nextFragranceID = 2000000; // Two million
     size_t nextPurchaseID = 3000000;  // Three million
     size_t nextReviewID = 4000000;    // Four million
+    size_t nextDiscountID = 5000000;
 
     // Storing pointers because of subclasses:
     std::vector<User *> users;
@@ -41,6 +42,7 @@ class NotinOOP
     void handleRecommend(const size_t numberOfRecommendations) const;
     int getBestDiscountIndex();
     float fragrancesDiscountedPrice(const std::vector<Fragrance> &frags, Discount &discount);
+    Discount * generateNewDiscount();
     void handleCheckout();
     void handleCancelPurchase(int purchaseID);
     void handleMakeReview(const std::string &fragranceName, double rating, const std::string &comment);

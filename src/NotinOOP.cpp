@@ -3,6 +3,8 @@
 
 #include <sstream>
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
 
 void NotinOOP::processCommand(const std::string &commandLine)
 {
@@ -613,6 +615,64 @@ int NotinOOP::getBestDiscountIndex()
     return minDiscountIndex;
 }
 
+Discount *NotinOOP::generateNewDiscount()
+{
+    const float DEFAULT_DISCOUNT_PROBABILITY = 0.5f;
+    const float BONUS_DISCOUNT_PROBABILITY = 0.3f;
+    const float BRAND_DISCOUNT_PROBABILITY = 0.2f;
+
+    float roll = (float)rand() / RAND_MAX; // number from 0 to 1 (RAND_MAX == 32767)
+
+    if (roll < DEFAULT_DISCOUNT_PROBABILITY) // less than 0.5
+    {
+        // a percentage from 5 to 30: (formula is min + (rand() % (max - min + 1)))
+        float percentageDiscount = (float)(5 + (rand() % 26));
+        return new Discount(nextDiscountID++, percentageDiscount);
+    }
+    else if (roll > 1 - BRAND_DISCOUNT_PROBABILITY) // more than 0.8
+    {
+        // a percentage from 20 to 60:
+        float percentageDiscount = (float)(20 + (rand() % 41));
+
+        // will choose a random fragrance brand:
+        std::vector<std::string> uniqueBrandNames;
+        for (int i = 0; i < catalogue.size(); i++)
+        {
+            std::string brandName = catalogue[i].getBrand();
+
+            bool isBrandStoredInVector = false;
+            for (int j = 0; j < uniqueBrandNames.size(); j++)
+            {
+                if (uniqueBrandNames[j] == brandName)
+                {
+                    isBrandStoredInVector = true;
+                    break;
+                }
+            }
+
+            if (!isBrandStoredInVector)
+            {
+                uniqueBrandNames.push_back(brandName);
+            }
+        }
+
+        // a number from 0 to uniqueBrandNames.size() - 1:
+        int randomBrandIndex = rand() % uniqueBrandNames.size();
+
+        return new BrandDiscount(nextDiscountID++, percentageDiscount, uniqueBrandNames[randomBrandIndex]);
+    }
+    else // between 0.5 and 0.8
+    {
+        // a percentage from 5 to 20:
+        float percentageDiscount = (float)(5 + (rand() % 16));
+        // a price from 10 to 80:
+        // (actually from 1000 to 8000 divided by 100)
+        float bonusPrice = (1000 + (rand() % 7001)) / 100.0f;
+
+        return new BonusDiscount(nextDiscountID++, percentageDiscount, bonusPrice);
+    }
+}
+
 void NotinOOP::handleCheckout()
 {
     Buyer *currentBuyer = (Buyer *)activeUser;
@@ -702,6 +762,7 @@ void NotinOOP::handleRemoveReview(int fragranceId, int reviewId)
 
 NotinOOP::NotinOOP()
 {
+    srand(time(0));
 }
 
 NotinOOP::~NotinOOP()
