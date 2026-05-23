@@ -331,6 +331,212 @@ void NotinOOP::handleViewPurchases() const
 
 void NotinOOP::handleRecommend()
 {
+    /*
+     It gets the most prominent ingredients from the user's wishlist and
+     takes the fragrances from the catalogue that contain them the most:
+    */
+
+    Buyer *currentBuyer = (Buyer *)activeUser;
+    std::vector<Fragrance> wishlist = currentBuyer->getWishlist();
+    std::vector<int> ingredientFrequency(1000, 0); // A thousand ingredients max
+
+    for (int i = 0; i < wishlist.size(); i++)
+    {
+        const Fragrance &fragrance = wishlist[i];
+        const std::vector<size_t> &ingredients = fragrance.getIngredientIDs();
+        for (int j = 0; j < ingredients.size(); j++)
+        {
+            ingredientFrequency[ingredients[j]]++;
+        }
+    }
+
+    int mostLikedIngredientID = 0;
+    for (int i = 1; i < ingredientFrequency.size(); i++)
+    {
+        if (ingredientFrequency[i] > ingredientFrequency[mostLikedIngredientID])
+        {
+            mostLikedIngredientID = i;
+        }
+    }
+
+    int secondMostLikedIngredientID = 0;
+    for (int i = 1; i < ingredientFrequency.size(); i++)
+    {
+        if (i != mostLikedIngredientID && ingredientFrequency[i] > ingredientFrequency[secondMostLikedIngredientID])
+        {
+            secondMostLikedIngredientID = i;
+        }
+    }
+
+    int thirdMostLikedIngredientID = 0;
+    for (int i = 1; i < ingredientFrequency.size(); i++)
+    {
+        if (i != mostLikedIngredientID && i != secondMostLikedIngredientID && ingredientFrequency[i] > ingredientFrequency[thirdMostLikedIngredientID])
+        {
+            thirdMostLikedIngredientID = i;
+        }
+    }
+
+    std::vector<Fragrance> recommendations;
+    const int MAX_RECOMMENDATIONS = 5;
+
+    bool isReccomendationsFilled = false;
+
+    // First we look for fragrances that contain the 3 most liked ingredients:
+    for (int i = 0; i < catalogue.size(); i++)
+    {
+        const Fragrance &fragrance = catalogue[i];
+        const std::vector<size_t> &ingredients = fragrance.getIngredientIDs();
+        bool hasMostLiked = false, hasSecondMostLiked = false, hasThirdMostLiked = false;
+
+        for (int j = 0; j < ingredients.size(); j++)
+        {
+            if (ingredients[j] == mostLikedIngredientID)
+            {
+                hasMostLiked = true;
+            }
+            else if (ingredients[j] == secondMostLikedIngredientID)
+            {
+                hasSecondMostLiked = true;
+            }
+            else if (ingredients[j] == thirdMostLikedIngredientID)
+            {
+                hasThirdMostLiked = true;
+            }
+        }
+
+        if (hasMostLiked && hasSecondMostLiked && hasThirdMostLiked)
+        {
+            bool isInWishlist = false;
+            for (int j = 0; j < wishlist.size(); j++)
+            {
+                if (wishlist[j] == fragrance)
+                {
+                    isInWishlist = true;
+                    break;
+                }
+            }
+
+            if (!isInWishlist)
+            {
+                recommendations.push_back(fragrance);
+                if (recommendations.size() == MAX_RECOMMENDATIONS)
+                {
+                    isReccomendationsFilled = true;
+                    break;
+                }
+            }
+        }
+    }
+
+    // If we don't have enough recommendations, we look for fragrances that contain 2 of the 3 most liked ingredients:
+    if (!isReccomendationsFilled)
+    {
+        for (int i = 0; i < catalogue.size(); i++)
+        {
+            const Fragrance &fragrance = catalogue[i];
+            const std::vector<size_t> &ingredients = fragrance.getIngredientIDs();
+            bool hasMostLiked = false, hasSecondMostLiked = false, hasThirdMostLiked = false;
+
+            for (int j = 0; j < ingredients.size(); j++)
+            {
+                if (ingredients[j] == mostLikedIngredientID)
+                {
+                    hasMostLiked = true;
+                }
+                else if (ingredients[j] == secondMostLikedIngredientID)
+                {
+                    hasSecondMostLiked = true;
+                }
+                else if (ingredients[j] == thirdMostLikedIngredientID)
+                {
+                    hasThirdMostLiked = true;
+                }
+            }
+
+            if (hasMostLiked && hasSecondMostLiked || hasMostLiked && hasThirdMostLiked || hasSecondMostLiked && hasThirdMostLiked)
+            {
+                bool isInWishlist = false;
+                for (int j = 0; j < wishlist.size(); j++)
+                {
+                    if (wishlist[j] == fragrance)
+                    {
+                        isInWishlist = true;
+                        break;
+                    }
+                }
+
+                if (!isInWishlist)
+                {
+                    recommendations.push_back(fragrance);
+                    if (recommendations.size() == MAX_RECOMMENDATIONS)
+                    {
+                        isReccomendationsFilled = true;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    // If we still don't have enough recommendations, we look for fragrances that contain at least 1 of the 3 most liked ingredients:
+    if (!isReccomendationsFilled)
+    {
+        for (int i = 0; i < catalogue.size(); i++)
+        {
+            const Fragrance &fragrance = catalogue[i];
+            const std::vector<size_t> &ingredients = fragrance.getIngredientIDs();
+            bool hasMostLiked = false, hasSecondMostLiked = false, hasThirdMostLiked = false;
+
+            for (int j = 0; j < ingredients.size(); j++)
+            {
+                if (ingredients[j] == mostLikedIngredientID)
+                {
+                    hasMostLiked = true;
+                }
+                else if (ingredients[j] == secondMostLikedIngredientID)
+                {
+                    hasSecondMostLiked = true;
+                }
+                else if (ingredients[j] == thirdMostLikedIngredientID)
+                {
+                    hasThirdMostLiked = true;
+                }
+            }
+
+            if(hasMostLiked || hasSecondMostLiked || hasThirdMostLiked)
+            {
+                bool isInWishlist = false;
+                for (int j = 0; j < wishlist.size(); j++)
+                {
+                    if (wishlist[j] == fragrance)
+                    {
+                        isInWishlist = true;
+                        break;
+                    }
+                }
+
+                if (!isInWishlist)
+                {
+                    recommendations.push_back(fragrance);
+                    if (recommendations.size() == MAX_RECOMMENDATIONS)
+                    {
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    if (recommendations.empty())
+    {
+        std::cout << "No recommendations available!" << std::endl;
+        return;
+    }
+
+    std::string message = "Recommended fragrances: ";
+    std::cout << message;
+    Utils::printFragrancesByType(recommendations, message.size());
 }
 
 void NotinOOP::handleCheckout()
