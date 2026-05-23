@@ -121,16 +121,17 @@ void NotinOOP::processCommand(const std::string &commandLine)
 
             handleMakeReview(fragranceName, rating, comment);
         }
-    } else if (activeUser != nullptr && activeUser->getType() == UserType::ADMIN)
+    }
+    else if (activeUser != nullptr && activeUser->getType() == UserType::ADMIN)
     {
-        if(command == "block-user")
+        if (command == "block-user")
         {
             std::string username;
             ss >> username;
             handleBlockUser(username);
         }
         else if (command == "create-fragrance")
-        { 
+        {
             std::string name, brand;
             float price = -1;
             std::vector<size_t> ingredientsList;
@@ -198,11 +199,11 @@ void NotinOOP::processCommand(const std::string &commandLine)
 
             handleRemoveReview(fragranceId, reviewId);
         }
-    } else
+    }
+    else
     {
         std::cout << "You must be logged in to use this command!" << std::endl;
     }
-    
 }
 
 void NotinOOP::handleRegister(const std::string &name, const std::string &pass)
@@ -298,7 +299,7 @@ void NotinOOP::run()
     std::string commandLine;
     while (std::getline(std::cin, commandLine))
     {
-        if(commandLine == "end")
+        if (commandLine == "end")
             break;
         processCommand(commandLine);
     }
