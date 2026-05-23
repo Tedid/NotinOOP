@@ -267,6 +267,10 @@ void Buyer::viewDiscounts() const
     }
 }
 
+float Buyer::getBalance() const
+{
+    return balance;
+}
 
 void Buyer::showHelp() const
 {
