@@ -10,6 +10,11 @@
 
 class NotinOOP
 {
+    size_t nextUserID = 1000000;      // A million
+    size_t nextFragranceID = 2000000; // Two million
+    size_t nextPurchaseID = 3000000;  // Three million
+    size_t nextReviewID = 4000000;    // Four million
+
     // Storing pointers because of subclasses:
     std::vector<User *> users;
     std::vector<Fragrance> catalogue;
