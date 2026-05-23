@@ -56,6 +56,7 @@ public:
     void viewCart() const;
 
     float getBalance() const;
+    std::vector<Fragrance> getWishlist() const;
 
     // [Write into NotinOOP.cpp]
     // void checkout();

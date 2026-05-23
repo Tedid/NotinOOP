@@ -272,6 +272,11 @@ float Buyer::getBalance() const
     return balance;
 }
 
+std::vector<Fragrance> Buyer::getWishlist() const
+{
+    return wishlist;
+}
+
 void Buyer::showHelp() const
 {
     //Will be written in the end
