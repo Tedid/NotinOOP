@@ -92,6 +92,11 @@ void Buyer::clearCart()
     cart.clear();
 }
 
+void Buyer::addToDiscounts(Discount *discount)
+{
+    discounts.push_back(discount);
+}
+
 void Buyer::removeDiscount(size_t discountID)
 {
     for (size_t i = 0; i < discounts.size(); i++)

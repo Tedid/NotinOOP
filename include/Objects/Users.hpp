@@ -54,6 +54,7 @@ public:
     void viewCart() const;
     void clearCart();
 
+    void addToDiscounts(Discount *discount);
     void removeDiscount(size_t discountID);
 
     float getBalance() const;

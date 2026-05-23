@@ -725,11 +725,12 @@ void NotinOOP::handleCheckout()
 
     currentBuyer->clearCart();
 
-    currentBuyer->removeDiscount(discounts[bestVoucherIndex]->getID());
+    currentBuyer->removeDiscount(discounts[bestVoucherIndex]->getID()); //remove used Discount
 
-    currentBuyer->addToBalance(-discountedPrice);
+    currentBuyer->addToBalance(-discountedPrice);   // remove money from account
 
-    // implement Discount generation.
+    Discount* newDiscount = generateNewDiscount();  // generate a new discount for the user
+    currentBuyer->addToDiscounts(newDiscount);
 }
 
 void NotinOOP::handleCancelPurchase(int purchaseID)
