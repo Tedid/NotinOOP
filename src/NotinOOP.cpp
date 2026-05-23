@@ -298,6 +298,8 @@ void NotinOOP::run()
     std::string commandLine;
     while (std::getline(std::cin, commandLine))
     {
+        if(commandLine == "end")
+            break;
         processCommand(commandLine);
     }
 }
