@@ -549,7 +549,7 @@ void NotinOOP::handleRecommend(const size_t numberOfRecommendations) const
     Utils::printFragrancesByType(recommendations, message.size());
 }
 
-float NotinOOP::FragrancesDiscountedPrice(const std::vector<Fragrance> &frags, Discount &discount)
+float NotinOOP::fragrancesDiscountedPrice(const std::vector<Fragrance> &frags, Discount &discount)
 {
     float totalPrice = 0.0f;
 
@@ -582,7 +582,7 @@ float NotinOOP::FragrancesDiscountedPrice(const std::vector<Fragrance> &frags, D
     return (totalPrice < 0.0f) ? 0.0f : totalPrice;
 }
 
-int NotinOOP::GetBestDiscountIndex()
+int NotinOOP::getBestDiscountIndex()
 {
     Buyer *currentBuyer = (Buyer *)activeUser;
     std::vector<Discount *> discounts = currentBuyer->getDiscounts();
@@ -602,7 +602,7 @@ int NotinOOP::GetBestDiscountIndex()
     int minDiscountIndex = -1;
     for (int i = 0; i < discounts.size(); i++)
     {
-        float currentDiscountPrice = FragrancesDiscountedPrice(cart, *discounts[i]);
+        float currentDiscountPrice = fragrancesDiscountedPrice(cart, *discounts[i]);
         if (currentDiscountPrice < fragsPrice)
         {
             fragsPrice = currentDiscountPrice;
@@ -632,10 +632,10 @@ void NotinOOP::handleCheckout()
     }
 
     float discountedPrice = originalPrice;
-    int bestVoucherIndex = GetBestDiscountIndex();
+    int bestVoucherIndex = getBestDiscountIndex();
     if (bestVoucherIndex != -1)
     {
-        discountedPrice = FragrancesDiscountedPrice(cart, *discounts[bestVoucherIndex]);
+        discountedPrice = fragrancesDiscountedPrice(cart, *discounts[bestVoucherIndex]);
     }
 
     if (currentBuyer->getBalance() < discountedPrice)
