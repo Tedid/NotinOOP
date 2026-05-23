@@ -616,6 +616,55 @@ int NotinOOP::GetBestDiscountIndex()
 
 void NotinOOP::handleCheckout()
 {
+    Buyer *currentBuyer = (Buyer *)activeUser;
+    std::vector<Fragrance> cart = currentBuyer->getCart();
+    std::vector<Discount *> discounts = currentBuyer->getDiscounts();
+
+    if (cart.empty())
+    {
+        std::cout << "Cart is empty!" << std::endl;
+        return;
+    }
+
+    float originalPrice = 0.0f;
+    for (int i = 0; i < cart.size(); i++)
+    {
+        originalPrice += cart[i].getPrice();
+    }
+
+    float discountedPrice = originalPrice;
+    int bestVoucherIndex = GetBestDiscountIndex();
+    if (bestVoucherIndex != -1)
+    {
+        discountedPrice = FragrancesDiscountedPrice(cart, *discounts[bestVoucherIndex]);
+    }
+
+    if (currentBuyer->getBalance() < discountedPrice)
+    {
+        std::cout << "Not enough money! Final price: " << discountedPrice << ", current balance: " << currentBuyer->getBalance() << std::endl;
+        return;
+    }
+
+    if(bestVoucherIndex != -1)
+    {
+        std::cout << "Original price: €" << originalPrice << ". Applied discount: " << discounts[bestVoucherIndex]->getPercent() << "% off";
+        if (discounts[bestVoucherIndex]->getType() == DiscountType::BONUS_DISCOUNT)
+        {
+            BonusDiscount *bonusDsc = (BonusDiscount *)discounts[bestVoucherIndex];
+            std::cout << " + €" << bonusDsc->getBonus() << " off";
+        }
+        std::cout << std::endl;
+        std::cout << "Final price: €" << discountedPrice << std::endl;
+    } else {
+        std::cout << "Final price: €" << discountedPrice << std::endl;
+    }
+
+    //remove fragrances from stock
+    //remove used discount from buyer's discounts
+    //remove money from account
+    //implement order creation.
+
+    //implement Discount generation.
 }
 
 void NotinOOP::handleCancelPurchase(int purchaseID)
