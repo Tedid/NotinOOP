@@ -204,3 +204,100 @@ void NotinOOP::processCommand(const std::string &commandLine)
     }
     
 }
+
+void NotinOOP::handleRegister(const std::string &name, const std::string &pass)
+{
+}
+
+void NotinOOP::handleLogin(const std::string &name, const std::string &pass)
+{
+}
+
+void NotinOOP::handleAddToBalance(float amount)
+{
+}
+
+void NotinOOP::handleAddToWishlist(const std::string &fragranceName)
+{
+}
+
+void NotinOOP::handleRemoveFromWishlist(const std::string &fragranceName)
+{
+}
+
+void NotinOOP::handleAddToCart(const std::string &fragranceName)
+{
+}
+
+void NotinOOP::handleRemoveFromCart(const std::string &fragranceName)
+{
+}
+
+void NotinOOP::handleViewCart() const
+{
+}
+
+void NotinOOP::handleViewBought() const
+{
+}
+
+void NotinOOP::handleViewPurchases() const
+{
+}
+
+void NotinOOP::handleRecommend()
+{
+}
+
+void NotinOOP::handleCheckout()
+{
+}
+
+void NotinOOP::handleCancelPurchase(int purchaseID)
+{
+}
+
+void NotinOOP::handleMakeReview(const std::string &fragranceName, double rating, const std::string &comment)
+{
+}
+
+void NotinOOP::handleBlockUser(const std::string &username)
+{
+}
+
+void NotinOOP::handleCreateFragrance(const std::string &name, const std::string &brand, float price, const std::vector<size_t> &ingredientsList)
+{
+}
+
+void NotinOOP::handleAddQuantity(const std::string &fragranceName, int quantity)
+{
+}
+
+void NotinOOP::handleDeliverPurchase(int purchaseID)
+{
+}
+
+void NotinOOP::handleRemoveReview(int fragranceId, int reviewId)
+{
+}
+
+NotinOOP::NotinOOP()
+{
+}
+
+NotinOOP::~NotinOOP()
+{
+    for (User *user : users)
+    {
+        delete user;
+    }
+}
+
+void NotinOOP::run()
+{
+    std::string commandLine;
+    while (std::getline(std::cin, commandLine))
+    {
+        processCommand(commandLine);
+    }
+}
