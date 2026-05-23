@@ -39,6 +39,8 @@ class NotinOOP
     void handleViewBought() const;
     void handleViewPurchases() const;
     void handleRecommend(const size_t numberOfRecommendations) const;
+    int GetBestDiscountIndex();
+    float FragrancesDiscountedPrice(const std::vector<Fragrance> &frags, Discount &discount);
     void handleCheckout();
     void handleCancelPurchase(int purchaseID);
     void handleMakeReview(const std::string &fragranceName, double rating, const std::string &comment);

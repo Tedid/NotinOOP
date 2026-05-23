@@ -15,66 +15,6 @@ void Buyer::removeFragranceFromVector(std::vector<Fragrance> &frags, const Fragr
     }
 }
 
-float Buyer::FragrancesDiscountedPrice(const std::vector<Fragrance> &frags, Discount &discount)
-{
-    float totalPrice = 0.0f;
-
-    for (int i = 0; i < frags.size(); i++)
-    {
-        float currentFragPrice = frags[i].getPrice();
-
-        if (discount.getType() == DiscountType::BRAND_DISCOUNT)
-        {
-            BrandDiscount *brandDsc = (BrandDiscount *)&discount;
-            if (frags[i].getBrand() == brandDsc->getBrandName())
-            {
-                currentFragPrice -= currentFragPrice * (brandDsc->getPercent() / 100.0f);
-            }
-        }
-        else
-        {
-            currentFragPrice -= currentFragPrice * (discount.getPercent() / 100.0f);
-        }
-
-        totalPrice += currentFragPrice;
-    }
-
-    if (discount.getType() == DiscountType::BONUS_DISCOUNT)
-    {
-        BonusDiscount *bonusDsc = (BonusDiscount *)&discount;
-        totalPrice -= bonusDsc->getBonus();
-    }
-
-    return (totalPrice < 0.0f) ? 0.0f : totalPrice;
-}
-
-int Buyer::GetBestDiscountIndex()
-{
-    if (discounts.empty())
-    {
-        return -1;
-    }
-
-    float fragsPrice = 0.0f;
-    for (int i = 0; i < cart.size(); i++)
-    {
-        fragsPrice += cart[i].getPrice();
-    }
-
-    int minDiscountIndex = -1;
-    for (int i = 0; i < discounts.size(); i++)
-    {
-        float currentDiscountPrice = FragrancesDiscountedPrice(cart, *discounts[i]);
-        if (currentDiscountPrice < fragsPrice)
-        {
-            fragsPrice = currentDiscountPrice;
-            minDiscountIndex = i;
-        }
-    }
-
-    return minDiscountIndex;
-}
-
 User::User(size_t id, const std::string &name, const std::string &pass)
 {
     userID = id;

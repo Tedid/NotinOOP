@@ -514,7 +514,7 @@ void NotinOOP::handleRecommend(const size_t numberOfRecommendations) const
                 }
             }
 
-            if(hasMostLiked || hasSecondMostLiked || hasThirdMostLiked)
+            if (hasMostLiked || hasSecondMostLiked || hasThirdMostLiked)
             {
                 bool isInWishlist = false;
                 for (int j = 0; j < wishlist.size(); j++)
@@ -547,6 +547,71 @@ void NotinOOP::handleRecommend(const size_t numberOfRecommendations) const
     std::string message = "Recommended fragrances: ";
     std::cout << message;
     Utils::printFragrancesByType(recommendations, message.size());
+}
+
+float NotinOOP::FragrancesDiscountedPrice(const std::vector<Fragrance> &frags, Discount &discount)
+{
+    float totalPrice = 0.0f;
+
+    for (int i = 0; i < frags.size(); i++)
+    {
+        float currentFragPrice = frags[i].getPrice();
+
+        if (discount.getType() == DiscountType::BRAND_DISCOUNT)
+        {
+            BrandDiscount *brandDsc = (BrandDiscount *)&discount;
+            if (frags[i].getBrand() == brandDsc->getBrandName())
+            {
+                currentFragPrice -= currentFragPrice * (brandDsc->getPercent() / 100.0f);
+            }
+        }
+        else
+        {
+            currentFragPrice -= currentFragPrice * (discount.getPercent() / 100.0f);
+        }
+
+        totalPrice += currentFragPrice;
+    }
+
+    if (discount.getType() == DiscountType::BONUS_DISCOUNT)
+    {
+        BonusDiscount *bonusDsc = (BonusDiscount *)&discount;
+        totalPrice -= bonusDsc->getBonus();
+    }
+
+    return (totalPrice < 0.0f) ? 0.0f : totalPrice;
+}
+
+
+int NotinOOP::GetBestDiscountIndex()
+{
+    Buyer *currentBuyer = (Buyer *)activeUser;
+    std::vector<Discount *> discounts = currentBuyer->getDiscounts();
+    std::vector<Fragrance> cart = currentBuyer->getCart();
+
+    if (discounts.empty())
+    {
+        return -1;
+    }
+
+    float fragsPrice = 0.0f;
+    for (int i = 0; i < cart.size(); i++)
+    {
+        fragsPrice += cart[i].getPrice();
+    }
+
+    int minDiscountIndex = -1;
+    for (int i = 0; i < discounts.size(); i++)
+    {
+        float currentDiscountPrice = FragrancesDiscountedPrice(cart, *discounts[i]);
+        if (currentDiscountPrice < fragsPrice)
+        {
+            fragsPrice = currentDiscountPrice;
+            minDiscountIndex = i;
+        }
+    }
+
+    return minDiscountIndex;
 }
 
 void NotinOOP::handleCheckout()
