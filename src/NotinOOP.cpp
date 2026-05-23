@@ -28,11 +28,7 @@ void NotinOOP::processCommand(const std::string &commandLine)
         handleLogin(username, password);
     }
 
-    if (activeUser == nullptr || activeUser->getType() != UserType::BUYER)
-    {
-        std::cout << "This command is available only for logged in buyers!" << std::endl;
-    }
-    else
+    if (activeUser != nullptr && activeUser->getType() == UserType::BUYER)
     {
         Buyer *currentBuyer = (Buyer *)activeUser;
 
@@ -125,5 +121,86 @@ void NotinOOP::processCommand(const std::string &commandLine)
 
             handleMakeReview(fragranceName, rating, comment);
         }
+    } else if (activeUser != nullptr && activeUser->getType() == UserType::ADMIN)
+    {
+        if(command == "block-user")
+        {
+            std::string username;
+            ss >> username;
+            handleBlockUser(username);
+        }
+        else if (command == "create-fragrance")
+        { 
+            std::string name, brand;
+            float price = -1;
+            std::vector<size_t> ingredientsList;
+
+            ss >> name >> brand >> price;
+
+            if (ss.fail() || name.empty() || brand.empty() || price < 0)
+            {
+                std::cout << "Invalid arguments format!" << std::endl;
+                return;
+            }
+
+            size_t ingredientID;
+            while (ss >> ingredientID)
+            {
+                if (ss.fail())
+                {
+                    std::cout << "Invalid ingredient ID!" << std::endl;
+                    return;
+                }
+                ingredientsList.push_back(ingredientID);
+            }
+
+            handleCreateFragrance(name, brand, price, ingredientsList);
+        }
+        else if (command == "add-quantity")
+        {
+            std::string fragranceName;
+            int quantity;
+
+            ss >> fragranceName >> quantity;
+
+            if (ss.fail() || fragranceName.empty() || quantity <= 0)
+            {
+                std::cout << "Invalid arguments format!" << std::endl;
+                return;
+            }
+
+            handleAddQuantity(fragranceName, quantity);
+        }
+        else if (command == "deliver")
+        {
+            size_t purchaseID;
+            ss >> purchaseID;
+
+            if (ss.fail())
+            {
+                std::cout << "Invalid ID" << std::endl;
+                return;
+            }
+
+            handleDeliverPurchase(purchaseID);
+        }
+        else if (command == "remove-review")
+        {
+            size_t fragranceId, reviewId;
+
+            ss >> fragranceId >> reviewId;
+
+            if (ss.fail() || fragranceId < 0 || reviewId < 0)
+            {
+                std::cout << "Invalid IDs" << std::endl;
+                return;
+            }
+
+            handleRemoveReview(fragranceId, reviewId);
+        }
+    } else
+    {
+        std::cout << "You must be logged in to use this command!" << std::endl;
     }
+    
 }
