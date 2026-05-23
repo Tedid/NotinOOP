@@ -30,6 +30,11 @@ BonusDiscount::BonusDiscount(size_t id, float percent, float bon) : Discount(id,
     bonus = bon;
 }
 
+size_t Discount::getID() const
+{
+    return discountID;
+}
+
 DiscountType BonusDiscount::getType() const
 {
     return DiscountType::BONUS_DISCOUNT;

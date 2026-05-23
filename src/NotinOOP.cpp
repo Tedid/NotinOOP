@@ -660,8 +660,9 @@ void NotinOOP::handleCheckout()
     }
 
     currentBuyer->clearCart();
+
+    currentBuyer->removeDiscount(discounts[bestVoucherIndex]->getID());
     
-    //remove used discount from buyer's discounts
     //remove money from account
     //implement order creation.
 

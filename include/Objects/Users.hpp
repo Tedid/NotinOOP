@@ -54,6 +54,8 @@ public:
     void viewCart() const;
     void clearCart();
 
+    void removeDiscount(size_t discountID);
+
     float getBalance() const;
     std::vector<Fragrance> getCart() const;
     std::vector<Discount *> getDiscounts() const;

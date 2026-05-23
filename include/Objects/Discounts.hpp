@@ -16,6 +16,7 @@ public:
     virtual DiscountType getType() const;
     virtual void view() const;
     float getPercent();
+    size_t getID() const;
 
     virtual ~Discount() = default;
 };

@@ -92,6 +92,18 @@ void Buyer::clearCart()
     cart.clear();
 }
 
+void Buyer::removeDiscount(size_t discountID)
+{
+    for (size_t i = 0; i < discounts.size(); i++)
+    {
+        if (discounts[i]->getID() == discountID)
+        {
+            discounts.erase(discounts.begin() + i);
+            break;
+        }
+    }
+}
+
 // void Buyer::checkout()
 // {
 //     WRITE CHECK FOR SUFFICIENT FUNDS IN ENGINE
