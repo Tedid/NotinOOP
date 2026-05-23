@@ -212,6 +212,16 @@ float Buyer::getBalance() const
     return balance;
 }
 
+std::vector<Fragrance> Buyer::getCart() const
+{
+    return cart;
+}
+
+std::vector<Discount *> Buyer::getDiscounts() const
+{
+    return discounts;
+}
+
 std::vector<Fragrance> Buyer::getWishlist() const
 {
     return wishlist;
