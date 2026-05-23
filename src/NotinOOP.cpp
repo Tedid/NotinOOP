@@ -30,8 +30,6 @@ void NotinOOP::processCommand(const std::string &commandLine)
 
     if (activeUser != nullptr && activeUser->getType() == UserType::BUYER)
     {
-        Buyer *currentBuyer = (Buyer *)activeUser;
-
         // Buyer commands:
         if (command == "add-to-balance")
         {
@@ -208,42 +206,127 @@ void NotinOOP::processCommand(const std::string &commandLine)
 
 void NotinOOP::handleRegister(const std::string &name, const std::string &pass)
 {
+    for (int i = 0; i < users.size(); i++)
+    {
+        if (users[i]->getUsername() == name)
+        {
+            std::cout << "Username already exists!" << std::endl;
+            return;
+        }
+    }
+
+    Buyer *newBuyer = new Buyer(nextUserID++, name, pass);
+    users.push_back(newBuyer);
+
+    std::cout << "Registered successfully! New User ID: " << newBuyer->getUserID() << std::endl;
 }
 
 void NotinOOP::handleLogin(const std::string &name, const std::string &pass)
 {
+    for (int i = 0; i < users.size(); i++)
+    {
+        if (users[i]->getUsername() == name)
+        {
+            if (users[i]->getPassword() == pass)
+            {
+                activeUser = users[i];
+                std::cout << "Logged in successfully! User ID: " << activeUser->getUserID() << std::endl;
+            }
+            else
+            {
+                std::cout << "Incorrect password!" << std::endl;
+            }
+            return;
+        }
+    }
+
+    std::cout << "Username not found!" << std::endl;
 }
 
 void NotinOOP::handleAddToBalance(float amount)
 {
+    Buyer *currentBuyer = (Buyer *)activeUser;
+
+    currentBuyer->addToBalance(amount);
+    std::cout << "Balance updated! Current balance: " << currentBuyer->getBalance() << std::endl;
 }
 
 void NotinOOP::handleAddToWishlist(const std::string &fragranceName)
 {
+    Buyer *currentBuyer = (Buyer *)activeUser;
+    for (int i = 0; i < catalogue.size(); i++)
+    {
+        if (catalogue[i].getName() == fragranceName)
+        {
+            currentBuyer->addToWishlist(catalogue[i]);
+            std::cout << "Fragrance added to wishlist!" << std::endl;
+            return;
+        }
+    }
+    std::cout << "Fragrance not found!" << std::endl;
 }
 
 void NotinOOP::handleRemoveFromWishlist(const std::string &fragranceName)
 {
+    Buyer *currentBuyer = (Buyer *)activeUser;
+    for (int i = 0; i < catalogue.size(); i++)
+    {
+        if (catalogue[i].getName() == fragranceName)
+        {
+            currentBuyer->removeFromWishlist(catalogue[i]);
+            std::cout << "Fragrance removed from wishlist!" << std::endl;
+            return;
+        }
+    }
+    std::cout << "Fragrance not found!" << std::endl;
 }
 
 void NotinOOP::handleAddToCart(const std::string &fragranceName)
 {
+    Buyer *currentBuyer = (Buyer *)activeUser;
+    for (int i = 0; i < catalogue.size(); i++)
+    {
+        if (catalogue[i].getName() == fragranceName)
+        {
+            currentBuyer->addToCart(catalogue[i]);
+            std::cout << "Fragrance added to cart!" << std::endl;
+            return;
+        }
+    }
+    std::cout << "Fragrance not found!" << std::endl;
 }
 
 void NotinOOP::handleRemoveFromCart(const std::string &fragranceName)
 {
+    Buyer *currentBuyer = (Buyer *)activeUser;
+    for (int i = 0; i < catalogue.size(); i++)
+    {
+        if (catalogue[i].getName() == fragranceName)
+        {
+            currentBuyer->removeFromCart(catalogue[i]);
+            std::cout << "Fragrance removed from cart!" << std::endl;
+            return;
+        }
+    }
+    std::cout << "Fragrance not found!" << std::endl;
 }
 
 void NotinOOP::handleViewCart() const
 {
+    Buyer *currentBuyer = (Buyer *)activeUser;
+    currentBuyer->viewCart();
 }
 
 void NotinOOP::handleViewBought() const
 {
+    Buyer *currentBuyer = (Buyer *)activeUser;
+    currentBuyer->viewBought();
 }
 
 void NotinOOP::handleViewPurchases() const
 {
+    Buyer *currentBuyer = (Buyer *)activeUser;
+    currentBuyer->viewPurchases();
 }
 
 void NotinOOP::handleRecommend()
