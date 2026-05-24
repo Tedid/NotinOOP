@@ -757,13 +757,13 @@ void NotinOOP::handleCancelPurchase(int purchaseID)
                 std::cout << "This purchase is already delivered!" << std::endl;
                 return;
             }
-            else if (purchases[i].getStatus() == PurchaseStatus::CANCELED)
+            else if (purchases[i].getStatus() == PurchaseStatus::CANCELLED)
             {
                 std::cout << "This purchase is already cancelled!" << std::endl;
                 return;
             }
 
-            purchases[i].setStatus(PurchaseStatus::CANCELED);
+            purchases[i].setStatus(PurchaseStatus::CANCELLED);
 
             Buyer *currentBuyer = (Buyer *)activeUser;
             currentBuyer->addToBalance(purchases[i].getFinalPrice()); // return money to account

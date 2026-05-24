@@ -3,7 +3,7 @@
 enum class PurchaseStatus {
     PENDING,
     DELIVERED,
-    CANCELED
+    CANCELLED
 };
 
 enum class DiscountType {

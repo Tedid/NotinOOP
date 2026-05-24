@@ -48,7 +48,7 @@ void Purchase::show(const std::string &userName) const
     case PurchaseStatus::DELIVERED:
         statusString = "DELIVERED";
         break;
-    case PurchaseStatus::CANCELED:
+    case PurchaseStatus::CANCELLED:
         statusString = "CANCELED";
         break;
     default:
