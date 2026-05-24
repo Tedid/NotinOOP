@@ -29,6 +29,11 @@ class NotinOOP
     void handleRegister(const std::string &name, const std::string &pass);
     void handleLogin(const std::string &name, const std::string &pass);
 
+    // Useful functions for buyers:
+    int getBestDiscountIndex();
+    float fragrancesDiscountedPrice(const std::vector<Fragrance> &frags, Discount &discount);
+    Discount * generateNewDiscount();
+
     // Buyer handling:
     void handleAddToBalance(float amount);
     void handleAddToWishlist(const std::string &fragranceName);
@@ -39,9 +44,6 @@ class NotinOOP
     void handleViewBought() const;
     void handleViewPurchases() const;
     void handleRecommend(const size_t numberOfRecommendations) const;
-    int getBestDiscountIndex();
-    float fragrancesDiscountedPrice(const std::vector<Fragrance> &frags, Discount &discount);
-    Discount * generateNewDiscount();
     void handleCheckout();
     void handleCancelPurchase(int purchaseID);
     void handleMakeReview(const std::string &fragranceName, double rating, const std::string &comment);
