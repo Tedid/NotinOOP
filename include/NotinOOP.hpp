@@ -29,10 +29,10 @@ class NotinOOP
     void handleLogin(const std::string &name, const std::string &pass);
 
     // Useful functions for buyers:
-    Fragrance* findFragranceByName(const std::string& name);
+    Fragrance *findFragranceByName(const std::string &name);
     int getBestDiscountIndex();
     float fragrancesDiscountedPrice(const std::vector<Fragrance> &frags, Discount &discount);
-    Discount * generateNewDiscount();
+    Discount *generateNewDiscount();
 
     // Buyer handling:
     void handleAddToBalance(float amount);

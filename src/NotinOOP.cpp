@@ -801,7 +801,7 @@ void NotinOOP::handleMakeReview(const std::string &fragranceName, double rating,
 
 void NotinOOP::handleBlockUser(const std::string &username)
 {
-    for(int i = 0; i < users.size(); i++)
+    for (int i = 0; i < users.size(); i++)
     {
         if (users[i]->getUsername() == username)
         {
@@ -811,8 +811,9 @@ void NotinOOP::handleBlockUser(const std::string &username)
                 return;
             }
 
-            while(true){
-                std::cout << "This action will delete "<< users[i]->getUsername() <<"'s account. Are you sure you want to continue? (y/n): ";
+            while (true)
+            {
+                std::cout << "This action will delete " << users[i]->getUsername() << "'s account. Are you sure you want to continue? (y/n): ";
                 std::string answer;
                 std::cin >> answer;
                 Utils::toLower(answer);

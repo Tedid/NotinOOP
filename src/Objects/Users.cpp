@@ -244,7 +244,7 @@ std::vector<Fragrance> Buyer::getCart() const
     return cart;
 }
 
-std::vector<Purchase>& Buyer::getPurchases()
+std::vector<Purchase> &Buyer::getPurchases()
 {
     return purchases;
 }
@@ -261,7 +261,7 @@ std::vector<Fragrance> Buyer::getWishlist() const
 
 void Buyer::showHelp() const
 {
-    //Will be written in the end
+    // Will be written in the end
 }
 
 Admin::Admin(size_t id, const std::string &name, const std::string &pass) : User(id, name, pass)

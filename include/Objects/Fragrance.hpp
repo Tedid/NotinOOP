@@ -30,6 +30,6 @@ public:
     const std::vector<Review> getReviews() const;
     float getAvgRating() const;
 
-    bool operator==(const Fragrance& other) const;
-    bool operator!=(const Fragrance& other) const;
+    bool operator==(const Fragrance &other) const;
+    bool operator!=(const Fragrance &other) const;
 };

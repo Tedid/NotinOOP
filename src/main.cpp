@@ -2,12 +2,15 @@
 
 #include "NotinOOP.hpp"
 
-int main() {
-    try {
+int main()
+{
+    try
+    {
         NotinOOP engine;
         engine.run();
-    } 
-    catch (const std::exception& e) {
+    }
+    catch (const std::exception &e)
+    {
         std::cout << "Critical Error: " << e.what() << std::endl;
         return 1;
     }
