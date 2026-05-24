@@ -119,40 +119,6 @@ void Buyer::removeDiscount(size_t discountID)
     }
 }
 
-// void Buyer::checkout()
-// {
-//     WRITE CHECK FOR SUFFICIENT FUNDS IN ENGINE
-
-//     PASTE INTO COMMAND HANDLING:
-//     if (cart.empty())
-//     {
-//         std::cout << "Cart is empty!" << std::endl;
-//         return;
-//     }
-
-//     float finalPrice = 0.0f;
-//     for (int i = 0; i < cart.size(); i++)
-//     {
-//         finalPrice += cart[i].getPrice();
-//     }
-
-//     int bestVoucherIndex = GetBestDiscountIndex();
-//     if (bestVoucherIndex != -1)
-//     {
-//         finalPrice = FragrancesDiscountedPrice(cart, *discounts[bestVoucherIndex]);
-//     }
-
-//     if (this->balance < finalPrice)
-//     {
-//         std::cout << "Not enough money for the transaction!" << std::endl;
-//         return;
-//     }
-
-//     this->balance -= finalPrice;
-
-//     Purchase newPurchase();
-// }
-
 void Buyer::viewBought() const
 {
     if (purchases.empty())

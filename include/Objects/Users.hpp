@@ -69,16 +69,9 @@ public:
     std::vector<Discount *> getDiscounts() const;
     std::vector<Fragrance> getWishlist() const;
 
-    // [Write into NotinOOP.cpp]
-    // void checkout();
-    // void cancel(size_t purchaseID);
-
     void viewBought() const;
     void viewPurchases() const;
     void viewDiscounts() const;
-
-    // void Recommend() const;
-    // void makeReview(const std::string &fragranceName, int rating, const std::string &comment);
 
     void showHelp() const override;
 };
@@ -87,13 +80,6 @@ class Admin : public User
 {
 public:
     Admin(size_t id, const std::string &name, const std::string &pass);
-    // All of them will be defined in NotinOOP.cpp:
-    // void blockUser(std::string username);
-    // void removeReview(size_t fragranceID, size_t reviewID);
-    // void deliver(size_t purchaseID);
-
-    // void createFragrance(const std::string &name, const std::string &brand, float price, const std::vector<size_t> &ingredientIDs);
-    // void addQuantity(const std::string &name, int quantity);
 
     void showHelp() const override;
 };
