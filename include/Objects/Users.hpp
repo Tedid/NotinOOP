@@ -54,11 +54,14 @@ public:
     void viewCart() const;
     void clearCart();
 
+    void addToPurchases(const Purchase &purchase);
+
     void addToDiscounts(Discount *discount);
     void removeDiscount(size_t discountID);
 
     float getBalance() const;
     std::vector<Fragrance> getCart() const;
+    std::vector<Purchase> getPurchases() const;
     std::vector<Discount *> getDiscounts() const;
     std::vector<Fragrance> getWishlist() const;
 

@@ -19,7 +19,6 @@ class NotinOOP
     // Storing pointers because of subclasses:
     std::vector<User *> users;
     std::vector<Fragrance> catalogue;
-    std::vector<Purchase> purchases;
 
     User *activeUser = nullptr;
 

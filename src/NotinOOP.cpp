@@ -740,7 +740,7 @@ void NotinOOP::handleCheckout()
     }
 
     Purchase newPurchase(nextPurchaseID++, cart, PurchaseStatus::PENDING, currentBuyer->getUserID(), discountedPrice);
-    purchases.push_back(newPurchase);
+    currentBuyer->addToPurchases(newPurchase);
 
     currentBuyer->clearCart();
 
@@ -754,16 +754,14 @@ void NotinOOP::handleCheckout()
 
 void NotinOOP::handleCancelPurchase(int purchaseID)
 {
+    Buyer *currentBuyer = (Buyer *)activeUser;
+
+    std::vector<Purchase> purchases = currentBuyer->getPurchases();
+
     for (int i = 0; i < purchases.size(); i++)
     {
         if (purchases[i].getPurchaseID() == purchaseID)
         {
-            if (purchases[i].getUserID() != activeUser->getUserID())
-            {
-                std::cout << "You can only cancel your own purchases!" << std::endl;
-                return;
-            }
-
             if (purchases[i].getStatus() == PurchaseStatus::DELIVERED)
             {
                 std::cout << "This purchase is already delivered!" << std::endl;
