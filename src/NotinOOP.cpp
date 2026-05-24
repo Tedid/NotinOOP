@@ -11,6 +11,14 @@ void NotinOOP::processCommand(const std::string &commandLine)
     if (commandLine.empty())
         return;
 
+    if(activeUser != nullptr)
+    {
+        std::cout << "Current user: " << activeUser->getUsername() << " (ID: " << activeUser->getUserID() << ", Type: " << (activeUser->getType() == UserType::BUYER ? "Buyer" : "Admin") << ")" << std::endl;
+    } else {
+        std::cout << "No user is currently logged in. Login or register to access user features." << std::endl;
+        std::cout << "Default admin account: Username: admin, Password: admin" << std::endl;
+    }
+
     std::stringstream ss(commandLine);
     std::string command;
     ss >> command;
@@ -976,6 +984,14 @@ NotinOOP::~NotinOOP()
 
 void NotinOOP::run()
 {
+    if(users.empty())
+    {
+        // Create a default admin account:
+        Admin *defaultAdmin = new Admin(nextUserID++, "admin", "admin");
+        users.push_back(defaultAdmin);
+        std::cout << "Default admin account created! Username: admin, Password: admin" << std::endl;
+    }
+
     std::string commandLine;
     while (std::getline(std::cin, commandLine))
     {
