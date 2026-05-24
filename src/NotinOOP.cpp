@@ -633,13 +633,13 @@ Discount *NotinOOP::generateNewDiscount()
     if (roll < DEFAULT_DISCOUNT_PROBABILITY) // less than 0.5
     {
         // a percentage from 5 to 30: (formula is min + (rand() % (max - min + 1)))
-        float percentageDiscount = (float)(5 + (rand() % 26));
+        int percentageDiscount = 5 + (rand() % 26);
         return new Discount(nextDiscountID++, percentageDiscount);
     }
     else if (roll > 1 - BRAND_DISCOUNT_PROBABILITY) // more than 0.8
     {
         // a percentage from 20 to 60:
-        float percentageDiscount = (float)(20 + (rand() % 41));
+        int percentageDiscount = 20 + (rand() % 41);
 
         // will choose a random fragrance brand:
         std::vector<std::string> uniqueBrandNames;
@@ -671,7 +671,7 @@ Discount *NotinOOP::generateNewDiscount()
     else // between 0.5 and 0.8
     {
         // a percentage from 5 to 20:
-        float percentageDiscount = (float)(5 + (rand() % 16));
+        int percentageDiscount = 5 + (rand() % 16);
         // a price from 10 to 80:
         // (actually from 1000 to 8000 divided by 100)
         float bonusPrice = (1000 + (rand() % 7001)) / 100.0f;

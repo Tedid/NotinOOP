@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-Discount::Discount(size_t id, float percent)
+Discount::Discount(size_t id, int percent)
 {
     discountID = id;
     discountPercent = percent;
@@ -20,12 +20,12 @@ void Discount::view() const
     std::cout << "Discount percent: " << discountPercent << "%" << std::endl;
 }
 
-float Discount::getPercent()
+int Discount::getPercent()
 {
     return discountPercent;
 }
 
-BonusDiscount::BonusDiscount(size_t id, float percent, float bon) : Discount(id, percent)
+BonusDiscount::BonusDiscount(size_t id, int percent, float bon) : Discount(id, percent)
 {
     bonus = bon;
 }
@@ -52,7 +52,7 @@ float BonusDiscount::getBonus()
     return bonus;
 }
 
-BrandDiscount::BrandDiscount(size_t id, float percent, const std::string &name) : Discount(id, percent)
+BrandDiscount::BrandDiscount(size_t id, int percent, const std::string &name) : Discount(id, percent)
 {
     brandName = name;
 }
