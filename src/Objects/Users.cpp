@@ -244,7 +244,7 @@ std::vector<Fragrance> Buyer::getCart() const
     return cart;
 }
 
-std::vector<Purchase> Buyer::getPurchases() const
+std::vector<Purchase>& Buyer::getPurchases()
 {
     return purchases;
 }

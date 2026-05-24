@@ -861,6 +861,39 @@ void NotinOOP::handleAddQuantity(const std::string &fragranceName, int quantity)
 
 void NotinOOP::handleDeliverPurchase(int purchaseID)
 {
+    for (int i = 0; i < users.size(); i++)
+    {
+        if (users[i]->getType() == UserType::BUYER)
+        {
+            Buyer *buyer = (Buyer *)users[i];
+            std::vector<Purchase> &purchases = buyer->getPurchases();
+
+            for (int j = 0; j < purchases.size(); j++)
+            {
+                Purchase &currentPurchase = purchases[j];
+                if (currentPurchase.getPurchaseID() == purchaseID)
+                {
+                    if (currentPurchase.getStatus() == PurchaseStatus::CANCELLED)
+                    {
+                        std::cout << "This purchase is cancelled and cannot be delivered!" << std::endl;
+                        return;
+                    }
+                    else if (currentPurchase.getStatus() == PurchaseStatus::DELIVERED)
+                    {
+                        std::cout << "This purchase is already delivered!" << std::endl;
+                        return;
+                    }
+
+                    currentPurchase.setStatus(PurchaseStatus::DELIVERED);
+
+                    std::cout << "Purchase delivered successfully!" << std::endl;
+                    return;
+                }
+            }
+        }
+    }
+
+    std::cout << "Purchase ID not found!" << std::endl;
 }
 
 void NotinOOP::handleRemoveReview(int fragranceId, int reviewId)

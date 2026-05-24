@@ -61,7 +61,7 @@ public:
 
     float getBalance() const;
     std::vector<Fragrance> getCart() const;
-    std::vector<Purchase> getPurchases() const;
+    std::vector<Purchase>& getPurchases();
     std::vector<Discount *> getDiscounts() const;
     std::vector<Fragrance> getWishlist() const;
 
