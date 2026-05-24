@@ -10,6 +10,11 @@ Fragrance::Fragrance(size_t ID, const std::string &name, const std::string &bran
     this->quantity = quantity;
 }
 
+void Fragrance::addReview(const Review &review)
+{
+    reviews.push_back(review);
+}
+
 size_t Fragrance::getID() const
 {
     return fragranceID;

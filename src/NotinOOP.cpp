@@ -776,6 +776,18 @@ void NotinOOP::handleCancelPurchase(int purchaseID)
 
 void NotinOOP::handleMakeReview(const std::string &fragranceName, double rating, const std::string &comment)
 {
+    for (int i = 0; i < catalogue.size(); i++)
+    {
+        if (catalogue[i].getName() == fragranceName)
+        {
+            Review newReview(nextReviewID++,fragranceName, activeUser->getUserID(), comment, rating);
+            
+            catalogue[i].addReview(newReview);
+            std::cout << "Review added successfully!" << std::endl;
+            return;
+        }
+    }
+    std::cout << "Fragrance not found!" << std::endl;
 }
 
 void NotinOOP::handleBlockUser(const std::string &username)
