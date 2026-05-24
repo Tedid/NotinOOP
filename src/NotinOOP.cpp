@@ -803,6 +803,43 @@ void NotinOOP::handleMakeReview(const std::string &fragranceName, double rating,
 
 void NotinOOP::handleBlockUser(const std::string &username)
 {
+    for(int i = 0; i < users.size(); i++)
+    {
+        if (users[i]->getUsername() == username)
+        {
+            if (users[i]->getType() == UserType::ADMIN)
+            {
+                std::cout << "You can't block an admin!" << std::endl;
+                return;
+            }
+
+            while(true){
+                std::cout << "This action will delete "<< users[i]->getUsername() <<"'s account. Are you sure you want to continue? (y/n): ";
+                std::string answer;
+                std::cin >> answer;
+                Utils::toLower(answer);
+
+                if (answer == "y")
+                {
+                    break;
+                }
+                else if (answer == "n")
+                {
+                    std::cout << "User not blocked!" << std::endl;
+                    return;
+                }
+                else
+                {
+                    std::cout << "Invalid answer! Please type 'y' or 'n'." << std::endl;
+                }
+            }
+
+            users.erase(users.begin() + i);
+            std::cout << "User blocked successfully!" << std::endl;
+            return;
+        }
+    }
+    std::cout << "Username not found!" << std::endl;
 }
 
 void NotinOOP::handleCreateFragrance(const std::string &name, const std::string &brand, float price, const std::vector<size_t> &ingredientsList)
