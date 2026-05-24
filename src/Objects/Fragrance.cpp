@@ -15,17 +15,18 @@ void Fragrance::addReview(const Review &review)
     reviews.push_back(review);
 }
 
-bool Fragrance::removeReview(size_t reviewID)
+Review Fragrance::removeReview(size_t reviewID)
 {
     for (int i = 0; i < reviews.size(); i++)
     {
         if (reviews[i].getReviewID() == reviewID)
         {
+            Review *removedReview = &reviews[i];
             reviews.erase(reviews.begin() + i);
-            return true;
+            return *removedReview;
         }
     }
-    return false;
+    return Review(0, "", 0, "", 0); // Return an empty review if not found
 }
 
 void Fragrance::addQuantity(int quantityToAdd)

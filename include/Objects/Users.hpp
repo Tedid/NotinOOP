@@ -36,6 +36,7 @@ class Buyer : public User
     std::vector<Purchase> purchases;
     std::vector<Fragrance> wishlist;
     float balance;
+    int reviewsRemoved = 0;
     std::vector<Discount *> discounts;
 
     void removeFragranceFromVector(std::vector<Fragrance> &frags, const Fragrance &frag);
@@ -56,10 +57,13 @@ public:
 
     void addToPurchases(const Purchase &purchase);
 
+    void incrementReviewsRemoved();
+
     void addToDiscounts(Discount *discount);
     void removeDiscount(size_t discountID);
 
     float getBalance() const;
+    int getReviewsRemoved() const;
     std::vector<Fragrance> getCart() const;
     std::vector<Purchase> &getPurchases();
     std::vector<Discount *> getDiscounts() const;

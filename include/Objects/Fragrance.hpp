@@ -19,7 +19,7 @@ public:
     Fragrance(size_t fragranceID, const std::string &name, const std::string &brand, float price, const std::vector<size_t> &ingredientIDs, int quantity = 0);
 
     void addReview(const Review &review);
-    bool removeReview(size_t reviewID);
+    Review removeReview(size_t reviewID);
 
     void addQuantity(int quantityToAdd);
 

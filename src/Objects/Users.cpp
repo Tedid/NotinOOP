@@ -97,6 +97,11 @@ void Buyer::addToPurchases(const Purchase &purchase)
     purchases.push_back(purchase);
 }
 
+void Buyer::incrementReviewsRemoved()
+{
+    reviewsRemoved++;
+}
+
 void Buyer::addToDiscounts(Discount *discount)
 {
     discounts.push_back(discount);
@@ -237,6 +242,11 @@ void Buyer::viewDiscounts() const
 float Buyer::getBalance() const
 {
     return balance;
+}
+
+int Buyer::getReviewsRemoved() const
+{
+    return reviewsRemoved;
 }
 
 std::vector<Fragrance> Buyer::getCart() const

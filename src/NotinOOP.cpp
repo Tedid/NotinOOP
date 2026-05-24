@@ -903,8 +903,32 @@ void NotinOOP::handleRemoveReview(int fragranceId, int reviewId)
     {
         if (catalogue[i].getID() == fragranceId)
         {
-            if (catalogue[i].removeReview(reviewId))
+            Review removedReview = catalogue[i].removeReview(reviewId);
+
+            if (removedReview.getReviewID() != 0)
             {
+                const int MAX_REMOVED_REVIEWS = 7;
+
+                Buyer *reviewBuyer;
+                for (int j = 0; j < users.size(); j++)
+                {
+                    if (users[j]->getUserID() == removedReview.getUserID())
+                    {
+                        reviewBuyer = (Buyer *)users[j];
+                        break;
+                    }
+                }
+
+                if (reviewBuyer->getReviewsRemoved() < MAX_REMOVED_REVIEWS)
+                {
+                    reviewBuyer->incrementReviewsRemoved();
+                }
+                else
+                {
+                    std::cout << "7 of " << reviewBuyer->getUsername() << "'s reviews have already been removed. Their account will be blocked! >:)" << std::endl;
+                    handleBlockUser(reviewBuyer->getUsername());
+                }
+
                 std::cout << "Review removed successfully!" << std::endl;
             }
             else
