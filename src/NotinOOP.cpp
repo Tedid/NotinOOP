@@ -899,6 +899,23 @@ void NotinOOP::handleDeliverPurchase(int purchaseID)
 
 void NotinOOP::handleRemoveReview(int fragranceId, int reviewId)
 {
+    for (int i = 0; i < catalogue.size(); i++)
+    {
+        if (catalogue[i].getID() == fragranceId)
+        {
+            if (catalogue[i].removeReview(reviewId))
+            {
+                std::cout << "Review removed successfully!" << std::endl;
+            }
+            else
+            {
+                std::cout << "Review ID not found!" << std::endl;
+            }
+            return;
+        }
+    }
+
+    std::cout << "Fragrance ID not found!" << std::endl;
 }
 
 NotinOOP::NotinOOP()
