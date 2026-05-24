@@ -11,8 +11,6 @@ void NotinOOP::processCommand(const std::string &commandLine)
     if (commandLine.empty())
         return;
 
-    
-
     std::stringstream ss(commandLine);
     std::string command;
     ss >> command;
@@ -134,6 +132,10 @@ void NotinOOP::processCommand(const std::string &commandLine)
 
             handleMakeReview(fragranceName, rating, comment);
         }
+        else if (command == "logout")
+        {
+            handleLogout();
+        }
     }
     else if (activeUser != nullptr && activeUser->getType() == UserType::ADMIN)
     {
@@ -211,6 +213,10 @@ void NotinOOP::processCommand(const std::string &commandLine)
             }
 
             handleRemoveReview(fragranceId, reviewId);
+        }
+        else if (command == "logout")
+        {
+            handleLogout();
         }
     }
     else
