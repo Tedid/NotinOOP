@@ -285,7 +285,11 @@ void NotinOOP::handleRegister(const std::string &name, const std::string &pass)
     const int NEW_USER_DISCOUNT_NUMBER = 5;
     for (int i = 0; i < NEW_USER_DISCOUNT_NUMBER; i++)
     {
-        newBuyer->addToDiscounts(generateNewDiscount());
+        Discount *discount = generateNewDiscount();
+        newBuyer->addToDiscounts(discount);
+        std::cout << "New discount added to user! Discount details: " << std::endl;
+        discount->view();
+        std::cout << std::endl;
     }
 }
 
@@ -709,6 +713,13 @@ Discount *NotinOOP::generateNewDiscount()
     }
     else if (roll > 1 - BRAND_DISCOUNT_PROBABILITY) // more than 0.8
     {
+
+        if (catalogue.empty())
+        {
+            int percentageDiscount = 5 + (rand() % 26);
+            return new Discount(nextDiscountID++, percentageDiscount);
+        }
+
         // a percentage from 20 to 60:
         int percentageDiscount = 20 + (rand() % 41);
 
@@ -1026,6 +1037,7 @@ void NotinOOP::run()
     }
 
     activeUser = defaultAdmin;
+    std::cout << "Logged in as default admin. Type 'help' to see the list of available commands." << std::endl;
 
     std::string commandLine;
     while (std::getline(std::cin, commandLine))
