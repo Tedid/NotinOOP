@@ -52,6 +52,7 @@ class NotinOOP
     // Admin handling:
     void handleBlockUser(const std::string &username);
     void handleCreateFragrance(const std::string &name, const std::string &brand, float price, const std::vector<size_t> &ingredientsList);
+    void handleRemoveFragrance(const std::string &fragranceName);
     void handleAddQuantity(const std::string &fragranceName, int quantity);
     void handleDeliverPurchase(int purchaseID);
     void handleRemoveReview(int fragranceId, int reviewId);

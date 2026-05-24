@@ -201,6 +201,19 @@ void NotinOOP::processCommand(const std::string &commandLine)
 
             handleCreateFragrance(name, brand, price, ingredientsList);
         }
+        else if(command == "remove-fragrance")
+        {
+            std::string fragranceName;
+            ss >> fragranceName;
+
+            if (ss.fail() || fragranceName.empty())
+            {
+                std::cout << "Invalid fragrance name!" << std::endl;
+                return;
+            }
+
+            handleRemoveFragrance(fragranceName);
+        }
         else if (command == "add-quantity")
         {
             std::string fragranceName;
@@ -914,6 +927,41 @@ void NotinOOP::handleCreateFragrance(const std::string &name, const std::string 
     Fragrance newFragrance(nextFragranceID++, name, brand, price, ingredientsList);
     catalogue.push_back(newFragrance);
     std::cout << "Fragrance created successfully! New Fragrance ID: " << newFragrance.getID() << std::endl;
+}
+
+void NotinOOP::handleRemoveFragrance(const std::string &fragranceName)
+{
+    for (int i = 0; i < catalogue.size(); i++)
+    {
+        if (catalogue[i].getName() == fragranceName)
+        {
+            while(true){
+                std::cout << "This action will delete " << catalogue[i].getName() << " from the catalogue. Are you sure you want to continue? (y/n): ";
+                std::string answer;
+                std::cin >> answer;
+                Utils::toLower(answer);
+
+                if (answer == "y")
+                {
+                    break;
+                }
+                else if (answer == "n")
+                {
+                    std::cout << "Fragrance not removed!" << std::endl;
+                    return;
+                }
+                else
+                {
+                    std::cout << "Invalid answer! Please type 'y' or 'n'." << std::endl;
+                }
+            }
+            
+            catalogue.erase(catalogue.begin() + i);
+            std::cout << "Fragrance removed successfully!" << std::endl;
+            return;
+        }
+    }
+    std::cout << "Fragrance not found!" << std::endl;
 }
 
 void NotinOOP::handleAddQuantity(const std::string &fragranceName, int quantity)
