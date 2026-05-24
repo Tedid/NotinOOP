@@ -11,10 +11,14 @@ void NotinOOP::processCommand(const std::string &commandLine)
     if (commandLine.empty())
         return;
 
-    if(activeUser != nullptr)
+    std::cout << std::endl;
+
+    if (activeUser != nullptr)
     {
         std::cout << "Current user: " << activeUser->getUsername() << " (ID: " << activeUser->getUserID() << ", Type: " << (activeUser->getType() == UserType::BUYER ? "Buyer" : "Admin") << ")" << std::endl;
-    } else {
+    }
+    else
+    {
         std::cout << "No user is currently logged in. Login or register to access user features." << std::endl;
         std::cout << "Default admin account: Username: admin, Password: admin" << std::endl;
     }
@@ -140,7 +144,7 @@ void NotinOOP::processCommand(const std::string &commandLine)
 
             handleMakeReview(fragranceName, rating, comment);
         }
-        else if(command == "add-to-cart")
+        else if (command == "add-to-cart")
         {
             std::string fragranceName;
             ss >> fragranceName;
@@ -151,13 +155,18 @@ void NotinOOP::processCommand(const std::string &commandLine)
             std::string fragranceName;
             ss >> fragranceName;
             handleRemoveFromCart(fragranceName);
-        } else if (command == "help")
+        }
+        else if (command == "help")
         {
             activeUser->showHelp();
         }
         else if (command == "logout")
         {
             handleLogout();
+        }
+        else
+        {
+            std::cout << "Unknown command! Type 'help' to see the list of available commands." << std::endl;
         }
     }
     else if (activeUser != nullptr && activeUser->getType() == UserType::ADMIN)
@@ -244,6 +253,10 @@ void NotinOOP::processCommand(const std::string &commandLine)
         else if (command == "logout")
         {
             handleLogout();
+        }
+        else
+        {
+            std::cout << "Unknown command! Type 'help' to see the list of available commands." << std::endl;
         }
     }
     else
@@ -1004,7 +1017,7 @@ NotinOOP::~NotinOOP()
 void NotinOOP::run()
 {
     Admin *defaultAdmin = nullptr;
-    if(users.empty())
+    if (users.empty())
     {
         // Create a default admin account:
         defaultAdmin = new Admin(nextUserID++, "admin", "admin");
