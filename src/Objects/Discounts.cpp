@@ -16,7 +16,7 @@ DiscountType Discount::getType() const
 
 void Discount::view() const
 {
-    std::cout << "Discount №[" << discountID << "]:" << std::endl;
+    std::cout << "Discount ID[" << discountID << "]:" << std::endl;
     std::cout << "Discount percent: " << discountPercent << "%" << std::endl;
 }
 
@@ -42,9 +42,9 @@ DiscountType BonusDiscount::getType() const
 
 void BonusDiscount::view() const
 {
-    std::cout << "Bonus Discount №[" << discountID << "]:" << std::endl;
+    std::cout << "Bonus Discount ID[" << discountID << "]:" << std::endl;
     std::cout << "Discount percent: " << discountPercent << "%" << std::endl;
-    std::cout << "Bonus discount: €" << bonus << std::endl;
+    std::cout << "Bonus discount: " << bonus << " Euro" << std::endl;
 }
 
 float BonusDiscount::getBonus()
@@ -64,7 +64,7 @@ DiscountType BrandDiscount::getType() const
 
 void BrandDiscount::view() const
 {
-    std::cout << "Brand Discount №[" << discountID << "]:" << std::endl;
+    std::cout << "Brand Discount ID[" << discountID << "]:" << std::endl;
     std::cout << "Discount percent: " << discountPercent << "% ";
     std::cout << "for the brand: " << brandName << std::endl;
 }

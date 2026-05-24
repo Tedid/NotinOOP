@@ -17,11 +17,6 @@ void NotinOOP::processCommand(const std::string &commandLine)
     {
         std::cout << "Current user: " << activeUser->getUsername() << " (ID: " << activeUser->getUserID() << ", Type: " << (activeUser->getType() == UserType::BUYER ? "Buyer" : "Admin") << ")" << std::endl;
     }
-    else
-    {
-        std::cout << "No user is currently logged in. Login or register to access user features." << std::endl;
-        std::cout << "Default admin account: Username: admin, Password: admin" << std::endl;
-    }
 
     std::stringstream ss(commandLine);
     std::string command;
@@ -34,12 +29,14 @@ void NotinOOP::processCommand(const std::string &commandLine)
         std::string username, password;
         ss >> username >> password;
         handleRegister(username, password);
+        return;
     }
     else if (command == "login")
     {
         std::string username, password;
         ss >> username >> password;
         handleLogin(username, password);
+        return;
     }
 
     if (activeUser != nullptr && activeUser->getType() == UserType::BUYER)
@@ -261,7 +258,8 @@ void NotinOOP::processCommand(const std::string &commandLine)
     }
     else
     {
-        std::cout << "You must be logged in to use this command!" << std::endl;
+        std::cout << "No user is currently logged in. Login or register to access user features." << std::endl;
+        std::cout << "Default admin account: Username: admin, Password: admin" << std::endl;
     }
 }
 
@@ -1040,10 +1038,13 @@ void NotinOOP::run()
     std::cout << "Logged in as default admin. Type 'help' to see the list of available commands." << std::endl;
 
     std::string commandLine;
+    std::cout << "> ";
     while (std::getline(std::cin, commandLine))
     {
         if (commandLine == "end")
             break;
         processCommand(commandLine);
+        std::cout << std::endl
+                  << "> ";
     }
 }

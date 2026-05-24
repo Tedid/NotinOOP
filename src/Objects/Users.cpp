@@ -157,7 +157,7 @@ void Buyer::viewBought() const
 {
     if (purchases.empty())
     {
-        std::cout << "There aren't any past puchases";
+        std::cout << "There aren't any past puchases" << std::endl;
         return;
     }
 
@@ -193,7 +193,7 @@ void Buyer::viewPurchases() const
 {
     if (purchases.empty())
     {
-        std::cout << "There aren't any past puchases";
+        std::cout << "There aren't any past puchases" << std::endl;
         return;
     }
 
@@ -280,7 +280,7 @@ void Buyer::showHelp() const
     std::cout << " - view-cart - shows the contents of the cart" << std::endl;
     std::cout << " - view-bought - shows a list of all successful purchases" << std::endl;
     std::cout << " - view-purchases - shows a list of all purchases (PENDING, DELIVERED, or CANCELED)" << std::endl;
-    std::cout << " - recommend - recommends 3 fragrances based on the most liked note from the wishlist" << std::endl;
+    std::cout << " - recommend <amount> - recommends fragrances based on the most liked note from the wishlist" << std::endl;
     std::cout << " - checkout - completes the purchase, empties the cart, and automatically applies the best discount" << std::endl;
     std::cout << " - cancel <purchase-id> - cancels a created order (only if its status is PENDING)" << std::endl;
     std::cout << " - make-review <fragrance-name> <rating> <comment> - creates a review for the given fragrance" << std::endl;
