@@ -27,6 +27,7 @@ class NotinOOP
     // User handling:
     void handleRegister(const std::string &name, const std::string &pass);
     void handleLogin(const std::string &name, const std::string &pass);
+    void handleLogout();
 
     // Useful functions for buyers:
     Fragrance *findFragranceByName(const std::string &name);

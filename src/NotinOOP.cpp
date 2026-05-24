@@ -11,6 +11,8 @@ void NotinOOP::processCommand(const std::string &commandLine)
     if (commandLine.empty())
         return;
 
+    
+
     std::stringstream ss(commandLine);
     std::string command;
     ss >> command;
@@ -261,6 +263,17 @@ void NotinOOP::handleLogin(const std::string &name, const std::string &pass)
     }
 
     std::cout << "Username not found!" << std::endl;
+}
+
+void NotinOOP::handleLogout()
+{
+    if (activeUser == nullptr)
+    {
+        std::cout << "You are not logged in!" << std::endl;
+        return;
+    }
+    activeUser = nullptr;
+    std::cout << "Logged out successfully!" << std::endl;
 }
 
 void NotinOOP::handleAddToBalance(float amount)
