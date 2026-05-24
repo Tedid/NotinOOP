@@ -140,6 +140,21 @@ void NotinOOP::processCommand(const std::string &commandLine)
 
             handleMakeReview(fragranceName, rating, comment);
         }
+        else if(command == "add-to-cart")
+        {
+            std::string fragranceName;
+            ss >> fragranceName;
+            handleAddToCart(fragranceName);
+        }
+        else if (command == "remove-from-cart")
+        {
+            std::string fragranceName;
+            ss >> fragranceName;
+            handleRemoveFromCart(fragranceName);
+        } else if (command == "help")
+        {
+            activeUser->showHelp();
+        }
         else if (command == "logout")
         {
             handleLogout();
@@ -221,6 +236,10 @@ void NotinOOP::processCommand(const std::string &commandLine)
             }
 
             handleRemoveReview(fragranceId, reviewId);
+        }
+        else if (command == "help")
+        {
+            activeUser->showHelp();
         }
         else if (command == "logout")
         {
@@ -984,13 +1003,16 @@ NotinOOP::~NotinOOP()
 
 void NotinOOP::run()
 {
+    Admin *defaultAdmin = nullptr;
     if(users.empty())
     {
         // Create a default admin account:
-        Admin *defaultAdmin = new Admin(nextUserID++, "admin", "admin");
+        defaultAdmin = new Admin(nextUserID++, "admin", "admin");
         users.push_back(defaultAdmin);
         std::cout << "Default admin account created! Username: admin, Password: admin" << std::endl;
     }
+
+    activeUser = defaultAdmin;
 
     std::string commandLine;
     while (std::getline(std::cin, commandLine))
