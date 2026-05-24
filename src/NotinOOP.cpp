@@ -842,10 +842,21 @@ void NotinOOP::handleBlockUser(const std::string &username)
 
 void NotinOOP::handleCreateFragrance(const std::string &name, const std::string &brand, float price, const std::vector<size_t> &ingredientsList)
 {
+    Fragrance newFragrance(nextFragranceID++, name, brand, price, ingredientsList);
+    catalogue.push_back(newFragrance);
+    std::cout << "Fragrance created successfully! New Fragrance ID: " << newFragrance.getID() << std::endl;
 }
 
 void NotinOOP::handleAddQuantity(const std::string &fragranceName, int quantity)
 {
+    Fragrance *foundFragrance = findFragranceByName(fragranceName);
+    if (foundFragrance != nullptr)
+    {
+        foundFragrance->addQuantity(quantity);
+        std::cout << "Quantity added successfully! Current quantity: " << foundFragrance->getQuantity() << std::endl;
+        return;
+    }
+    std::cout << "Fragrance not found!" << std::endl;
 }
 
 void NotinOOP::handleDeliverPurchase(int purchaseID)

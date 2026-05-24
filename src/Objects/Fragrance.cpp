@@ -15,6 +15,11 @@ void Fragrance::addReview(const Review &review)
     reviews.push_back(review);
 }
 
+void Fragrance::addQuantity(int quantityToAdd)
+{
+    quantity += quantityToAdd;
+}
+
 size_t Fragrance::getID() const
 {
     return fragranceID;
