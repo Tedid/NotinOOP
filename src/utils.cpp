@@ -4,7 +4,7 @@
 namespace Utils
 {
 
-    void printFragrancesByType(std::vector<Fragrance> frags, int identationSize = 0, bool firstRowIdentation = false)
+    void printFragrancesByType(std::vector<Fragrance> frags, int identationSize, bool firstRowIdentation)
     {
         if (frags.empty())
         {
@@ -36,7 +36,7 @@ namespace Utils
         }
     }
 
-    void Utils::toLower(std::string &string)
+    void toLower(std::string &string)
     {
         for (int i = 0; i < string.size(); i++)
         {

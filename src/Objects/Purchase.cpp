@@ -3,7 +3,7 @@
 #include <iostream>
 #include "util/utils.hpp"
 
-Purchase::Purchase(size_t ID, std::vector<Fragrance> frags, PurchaseStatus stat, size_t uID, float finalPrice = 0)
+Purchase::Purchase(size_t ID, std::vector<Fragrance> frags, PurchaseStatus stat, size_t uID, float finalPrice)
 {
     purchaseID = ID;
     fragrances = frags;

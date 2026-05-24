@@ -1,6 +1,6 @@
 #include "Objects/Fragrance.hpp"
 
-Fragrance::Fragrance(size_t ID, const std::string &name, const std::string &brand, float price, const std::vector<size_t> &ingredientIDs, int quantity = 0)
+Fragrance::Fragrance(size_t ID, const std::string &name, const std::string &brand, float price, const std::vector<size_t> &ingredientIDs, int quantity)
 {
     fragranceID = ID;
     this->name = name;

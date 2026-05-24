@@ -3,6 +3,7 @@
 #include <string>
 
 #include "Fragrance.hpp"
+#include "util/enums.hpp"
 
 class Discount
 {
