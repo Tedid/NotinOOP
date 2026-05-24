@@ -17,9 +17,12 @@ public:
     // will use move for fragrances
     Purchase(size_t id, std::vector<Fragrance> fragrances, PurchaseStatus status, size_t userID, float finalPrice = 0);
 
+    void setStatus(PurchaseStatus newStatus);
+
     size_t getPurchaseID() const;
     PurchaseStatus getStatus() const;
     size_t getUserID() const;
+    float getFinalPrice() const;
 
     void show(const std::string &userName) const;
 };

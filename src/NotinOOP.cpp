@@ -742,6 +742,36 @@ void NotinOOP::handleCheckout()
 
 void NotinOOP::handleCancelPurchase(int purchaseID)
 {
+    for (int i = 0; i < purchases.size(); i++)
+    {
+        if (purchases[i].getPurchaseID() == purchaseID)
+        {
+            if (purchases[i].getUserID() != activeUser->getUserID())
+            {
+                std::cout << "You can only cancel your own purchases!" << std::endl;
+                return;
+            }
+
+            if (purchases[i].getStatus() == PurchaseStatus::DELIVERED)
+            {
+                std::cout << "This purchase is already delivered!" << std::endl;
+                return;
+            }
+            else if (purchases[i].getStatus() == PurchaseStatus::CANCELED)
+            {
+                std::cout << "This purchase is already cancelled!" << std::endl;
+                return;
+            }
+
+            purchases[i].setStatus(PurchaseStatus::CANCELED);
+
+            Buyer *currentBuyer = (Buyer *)activeUser;
+            currentBuyer->addToBalance(purchases[i].getFinalPrice()); // return money to account
+
+            std::cout << "Purchase cancelled successfully!" << std::endl;
+            return;
+        }
+    }
 }
 
 void NotinOOP::handleMakeReview(const std::string &fragranceName, double rating, const std::string &comment)

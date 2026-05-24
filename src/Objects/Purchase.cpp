@@ -12,6 +12,11 @@ Purchase::Purchase(size_t ID, std::vector<Fragrance> frags, PurchaseStatus stat,
     this->finalPrice = finalPrice;
 }
 
+void Purchase::setStatus(PurchaseStatus newStatus)
+{
+    status = newStatus;
+}
+
 size_t Purchase::getPurchaseID() const
 {
     return purchaseID;
@@ -25,6 +30,11 @@ PurchaseStatus Purchase::getStatus() const
 size_t Purchase::getUserID() const
 {
     return userID;
+}
+
+float Purchase::getFinalPrice() const
+{
+    return finalPrice;
 }
 
 void Purchase::show(const std::string &userName) const
