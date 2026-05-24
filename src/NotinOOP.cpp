@@ -274,60 +274,60 @@ void NotinOOP::handleAddToBalance(float amount)
 void NotinOOP::handleAddToWishlist(const std::string &fragranceName)
 {
     Buyer *currentBuyer = (Buyer *)activeUser;
-    for (int i = 0; i < catalogue.size(); i++)
+
+    Fragrance *foundFragrance = findFragranceByName(fragranceName);
+    if (foundFragrance != nullptr)
     {
-        if (catalogue[i].getName() == fragranceName)
-        {
-            currentBuyer->addToWishlist(catalogue[i]);
-            std::cout << "Fragrance added to wishlist!" << std::endl;
-            return;
-        }
+        currentBuyer->addToWishlist(*foundFragrance);
+        std::cout << "Fragrance added to wishlist!" << std::endl;
+        return;
     }
+
     std::cout << "Fragrance not found!" << std::endl;
 }
 
 void NotinOOP::handleRemoveFromWishlist(const std::string &fragranceName)
 {
     Buyer *currentBuyer = (Buyer *)activeUser;
-    for (int i = 0; i < catalogue.size(); i++)
+
+    Fragrance *foundFragrance = findFragranceByName(fragranceName);
+    if (foundFragrance != nullptr)
     {
-        if (catalogue[i].getName() == fragranceName)
-        {
-            currentBuyer->removeFromWishlist(catalogue[i]);
-            std::cout << "Fragrance removed from wishlist!" << std::endl;
-            return;
-        }
+        currentBuyer->removeFromWishlist(*foundFragrance);
+        std::cout << "Fragrance removed from wishlist!" << std::endl;
+        return;
     }
+
     std::cout << "Fragrance not found!" << std::endl;
 }
 
 void NotinOOP::handleAddToCart(const std::string &fragranceName)
 {
     Buyer *currentBuyer = (Buyer *)activeUser;
-    for (int i = 0; i < catalogue.size(); i++)
+
+    Fragrance *foundFragrance = findFragranceByName(fragranceName);
+    if (foundFragrance != nullptr)
     {
-        if (catalogue[i].getName() == fragranceName)
-        {
-            currentBuyer->addToCart(catalogue[i]);
-            std::cout << "Fragrance added to cart!" << std::endl;
-            return;
-        }
+        currentBuyer->addToCart(*foundFragrance);
+        std::cout << "Fragrance added to cart!" << std::endl;
+        return;
     }
+
     std::cout << "Fragrance not found!" << std::endl;
 }
 
 void NotinOOP::handleRemoveFromCart(const std::string &fragranceName)
 {
     Buyer *currentBuyer = (Buyer *)activeUser;
-    for (int i = 0; i < catalogue.size(); i++)
+
+    Fragrance *foundFragrance = findFragranceByName(fragranceName);
+    if (foundFragrance != nullptr)
     {
-        if (catalogue[i].getName() == fragranceName)
-        {
-            currentBuyer->removeFromCart(catalogue[i]);
-            std::cout << "Fragrance removed from cart!" << std::endl;
-            return;
-        }
+        currentBuyer->removeFromCart(*foundFragrance);
+        std::cout << "Fragrance removed from cart!" << std::endl;
+        return;
     }
+
     std::cout << "Fragrance not found!" << std::endl;
 }
 
@@ -591,6 +591,18 @@ float NotinOOP::fragrancesDiscountedPrice(const std::vector<Fragrance> &frags, D
     return (totalPrice < 0.0f) ? 0.0f : totalPrice;
 }
 
+Fragrance *NotinOOP::findFragranceByName(const std::string &name)
+{
+    for (int i = 0; i < catalogue.size(); i++)
+    {
+        if (catalogue[i].getName() == name)
+        {
+            return &catalogue[i];
+        }
+    }
+    return nullptr;
+}
+
 int NotinOOP::getBestDiscountIndex()
 {
     Buyer *currentBuyer = (Buyer *)activeUser;
@@ -776,17 +788,16 @@ void NotinOOP::handleCancelPurchase(int purchaseID)
 
 void NotinOOP::handleMakeReview(const std::string &fragranceName, double rating, const std::string &comment)
 {
-    for (int i = 0; i < catalogue.size(); i++)
+    Fragrance *foundFragrance = findFragranceByName(fragranceName);
+
+    if (foundFragrance != nullptr)
     {
-        if (catalogue[i].getName() == fragranceName)
-        {
-            Review newReview(nextReviewID++,fragranceName, activeUser->getUserID(), comment, rating);
-            
-            catalogue[i].addReview(newReview);
-            std::cout << "Review added successfully!" << std::endl;
-            return;
-        }
+        Review newReview(nextReviewID++, fragranceName, activeUser->getUserID(), comment, rating);
+        foundFragrance->addReview(newReview);
+        std::cout << "Review added successfully to " << fragranceName << "!" << std::endl;
+        return;
     }
+
     std::cout << "Fragrance not found!" << std::endl;
 }
 
