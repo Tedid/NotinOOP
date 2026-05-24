@@ -271,10 +271,32 @@ std::vector<Fragrance> Buyer::getWishlist() const
 
 void Buyer::showHelp() const
 {
-    // Will be written in the end
+    std::cout << "Buyer help menu:" << std::endl;
+    std::cout << " - add-to-balance <amount> - adds the specified amount to the user's balance" << std::endl;
+    std::cout << " - add-to-wishlist <fragrance-name> - adds the fragrance with this name to the user's wishlist" << std::endl;
+    std::cout << " - remove-from-wishlist <fragrance-name> - removes the fragrance with this name from the user's wishlist" << std::endl;
+    std::cout << " - add-to-cart <fragrance-name> - adds the fragrance with this name to the user's cart" << std::endl;
+    std::cout << " - remove-from-cart <fragrance-name> - removes the fragrance with this name from the user's cart" << std::endl;
+    std::cout << " - view-cart - shows the contents of the cart" << std::endl;
+    std::cout << " - view-bought - shows a list of all successful purchases" << std::endl;
+    std::cout << " - view-purchases - shows a list of all purchases (PENDING, DELIVERED, or CANCELED)" << std::endl;
+    std::cout << " - recommend - recommends 3 fragrances based on the most liked note from the wishlist" << std::endl;
+    std::cout << " - checkout - completes the purchase, empties the cart, and automatically applies the best discount" << std::endl;
+    std::cout << " - cancel <purchase-id> - cancels a created order (only if its status is PENDING)" << std::endl;
+    std::cout << " - make-review <fragrance-name> <rating> <comment> - creates a review for the given fragrance" << std::endl;
 }
 
 Admin::Admin(size_t id, const std::string &name, const std::string &pass) : User(id, name, pass)
 {
     type = UserType::ADMIN;
+}
+
+void Admin::showHelp() const
+{
+    std::cout << "Admin help menu:" << std::endl;
+    std::cout << " - block-user <username> - blocks the user with the specified username" << std::endl;
+    std::cout << " - remove-review <fragrance-id> <review-id> - removes the review with the specified ID from the fragrance" << std::endl;
+    std::cout << " - deliver <purchase-id> - marks the purchase with the specified ID as delivered" << std::endl;
+    std::cout << " - create-fragrance <name> <brand> <price> - creates a new fragrance with the specified details" << std::endl;
+    std::cout << " - add-quantity <fragrance-name> <quantity> - adds the specified quantity to the fragrance with this name" << std::endl;
 }

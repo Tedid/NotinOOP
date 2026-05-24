@@ -94,4 +94,6 @@ public:
 
     // void createFragrance(const std::string &name, const std::string &brand, float price, const std::vector<size_t> &ingredientIDs);
     // void addQuantity(const std::string &name, int quantity);
+
+    void showHelp() const override;
 };
