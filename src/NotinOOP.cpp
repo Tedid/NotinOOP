@@ -5,6 +5,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include <fstream>
 
 void NotinOOP::processCommand(const std::string &commandLine)
 {
@@ -193,7 +194,7 @@ void NotinOOP::processCommand(const std::string &commandLine)
             {
                 if (ss.peek() == ',')
                 {
-                    ss.ignore();    // ignore the comma
+                    ss.ignore(); // ignore the comma
                 }
 
                 ingredientsList.push_back(ingredientID);
@@ -779,6 +780,42 @@ Discount *NotinOOP::generateNewDiscount()
     }
 }
 
+size_t NotinOOP::getLastIngredientID()
+{
+    std::ifstream ingredientsFile("data/ingredients.txt");
+    if (!ingredientsFile.is_open())
+    {
+        std::cout << "Could not open ingredients file!" << std::endl;
+        return 0;
+    }
+
+    std::string currentLine;
+    std::string lastNonEmptyLine;
+
+    // Skip lines until the end
+    while (std::getline(ingredientsFile, currentLine))
+    {
+        if (!currentLine.empty())
+        {
+            lastNonEmptyLine = currentLine;
+        }
+    }
+
+    ingredientsFile.close();
+
+    std::stringstream ss(lastNonEmptyLine);
+    size_t lastID = 0;
+    ss >> lastID;
+
+    if (ss.fail())
+    {
+        std::cout << "Couldn't get ID from ingredients file's last line!" << std::endl;
+        return 0;
+    }
+
+    return lastID;
+}
+
 void NotinOOP::handleCheckout()
 {
     Buyer *currentBuyer = (Buyer *)activeUser;
@@ -1107,6 +1144,7 @@ void NotinOOP::run()
         if (commandLine == "end")
             break;
         processCommand(commandLine);
+
         std::cout << std::endl
                   << "> ";
     }

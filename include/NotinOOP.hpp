@@ -35,6 +35,9 @@ class NotinOOP
     float fragrancesDiscountedPrice(const std::vector<Fragrance> &frags, Discount &discount);
     Discount *generateNewDiscount();
 
+    // Useful functions for admins:
+    size_t NotinOOP::getLastIngredientID();
+
     // Buyer handling:
     void handleAddToBalance(float amount);
     void handleAddToWishlist(const std::string &fragranceName);
