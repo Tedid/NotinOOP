@@ -73,7 +73,7 @@ float Fragrance::getAvgRating() const
 {
     int sum = 0;
     int numberOfRatings = getReviews().size();
-    for (int i = 0; i <= numberOfRatings; i++)
+    for (int i = 0; i < numberOfRatings; i++)
     {
         sum += getReviews()[i].getRating();
     }

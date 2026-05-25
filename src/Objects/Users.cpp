@@ -130,7 +130,7 @@ void Buyer::viewBought() const
     }
 
     bool areThereDeliveredPurchases = false;
-    for (int i = 0; i <= purchases.size(); i++)
+    for (int i = 0; i < purchases.size(); i++)
     {
         if (purchases[i].getStatus() == PurchaseStatus::DELIVERED)
         {
@@ -147,7 +147,7 @@ void Buyer::viewBought() const
 
     std::string message = "Delivered orders: ";
 
-    for (int i = 0; i <= purchases.size(); i++)
+    for (int i = 0; i < purchases.size(); i++)
     {
         Purchase currentPurchase = purchases[i];
         if (currentPurchase.getStatus() == PurchaseStatus::DELIVERED)
@@ -167,7 +167,7 @@ void Buyer::viewPurchases() const
 
     std::string message = "All orders: ";
 
-    for (int i = 0; i <= purchases.size(); i++)
+    for (int i = 0; i < purchases.size(); i++)
     {
         purchases[i].show(username);
     }
