@@ -27,6 +27,7 @@ class NotinOOP
 
     // User handling:
     void handleRegister(const std::string &name, const std::string &pass);
+    void handleRegisterAdmin(const std::string &name, const std::string &pass);
     void handleLogin(const std::string &name, const std::string &pass);
     void handleLogout();
 

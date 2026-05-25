@@ -32,6 +32,13 @@ void NotinOOP::processCommand(const std::string &commandLine)
         handleRegister(username, password);
         return;
     }
+    else if (command == "register-admin")
+    {
+        std::string username, password;
+        ss >> username >> password;
+        handleRegisterAdmin(username, password);
+        return;
+    }
     else if (command == "login")
     {
         std::string username, password;
@@ -294,7 +301,7 @@ void NotinOOP::processCommand(const std::string &commandLine)
     }
     else
     {
-        std::cout << "No user is currently logged in. Login or register to access user features." << std::endl;
+        std::cout << "No user is currently logged in. Login, register or register-admin to access user features." << std::endl;
         std::cout << "Default admin account: Username: admin, Password: admin" << std::endl;
     }
 }
@@ -325,6 +332,21 @@ void NotinOOP::handleRegister(const std::string &name, const std::string &pass)
         discount->view();
         std::cout << std::endl;
     }
+}
+
+void NotinOOP::handleRegisterAdmin(const std::string &name, const std::string &pass)
+{
+    for (int i = 0; i < users.size(); i++)
+    {
+        if (users[i]->getUsername() == name)
+        {
+            std::cout << "Username already exists!" << std::endl;
+            return;
+        }
+    }
+
+    Admin *newAdmin = new Admin(nextUserID++, name, pass);
+    users.push_back(newAdmin);
 }
 
 void NotinOOP::handleLogin(const std::string &name, const std::string &pass)
