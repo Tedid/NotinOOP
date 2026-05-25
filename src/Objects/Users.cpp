@@ -302,7 +302,7 @@ void Buyer::serialize(std::ostream &os) const
     {
         for (int i = 0; i < discounts.size(); i++)
         {
-            discounts[i]->serialize(os);    // <type:ID:percent:bonus/brand>
+            discounts[i]->serialize(os); // <type:ID:percent:bonus/brand>
             if (i != discounts.size() - 1)
             {
                 os << " ";

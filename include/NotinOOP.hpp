@@ -10,7 +10,8 @@
 
 class NotinOOP
 {
-    size_t nextUserID = 1000000;      // A million
+    const size_t DEFAULT_ADMIN_ID = 1000000; // A million
+    size_t nextUserID = DEFAULT_ADMIN_ID + 1;
     size_t nextFragranceID = 2000000; // Two million
     size_t nextPurchaseID = 3000000;  // Three million
     size_t nextReviewID = 4000000;    // Four million

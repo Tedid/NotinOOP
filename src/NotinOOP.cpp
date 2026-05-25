@@ -1121,7 +1121,7 @@ void NotinOOP::handleRemoveReview(int fragranceId, int reviewId)
 void NotinOOP::printAvailableIngredients() const
 {
     std::cout << "Available ingredients and their IDs:" << std::endl;
-    
+
     std::ifstream file("data/ingredients.txt");
 
     if (!file.is_open())
@@ -1232,7 +1232,7 @@ void NotinOOP::run()
     if (users.empty())
     {
         // Create a default admin account:
-        defaultAdmin = new Admin(nextUserID++, "admin", "admin");
+        defaultAdmin = new Admin(DEFAULT_ADMIN_ID, "admin", "admin");
         users.push_back(defaultAdmin);
         std::cout << "Default admin account created! Username: admin, Password: admin" << std::endl;
     }
