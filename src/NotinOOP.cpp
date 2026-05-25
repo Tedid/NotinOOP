@@ -191,17 +191,23 @@ void NotinOOP::processCommand(const std::string &commandLine)
             size_t ingredientID;
             while (ss >> ingredientID)
             {
-                if (ss.fail())
+                if (ss.peek() == ',')
                 {
-                    std::cout << "Invalid ingredient ID!" << std::endl;
-                    return;
+                    ss.ignore();    // ignore the comma
                 }
+
                 ingredientsList.push_back(ingredientID);
+            }
+
+            if (ss.fail() && !ss.eof())
+            {
+                std::cout << "Invalid ingredient ID!" << std::endl;
+                return;
             }
 
             handleCreateFragrance(name, brand, price, ingredientsList);
         }
-        else if(command == "remove-fragrance")
+        else if (command == "remove-fragrance")
         {
             std::string fragranceName;
             ss >> fragranceName;
@@ -935,7 +941,8 @@ void NotinOOP::handleRemoveFragrance(const std::string &fragranceName)
     {
         if (catalogue[i].getName() == fragranceName)
         {
-            while(true){
+            while (true)
+            {
                 std::cout << "This action will delete " << catalogue[i].getName() << " from the catalogue. Are you sure you want to continue? (y/n): ";
                 std::string answer;
                 std::cin >> answer;
@@ -955,7 +962,7 @@ void NotinOOP::handleRemoveFragrance(const std::string &fragranceName)
                     std::cout << "Invalid answer! Please type 'y' or 'n'." << std::endl;
                 }
             }
-            
+
             catalogue.erase(catalogue.begin() + i);
             std::cout << "Fragrance removed successfully!" << std::endl;
             return;
