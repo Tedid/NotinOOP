@@ -77,6 +77,7 @@ public:
 
     void showHelp() const override;
     void serialize(std::ostream& os) const override;
+    static Buyer* deserialize(const std::string& line, const std::vector<Fragrance>& catalogue);
 };
 
 class Admin : public User
