@@ -45,7 +45,7 @@ size_t Review::getUserID() const
     return userID;
 }
 
-std::string Review::getComent() const
+std::string Review::getComment() const
 {
     return comment;
 }

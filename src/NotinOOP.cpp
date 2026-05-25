@@ -1445,7 +1445,11 @@ void NotinOOP::run()
     }
 
     activeUser = defaultAdmin;
-    std::cout << "Logged in as default admin. Type 'help' to see the list of available commands." << std::endl;
+
+    if(activeUser != nullptr)
+    {
+        std::cout << "Logged in as default admin. Type 'help' to see the list of available commands." << std::endl;
+    }
 
     std::string commandLine;
     std::cout << "> ";

@@ -16,6 +16,6 @@ public:
     size_t getReviewID() const;
     std::string getName() const;
     size_t getUserID() const;
-    std::string getComent() const;
+    std::string getComment() const;
     int getRating() const;
 };

@@ -37,7 +37,7 @@ class NotinOOP
     Discount *generateNewDiscount();
 
     // Useful functions for admins:
-    size_t NotinOOP::getLastIngredientID();
+    size_t getLastIngredientID();
 
     // Buyer handling:
     void handleAddToBalance(float amount);
