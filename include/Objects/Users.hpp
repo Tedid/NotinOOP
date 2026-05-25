@@ -36,14 +36,14 @@ class Buyer : public User
     std::vector<Fragrance> cart;
     std::vector<Purchase> purchases;
     std::vector<Fragrance> wishlist;
-    float balance;
+    float balance = 0;
     int reviewsRemoved = 0;
     std::vector<Discount *> discounts;
 
     void removeFragranceFromVector(std::vector<Fragrance> &frags, const Fragrance &frag);
 
 public:
-    Buyer(size_t id, const std::string &name, const std::string &pass, float balance = 0);
+    Buyer(size_t id, const std::string &name, const std::string &pass, float balance = 0, int reviewsRemoved = 0);
 
     void addToBalance(float money);
 

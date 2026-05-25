@@ -42,9 +42,10 @@ std::string User::getPassword() const
     return password;
 }
 
-Buyer::Buyer(size_t id, const std::string &name, const std::string &pass, float balance) : User(id, name, pass)
+Buyer::Buyer(size_t id, const std::string &name, const std::string &pass, float balance, int reviewsRemoved) : User(id, name, pass)
 {
     this->balance = balance;
+    this->reviewsRemoved = reviewsRemoved;
     type = UserType::BUYER;
 }
 
