@@ -99,6 +99,29 @@ void Buyer::addToPurchases(const Purchase &purchase)
     purchases.push_back(purchase);
 }
 
+void Buyer::cancelPurchase(size_t purchaseID)
+{
+    for (size_t i = 0; i < purchases.size(); i++)
+    {
+        if (purchases[i].getPurchaseID() == purchaseID)
+        {
+            if (purchases[i].getStatus() == PurchaseStatus::PENDING)
+            {
+                purchases[i].setStatus(PurchaseStatus::CANCELLED);
+                std::cout << "Purchase cancelled successfully!" << std::endl;
+                return;
+            }
+            else
+            {
+                std::cout << "Only pending purchases can be cancelled!" << std::endl;
+                return;
+            }
+        }
+    }
+
+    std::cout << "Purchase not found!" << std::endl;
+}
+
 void Buyer::incrementReviewsRemoved()
 {
     reviewsRemoved++;

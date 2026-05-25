@@ -896,32 +896,7 @@ void NotinOOP::handleCancelPurchase(int purchaseID)
 {
     Buyer *currentBuyer = (Buyer *)activeUser;
 
-    std::vector<Purchase> purchases = currentBuyer->getPurchases();
-
-    for (int i = 0; i < purchases.size(); i++)
-    {
-        if (purchases[i].getPurchaseID() == purchaseID)
-        {
-            if (purchases[i].getStatus() == PurchaseStatus::DELIVERED)
-            {
-                std::cout << "This purchase is already delivered!" << std::endl;
-                return;
-            }
-            else if (purchases[i].getStatus() == PurchaseStatus::CANCELLED)
-            {
-                std::cout << "This purchase is already cancelled!" << std::endl;
-                return;
-            }
-
-            purchases[i].setStatus(PurchaseStatus::CANCELLED);
-
-            Buyer *currentBuyer = (Buyer *)activeUser;
-            currentBuyer->addToBalance(purchases[i].getFinalPrice()); // return money to account
-
-            std::cout << "Purchase cancelled successfully!" << std::endl;
-            return;
-        }
-    }
+    currentBuyer->cancelPurchase(purchaseID);
 }
 
 void NotinOOP::handleMakeReview(const std::string &fragranceName, double rating, const std::string &comment)

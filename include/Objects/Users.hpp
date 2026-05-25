@@ -57,6 +57,7 @@ public:
     void clearCart();
 
     void addToPurchases(const Purchase &purchase);
+    void cancelPurchase(size_t purchaseID);
 
     void incrementReviewsRemoved();
 
