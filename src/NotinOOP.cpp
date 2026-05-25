@@ -283,7 +283,7 @@ void NotinOOP::processCommand(const std::string &commandLine)
         {
             handleLogout();
         }
-        else if(command == "print-ingredients")
+        else if (command == "print-ingredients")
         {
             printAvailableIngredients();
         }
@@ -1168,10 +1168,49 @@ void NotinOOP::printAvailableIngredients() const
 
 void NotinOOP::saveData() const
 {
+    // Saving the IDs:
+    std::ofstream stateFile("data/system_state.txt");
+    if (!stateFile.is_open())
+    {
+        std::cout << "Could not open system state file for writing!" << std::endl;
+        return;
+    }
+
+    stateFile << "nextUserID " << nextUserID << std::endl;
+    stateFile << "nextFragranceID " << nextFragranceID << std::endl;
+    stateFile << "nextPurchaseID " << nextPurchaseID << std::endl;
+    stateFile << "nextReviewID " << nextReviewID << std::endl;
+    stateFile << "nextDiscountID " << nextDiscountID << std::endl;
+    stateFile.close();
+
+    // Saving the users:
+    std::ofstream usersFile("data/users.txt");
+    if (!usersFile.is_open())
+    {
+        std::cout << "Could not open users file for writing!" << std::endl;
+        return;
+    }
+
+
 }
 
 void NotinOOP::loadData()
 {
+    std::ifstream stateFile("data/system_state.txt");
+    if (!stateFile.is_open())
+    {
+        std::cout << "Could not open system state file for reading!" << std::endl;
+        return;
+    }
+
+    std::string variableName;
+    stateFile >> variableName >> nextUserID;
+    stateFile >> variableName >> nextFragranceID;
+    stateFile >> variableName >> nextPurchaseID;
+    stateFile >> variableName >> nextReviewID;
+    stateFile >> variableName >> nextDiscountID;
+
+    stateFile.close();
 }
 
 NotinOOP::NotinOOP()
