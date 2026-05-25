@@ -1058,6 +1058,14 @@ void NotinOOP::handleRemoveReview(int fragranceId, int reviewId)
     std::cout << "Fragrance ID not found!" << std::endl;
 }
 
+void NotinOOP::saveData() const
+{
+}
+
+void NotinOOP::loadData()
+{
+}
+
 NotinOOP::NotinOOP()
 {
     srand(time(0));

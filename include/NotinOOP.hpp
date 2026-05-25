@@ -57,6 +57,10 @@ class NotinOOP
     void handleDeliverPurchase(int purchaseID);
     void handleRemoveReview(int fragranceId, int reviewId);
 
+    // File handling:
+    void saveData() const;
+    void loadData();
+
 public:
     NotinOOP();
     ~NotinOOP();
