@@ -35,6 +35,11 @@ size_t Discount::getID() const
     return discountID;
 }
 
+void Discount::serialize(std::ostream &os) const
+{
+    os << "D:" << discountID << ":" << discountPercent;
+}
+
 DiscountType BonusDiscount::getType() const
 {
     return DiscountType::BONUS_DISCOUNT;
@@ -50,6 +55,11 @@ void BonusDiscount::view() const
 float BonusDiscount::getBonus()
 {
     return bonus;
+}
+
+void BonusDiscount::serialize(std::ostream &os) const
+{
+    os << "B:" << discountID << ":" << discountPercent << ":" << bonus;
 }
 
 BrandDiscount::BrandDiscount(size_t id, int percent, const std::string &name) : Discount(id, percent)
@@ -72,4 +82,9 @@ void BrandDiscount::view() const
 std::string BrandDiscount::getBrandName()
 {
     return brandName;
+}
+
+void BrandDiscount::serialize(std::ostream &os) const
+{
+    os << "BR:" << discountID << ":" << discountPercent << ":" << brandName;
 }

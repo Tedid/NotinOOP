@@ -252,6 +252,65 @@ void Buyer::showHelp() const
     std::cout << " - make-review <fragrance-name> <rating> <comment> - creates a review for the given fragrance" << std::endl;
 }
 
+void Buyer::serialize(std::ostream &os) const
+{
+    // variables:
+    os << "B|" << userID << "|" << username << "|" << password << "|" << balance << "|" << reviewsRemoved << "|";
+
+    // wishlist
+    if (wishlist.empty())
+    {
+        os << "empty";
+    }
+    else
+    {
+        for (int i = 0; i < wishlist.size(); i++)
+        {
+            os << wishlist[i].getID();
+            if (i != wishlist.size() - 1)
+            {
+                os << " ";
+            }
+        }
+    }
+    os << "|";
+
+    // cart
+    if (cart.empty())
+    {
+        os << "empty";
+    }
+    else
+    {
+        for (int i = 0; i < cart.size(); i++)
+        {
+            os << cart[i].getID();
+            if (i != cart.size() - 1)
+            {
+                os << " ";
+            }
+        }
+    }
+    os << "|";
+
+    // discounts
+    if (discounts.empty())
+    {
+        os << "empty";
+    }
+    else
+    {
+        for (int i = 0; i < discounts.size(); i++)
+        {
+            discounts[i]->serialize(os);    // <type:ID:percent:bonus/brand>
+            if (i != discounts.size() - 1)
+            {
+                os << " ";
+            }
+        }
+    }
+}
+
 Admin::Admin(size_t id, const std::string &name, const std::string &pass) : User(id, name, pass)
 {
     type = UserType::ADMIN;
@@ -267,4 +326,9 @@ void Admin::showHelp() const
     std::cout << " - remove-fragrance <fragrance-name> - removes the fragrance with the specified name from the catalogue" << std::endl;
     std::cout << " - add-quantity <fragrance-name> <quantity> - adds the specified quantity to the fragrance with this name" << std::endl;
     std::cout << " - print-ingredients - prints the list of available ingredients and their IDs" << std::endl;
+}
+
+void Admin::serialize(std::ostream &os) const
+{
+    os << "A|" << userID << "|" << username << "|" << password << std::endl;
 }

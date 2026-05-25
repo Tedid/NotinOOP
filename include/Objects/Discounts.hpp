@@ -19,6 +19,8 @@ public:
     int getPercent();
     size_t getID() const;
 
+    virtual void serialize(std::ostream &os) const;
+
     virtual ~Discount() = default;
 };
 
@@ -32,6 +34,8 @@ public:
     DiscountType getType() const override;
     void view() const override;
     float getBonus();
+
+    void serialize(std::ostream &os) const override;
 };
 
 class BrandDiscount : public Discount
@@ -44,4 +48,6 @@ public:
     DiscountType getType() const override;
     void view() const override;
     std::string getBrandName();
+
+    void serialize(std::ostream &os) const override;
 };
