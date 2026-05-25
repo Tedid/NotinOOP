@@ -105,7 +105,7 @@ void NotinOOP::processCommand(const std::string &commandLine)
             size_t purchaseID;
             ss >> purchaseID;
 
-            if (ss.fail() || purchaseID < 0)
+            if (ss.fail())
             {
                 std::cout << "Invalid ID" << std::endl;
             }
@@ -204,7 +204,7 @@ void NotinOOP::processCommand(const std::string &commandLine)
                     ss.ignore(); // ignore the comma
                 }
 
-                if (ingredientID < 0 || ingredientID > lastIngredientID)
+                if (ingredientID > lastIngredientID)
                 {
                     std::cout << "Ingredient " << ingredientID << " doesn't fit the range [0, " << lastIngredientID << "]" << std::endl;
                     return;
@@ -267,7 +267,7 @@ void NotinOOP::processCommand(const std::string &commandLine)
 
             ss >> fragranceId >> reviewId;
 
-            if (ss.fail() || fragranceId < 0 || reviewId < 0)
+            if (ss.fail())
             {
                 std::cout << "Invalid IDs" << std::endl;
                 return;
