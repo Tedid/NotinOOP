@@ -21,9 +21,9 @@ Review Fragrance::removeReview(size_t reviewID)
     {
         if (reviews[i].getReviewID() == reviewID)
         {
-            Review *removedReview = &reviews[i];
+            Review removedReview = reviews[i];
             reviews.erase(reviews.begin() + i);
-            return *removedReview;
+            return removedReview;
         }
     }
     return Review(0, "", 0, "", 0); // Return an empty review if not found
