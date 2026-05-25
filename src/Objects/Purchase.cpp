@@ -63,3 +63,36 @@ void Purchase::show(const std::string &userName) const
     Utils::printFragrancesByType(fragrances, message.size());
     std::cout << "Summed price: " << finalPrice << std::endl;
 }
+
+void Purchase::serialize(std::ostream &os) const
+{
+    os << purchaseID << ":";
+
+    for (int i = 0; i < fragrances.size(); i++)
+    {
+        os << fragrances[i].getID();
+        if (i != fragrances.size() - 1)
+        {
+            os << " ";
+        }
+    }
+
+    int statusInt;
+    switch (status)
+    {
+    case PurchaseStatus::PENDING:
+        statusInt = 0;
+        break;
+    case PurchaseStatus::DELIVERED:
+        statusInt = 1;
+        break;
+    case PurchaseStatus::CANCELLED:
+        statusInt = 2;
+        break;
+    default:
+        statusInt = -1;
+        break;
+    }
+    
+    os << ":" << statusInt << ":" << userID << ":" << finalPrice;
+}

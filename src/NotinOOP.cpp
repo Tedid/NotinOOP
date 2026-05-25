@@ -1191,11 +1191,17 @@ void NotinOOP::saveData() const
         return;
     }
 
+    for (int i = 0; i < users.size(); i++)
+    {
+        users[i]->serialize(usersFile);
+    }
 
+    usersFile.close();
 }
 
 void NotinOOP::loadData()
 {
+    // Loading the IDs:
     std::ifstream stateFile("data/system_state.txt");
     if (!stateFile.is_open())
     {

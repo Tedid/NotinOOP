@@ -25,4 +25,5 @@ public:
     float getFinalPrice() const;
 
     void show(const std::string &userName) const;
+    void serialize(std::ostream &os) const;
 };

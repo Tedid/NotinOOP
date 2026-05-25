@@ -2,6 +2,7 @@
 #include "util/enums.hpp"
 
 #include <iostream>
+#include <sstream>
 
 Discount::Discount(size_t id, int percent)
 {
@@ -60,6 +61,20 @@ float BonusDiscount::getBonus()
 void BonusDiscount::serialize(std::ostream &os) const
 {
     os << "B:" << discountID << ":" << discountPercent << ":" << bonus;
+}
+
+void BonusDiscount::deserialize(const std::string &str)
+{
+    std::stringstream ss(str);
+
+    size_t id;
+    int percent;
+    float bonus;
+    ss >> id >> percent >> bonus;
+
+    discountID = id;
+    discountPercent = percent;
+    this->bonus = bonus;
 }
 
 BrandDiscount::BrandDiscount(size_t id, int percent, const std::string &name) : Discount(id, percent)

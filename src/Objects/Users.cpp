@@ -2,6 +2,7 @@
 #include "util/utils.hpp"
 
 #include <iostream>
+#include <sstream>
 
 void Buyer::removeFragranceFromVector(std::vector<Fragrance> &frags, const Fragrance &frag)
 {
@@ -310,6 +311,24 @@ void Buyer::serialize(std::ostream &os) const
             }
         }
     }
+
+    // purchases
+        if (purchases.empty())
+        {
+            os << "empty";
+        }
+        else
+        {
+            for (int i = 0; i < purchases.size(); i++)
+            {
+                // <purchaseID:<fragranceIDs>:fragranceID:status:userID:finalPrice>
+                purchases[i].serialize(os);
+                if (i != purchases.size() - 1)
+                {
+                    os << " ";
+                }
+            }
+        }
 }
 
 Admin::Admin(size_t id, const std::string &name, const std::string &pass) : User(id, name, pass)
