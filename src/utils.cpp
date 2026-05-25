@@ -12,7 +12,7 @@ namespace Utils
             return;
         }
 
-        const std::string SPACES = (identationSize, " ");
+        const std::string SPACES(identationSize, ' ');
         while (frags.size() > 0)
         {
             Fragrance temp = frags[0];

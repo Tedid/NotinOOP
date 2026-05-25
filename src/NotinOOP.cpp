@@ -873,6 +873,8 @@ void NotinOOP::handleCheckout()
         }
         std::cout << std::endl;
         std::cout << "Final price: €" << discountedPrice << std::endl;
+
+        currentBuyer->removeDiscount(discounts[bestVoucherIndex]->getID()); // remove used Discount
     }
     else
     {
@@ -883,8 +885,6 @@ void NotinOOP::handleCheckout()
     currentBuyer->addToPurchases(newPurchase);
 
     currentBuyer->clearCart();
-
-    currentBuyer->removeDiscount(discounts[bestVoucherIndex]->getID()); // remove used Discount
 
     currentBuyer->addToBalance(-discountedPrice); // remove money from account
 
