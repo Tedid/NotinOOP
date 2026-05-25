@@ -82,6 +82,7 @@ class Admin : public User
 {
 public:
     Admin(size_t id, const std::string &name, const std::string &pass);
+    Admin(const std::string & deserializationStr); // ONLY for deserialization
 
     void showHelp() const override;
     void serialize(std::ostream& os) const override;

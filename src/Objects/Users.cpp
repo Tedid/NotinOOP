@@ -336,6 +336,21 @@ Admin::Admin(size_t id, const std::string &name, const std::string &pass) : User
     type = UserType::ADMIN;
 }
 
+Admin::Admin(const std::string &str) : User(0, "", "")
+{
+    std::stringstream ss(str);
+    size_t id;
+    std::string username, password;
+
+    ss >> id >> username >> password;
+
+    userID = id;
+    this->username = username;
+    this->password = password;
+
+    type = UserType::ADMIN;
+}
+
 void Admin::showHelp() const
 {
     std::cout << "Admin help menu:" << std::endl;

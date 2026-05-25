@@ -21,6 +21,8 @@ public:
 
     virtual void serialize(std::ostream &os) const;
 
+    virtual void deserialize(const std::string &str);
+
     virtual ~Discount() = default;
 };
 
@@ -36,6 +38,7 @@ public:
     float getBonus();
 
     void serialize(std::ostream &os) const override;
+    void deserialize(const std::string &str) override;
 };
 
 class BrandDiscount : public Discount
@@ -50,4 +53,5 @@ public:
     std::string getBrandName();
 
     void serialize(std::ostream &os) const override;
+    void deserialize(const std::string &str) override;
 };

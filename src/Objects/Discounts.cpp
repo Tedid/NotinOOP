@@ -41,6 +41,18 @@ void Discount::serialize(std::ostream &os) const
     os << "D:" << discountID << ":" << discountPercent;
 }
 
+void Discount::deserialize(const std::string &str)
+{
+    std::stringstream ss(str);
+
+    size_t id;
+    int percent;
+    ss >> id >> percent;
+
+    discountID = id;
+    discountPercent = percent;
+}
+
 DiscountType BonusDiscount::getType() const
 {
     return DiscountType::BONUS_DISCOUNT;
@@ -102,4 +114,18 @@ std::string BrandDiscount::getBrandName()
 void BrandDiscount::serialize(std::ostream &os) const
 {
     os << "BR:" << discountID << ":" << discountPercent << ":" << brandName;
+}
+
+void BrandDiscount::deserialize(const std::string &str)
+{
+    std::stringstream ss(str);
+
+    size_t id;
+    int percent;
+    std::string brandName;
+    ss >> id >> percent >> brandName;
+
+    discountID = id;
+    discountPercent = percent;
+    this->brandName = brandName;
 }
