@@ -189,6 +189,13 @@ void NotinOOP::processCommand(const std::string &commandLine)
                 return;
             }
 
+            size_t lastIngredientID = getLastIngredientID();
+            if (lastIngredientID == 0)
+            {
+                std::cout << "Could not determine last ingredient ID!" << std::endl;
+                return;
+            }
+
             size_t ingredientID;
             while (ss >> ingredientID)
             {
@@ -197,6 +204,11 @@ void NotinOOP::processCommand(const std::string &commandLine)
                     ss.ignore(); // ignore the comma
                 }
 
+                if (ingredientID < 0 || ingredientID > lastIngredientID)
+                {
+                    std::cout << "Ingredient " << ingredientID << " doesn't fit the range [0, " << lastIngredientID << "]" << std::endl;
+                    return;
+                }
                 ingredientsList.push_back(ingredientID);
             }
 
