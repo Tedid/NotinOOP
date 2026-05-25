@@ -283,6 +283,10 @@ void NotinOOP::processCommand(const std::string &commandLine)
         {
             handleLogout();
         }
+        else if(command == "print-ingredients")
+        {
+            printAvailableIngredients();
+        }
         else
         {
             std::cout << "Unknown command! Type 'help' to see the list of available commands." << std::endl;
@@ -1112,6 +1116,54 @@ void NotinOOP::handleRemoveReview(int fragranceId, int reviewId)
     }
 
     std::cout << "Fragrance ID not found!" << std::endl;
+}
+
+void NotinOOP::printAvailableIngredients() const
+{
+    std::cout << "Available ingredients and their IDs:" << std::endl;
+    
+    std::ifstream file("data/ingredients.txt");
+
+    if (!file.is_open())
+    {
+        std::cout << "Could not open ingredients file!" << std::endl;
+        return;
+    }
+
+    const int MAX_ITEMS_PER_LINE = 3;
+    int itemCount = 0;
+
+    std::string line;
+    while (std::getline(file, line))
+    {
+        std::stringstream ss(line);
+        std::string item;
+
+        std::string IDstr, ingredientStr;
+
+        std::getline(ss, IDstr, '|');
+        std::getline(ss, ingredientStr);
+
+        std::cout << ingredientStr << " (ID: " << IDstr << ")";
+        itemCount++;
+
+        if (itemCount == MAX_ITEMS_PER_LINE) // every [3] times
+        {
+            itemCount = 0;
+            std::cout << std::endl;
+        }
+        else
+        {
+            std::cout << "\t";
+        }
+    }
+
+    if (itemCount != 0) // if the last line isn't full
+    {
+        std::cout << std::endl;
+    }
+
+    file.close();
 }
 
 void NotinOOP::saveData() const

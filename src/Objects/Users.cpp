@@ -266,4 +266,5 @@ void Admin::showHelp() const
     std::cout << " - create-fragrance <name> <brand> <price> <ingredient-id 1> <ingredient-id 2> ... - creates a new fragrance with the specified details" << std::endl;
     std::cout << " - remove-fragrance <fragrance-name> - removes the fragrance with the specified name from the catalogue" << std::endl;
     std::cout << " - add-quantity <fragrance-name> <quantity> - adds the specified quantity to the fragrance with this name" << std::endl;
+    std::cout << " - print-ingredients - prints the list of available ingredients and their IDs" << std::endl;
 }
