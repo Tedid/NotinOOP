@@ -109,6 +109,9 @@ void Buyer::cancelPurchase(size_t purchaseID)
             {
                 purchases[i].setStatus(PurchaseStatus::CANCELLED);
                 std::cout << "Purchase cancelled successfully!" << std::endl;
+
+                this->addToBalance(purchases[i].getFinalPrice()); // returning money
+
                 return;
             }
             else

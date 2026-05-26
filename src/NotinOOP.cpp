@@ -952,7 +952,7 @@ void NotinOOP::handleBlockUser(const std::string &username)
             {
                 std::cout << "This action will delete " << users[i]->getUsername() << "'s account. Are you sure you want to continue? (y/n): ";
                 std::string answer;
-                std::cin >> answer;
+                std::getline(std::cin, answer);
                 Utils::toLower(answer);
 
                 if (answer == "y")
@@ -995,7 +995,7 @@ void NotinOOP::handleRemoveFragrance(const std::string &fragranceName)
             {
                 std::cout << "This action will delete " << catalogue[i].getName() << " from the catalogue. Are you sure you want to continue? (y/n): ";
                 std::string answer;
-                std::cin >> answer;
+                std::getline(std::cin, answer);
                 Utils::toLower(answer);
 
                 if (answer == "y")
@@ -1082,7 +1082,7 @@ void NotinOOP::handleRemoveReview(int fragranceId, int reviewId)
             {
                 const int MAX_REMOVED_REVIEWS = 7;
 
-                Buyer *reviewBuyer;
+                Buyer *reviewBuyer = nullptr;
                 for (int j = 0; j < users.size(); j++)
                 {
                     if (users[j]->getUserID() == removedReview.getUserID())
@@ -1092,14 +1092,16 @@ void NotinOOP::handleRemoveReview(int fragranceId, int reviewId)
                     }
                 }
 
-                if (reviewBuyer->getReviewsRemoved() < MAX_REMOVED_REVIEWS)
+                if (reviewBuyer != nullptr && reviewBuyer->getReviewsRemoved() < MAX_REMOVED_REVIEWS )
                 {
                     reviewBuyer->incrementReviewsRemoved();
                 }
-                else
+                else if (reviewBuyer != nullptr)
                 {
                     std::cout << "7 of " << reviewBuyer->getUsername() << "'s reviews have already been removed. Their account will be blocked! >:)" << std::endl;
                     handleBlockUser(reviewBuyer->getUsername());
+                } else {
+                    std::cout << "Could not find the user who made the review!" << std::endl;
                 }
 
                 std::cout << "Review removed successfully!" << std::endl;
