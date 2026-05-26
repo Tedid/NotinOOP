@@ -26,7 +26,7 @@ public:
     std::string getUsername() const;
     std::string getPassword() const;
 
-    virtual void serialize(std::ostream& os) const = 0;
+    virtual void serialize(std::ostream &os) const = 0;
     // ensures every subclass has its own help menu
     virtual void showHelp() const = 0;
 };
@@ -78,16 +78,16 @@ public:
     void viewDiscounts() const;
 
     void showHelp() const override;
-    void serialize(std::ostream& os) const override;
-    static Buyer* deserialize(const std::string& line, const std::vector<Fragrance>& catalogue);
+    void serialize(std::ostream &os) const override;
+    static Buyer *deserialize(const std::string &line, const std::vector<Fragrance> &catalogue);
 };
 
 class Admin : public User
 {
 public:
     Admin(size_t id, const std::string &name, const std::string &pass);
-    Admin(const std::string & deserializationStr); // ONLY for deserialization
+    Admin(const std::string &deserializationStr); // ONLY for deserialization
 
     void showHelp() const override;
-    void serialize(std::ostream& os) const override;
+    void serialize(std::ostream &os) const override;
 };

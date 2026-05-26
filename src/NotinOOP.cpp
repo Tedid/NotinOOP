@@ -1103,7 +1103,7 @@ void NotinOOP::handleRemoveReview(int fragranceId, int reviewId)
                     }
                 }
 
-                if (reviewBuyer != nullptr && reviewBuyer->getReviewsRemoved() < MAX_REMOVED_REVIEWS )
+                if (reviewBuyer != nullptr && reviewBuyer->getReviewsRemoved() < MAX_REMOVED_REVIEWS)
                 {
                     reviewBuyer->incrementReviewsRemoved();
                 }
@@ -1111,7 +1111,9 @@ void NotinOOP::handleRemoveReview(int fragranceId, int reviewId)
                 {
                     std::cout << "7 of " << reviewBuyer->getUsername() << "'s reviews have already been removed. Their account will be blocked! >:)" << std::endl;
                     handleBlockUser(reviewBuyer->getUsername());
-                } else {
+                }
+                else
+                {
                     std::cout << "Could not find the user who made the review!" << std::endl;
                 }
 
@@ -1207,6 +1209,8 @@ void NotinOOP::saveData() const
     }
 
     usersFile.close();
+
+    // TODO: SAVE THE FRAGRANCES
 }
 
 void NotinOOP::loadData()
@@ -1262,6 +1266,8 @@ void NotinOOP::loadData()
             std::cout << "Unknown user type in users file!" << std::endl;
         }
     }
+
+    // TODO: LOAD THE FRAGRANCES
 }
 
 NotinOOP::NotinOOP()

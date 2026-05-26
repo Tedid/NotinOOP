@@ -93,6 +93,6 @@ void Purchase::serialize(std::ostream &os) const
         statusInt = -1;
         break;
     }
-    
+
     os << ":" << statusInt << ":" << userID << ":" << finalPrice;
 }
