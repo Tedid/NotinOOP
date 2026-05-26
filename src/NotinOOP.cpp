@@ -1013,6 +1013,17 @@ void NotinOOP::handleRemoveFragrance(const std::string &fragranceName)
                 }
             }
 
+            // Remove from all users' carts and wishlists:
+            for (int j = 0; j < users.size(); j++)
+            {
+                if (users[j]->getType() == UserType::BUYER)
+                {
+                    Buyer *buyer = (Buyer *)users[j];
+                    buyer->removeAllFromCart(catalogue[i]);
+                    buyer->removeAllFromWishlist(catalogue[i]);
+                }
+            }
+
             catalogue.erase(catalogue.begin() + i);
             std::cout << "Fragrance removed successfully!" << std::endl;
             return;

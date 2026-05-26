@@ -49,10 +49,12 @@ public:
 
     void addToWishlist(const Fragrance &fragrance);
     void removeFromWishlist(const Fragrance &fragrance);
+    void removeAllFromWishlist(const Fragrance &fragrance);
     void viewWishlist() const;
 
     void addToCart(const Fragrance &fragrance);
     void removeFromCart(const Fragrance &fragrance);
+    void removeAllFromCart(const Fragrance &fragrance);
     void viewCart() const;
     void clearCart();
 

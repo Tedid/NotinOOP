@@ -65,6 +65,15 @@ void Buyer::removeFromWishlist(const Fragrance &fragrance)
     removeFragranceFromVector(wishlist, fragrance);
 }
 
+void Buyer::removeAllFromWishlist(const Fragrance &fragrance)
+{
+    for (int i = cart.size() - 1; i >= 0; i--)
+    {
+        if (cart[i] == fragrance)
+            cart.erase(cart.begin() + i);
+    }
+}
+
 void Buyer::viewWishlist() const
 {
     std::string message = "Wishlisted items: ";
@@ -80,6 +89,15 @@ void Buyer::addToCart(const Fragrance &fragrance)
 void Buyer::removeFromCart(const Fragrance &fragrance)
 {
     removeFragranceFromVector(cart, fragrance);
+}
+
+void Buyer::removeAllFromCart(const Fragrance &fragrance)
+{
+    for (int i = wishlist.size() - 1; i >= 0; i--)
+    {
+        if (wishlist[i] == fragrance)
+            wishlist.erase(wishlist.begin() + i);
+    }
 }
 
 void Buyer::viewCart() const
