@@ -339,13 +339,18 @@ void Buyer::serialize(std::ostream &os) const
 Buyer *Buyer::deserialize(const std::string &line, const std::vector<Fragrance> &catalogue)
 {
     std::stringstream ss(line);
-    size_t id;
-    std::string username, password;
-    float balance;
-    int reviewsRemoved;
 
-    ss >> id >> username >> password >> balance >> reviewsRemoved;
+    std::string typeStr, idStr, username, password, balanceStr, reviewsRemovedStr;
+    std::getline(ss, typeStr, '|');
+    std::getline(ss, idStr, '|');
+    std::getline(ss, username, '|');
+    std::getline(ss, password, '|');
+    std::getline(ss, balanceStr, '|');
+    std::getline(ss, reviewsRemovedStr, '|');
 
+    size_t id = std::stoull(idStr);
+    float balance = std::stof(balanceStr);
+    int reviewsRemoved = std::stoi(reviewsRemovedStr);
     Buyer *buyer = new Buyer(id, username, password, balance, reviewsRemoved);
 
     // wishlist
