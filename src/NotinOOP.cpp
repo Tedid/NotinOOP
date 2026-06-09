@@ -1335,11 +1335,25 @@ void NotinOOP::run()
     std::cout << "> ";
     while (std::getline(std::cin, commandLine))
     {
+        Utils::toLower(commandLine);
+
         if (commandLine == "end")
         {
             saveData();
             break;
         }
+        else if (commandLine == "yo")   // easter egg :D
+        {
+            std::cout << "gurt." << std::endl;
+            std::cout << "> ";
+            continue;
+        }
+        else if (commandLine.empty())
+        {
+            std::cout << "> ";
+            continue;
+        }
+
         processCommand(commandLine);
 
         std::cout << std::endl
