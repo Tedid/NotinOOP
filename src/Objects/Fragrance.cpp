@@ -122,7 +122,7 @@ void Fragrance::serialize(std::ostream &os) const
     {
         for (int i = 0; i < reviews.size(); i++)
         {
-            // <reviewID:fragranceName:userID:comment:rating>
+            // <reviewID fragranceName userID comment rating>
             reviews[i].serialize(os);
             if (i != reviews.size() - 1)
             {
@@ -169,7 +169,7 @@ Fragrance Fragrance::deserialize(const std::string &line)
     // Reviews:
     std::stringstream reviewsSS(reviewsStr);
     std::string reviewStr;
-    while (reviewsSS >> reviewStr)
+    while (std::getline(reviewsSS, reviewStr, ':'))
     {
         if (reviewStr == "empty" || reviewStr.empty())
         {

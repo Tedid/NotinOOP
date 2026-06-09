@@ -56,24 +56,23 @@ int Review::getRating() const
 }
 void Review::serialize(std::ostream &os) const
 {
-    // <reviewID:fragranceName:userID:comment:rating>
-    os << reviewID << ":" << fragranceName << ":" << userID << ":" << comment << ":" << rating;
+    // <reviewID fragranceName userID comment rating>
+    os << reviewID << " " << fragranceName << " " << userID << " " << rating << " " << comment << ":";
 }
 
 Review Review::deserialize(const std::string &line)
 {
     std::stringstream ss(line);
 
-    std::string reviewIDStr, fragranceName, userIDStr, comment, ratingStr;
-    std::getline(ss, reviewIDStr, ':');
-    std::getline(ss, fragranceName, ':');
-    std::getline(ss, userIDStr, ':');
-    std::getline(ss, comment, ':');
-    std::getline(ss, ratingStr, ':');
+    size_t reviewID;
+    size_t userID;
+    int rating;
+    std::string fragranceName, comment;
 
-    size_t reviewID = std::stoull(reviewIDStr);
-    size_t userID = std::stoull(userIDStr);
-    int rating = std::stoi(ratingStr);
+    ss >> reviewID >> fragranceName >> userID >> rating;
+    ss.ignore(1); // skip the space before the comment
+
+    std::getline(ss, comment);
 
     return Review(reviewID, fragranceName, userID, comment, rating);
 }

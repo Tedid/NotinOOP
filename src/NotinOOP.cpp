@@ -140,7 +140,7 @@ void NotinOOP::processCommand(const std::string &commandLine)
                 return;
             }
 
-            ss >> comment;
+            std::getline(ss, comment);
             if (ss.fail() || comment.empty() || comment.size() > 1000)
             {
                 std::cout << "Invalid comment! [Comment must be <1000 characters long]" << std::endl;
