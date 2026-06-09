@@ -89,3 +89,46 @@ bool Fragrance::operator!=(const Fragrance &other) const
 {
     return !(*this == other);
 }
+void Fragrance::serialize(std::ostream &os) const
+{
+    // variables:
+    os << fragranceID << "|" << name << "|" << brand << "|" << price << "|" << quantity << "|";
+
+    //ingredients:
+    if (ingredientIDs.empty())
+    {
+        os << "empty";
+    }
+    else
+    {
+        for (int i = 0; i < ingredientIDs.size(); i++)
+        {
+            os << ingredientIDs[i];
+            if (i != ingredientIDs.size() - 1)
+            {
+                os << " ";
+            }
+        }
+    }
+
+    os<< "|";
+
+    // reviews:
+    if (reviews.empty())
+    {
+        os << "empty";
+    }
+    else
+    {
+        for (int i = 0; i < reviews.size(); i++)
+        {
+            // <reviewID:fragranceName:userID:comment:rating>
+            reviews[i].serialize(os);
+            if (i != reviews.size() - 1)
+            {
+                os << " ";
+            }
+        }
+    }
+}
+

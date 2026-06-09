@@ -54,3 +54,9 @@ int Review::getRating() const
 {
     return rating;
 }
+void Review::serialize(std::ostream &os) const
+{
+    // <reviewID:fragranceName:userID:comment:rating>
+    os << reviewID << ":" << fragranceName << ":" << userID << ":" << comment << ":" << rating;
+}
+

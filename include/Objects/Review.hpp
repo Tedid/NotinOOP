@@ -1,5 +1,6 @@
 #pragma once
 
+#include <ostream>
 #include <string>
 
 class Review
@@ -18,4 +19,6 @@ public:
     size_t getUserID() const;
     std::string getComment() const;
     int getRating() const;
+
+    void serialize(std::ostream &os) const;
 };

@@ -2,6 +2,7 @@
 
 #include "Review.hpp"
 
+#include <ostream>
 #include <string>
 #include <vector>
 
@@ -31,6 +32,8 @@ public:
     int getQuantity() const;
     const std::vector<Review> getReviews() const;
     float getAvgRating() const;
+
+    void serialize(std::ostream &os) const;
 
     bool operator==(const Fragrance &other) const;
     bool operator!=(const Fragrance &other) const;
