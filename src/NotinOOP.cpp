@@ -1223,7 +1223,20 @@ void NotinOOP::saveData() const
 
     usersFile.close();
 
-    // TODO: SAVE THE FRAGRANCES
+    // Saving the fragrances:
+    std::ofstream fragrancesFile("../data/fragrances.txt");
+    if (!fragrancesFile.is_open())
+    {
+        std::cout << "Could not open fragrances file for writing!" << std::endl;
+        return;
+    }
+
+    for (int i = 0; i < catalogue.size(); i++)
+    {
+        catalogue[i].serialize(fragrancesFile);
+    }
+
+    fragrancesFile.close();
 }
 
 void NotinOOP::loadData()
@@ -1342,7 +1355,7 @@ void NotinOOP::run()
             saveData();
             break;
         }
-        else if (commandLine == "yo")   // easter egg :D
+        else if (commandLine == "yo") // easter egg :D
         {
             std::cout << "gurt." << std::endl;
             std::cout << "> ";
