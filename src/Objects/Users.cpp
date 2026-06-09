@@ -278,6 +278,7 @@ void Buyer::showHelp() const
     std::cout << " - checkout - completes the purchase, empties the cart, and automatically applies the best discount" << std::endl;
     std::cout << " - cancel <purchase-id> - cancels a created order (only if its status is PENDING)" << std::endl;
     std::cout << " - make-review <fragrance-name> <rating> <comment> - creates a review for the given fragrance" << std::endl;
+    std::cout << " - end - saves all data and exits the program" << std::endl;
 }
 
 void Buyer::serialize(std::ostream &os) const
@@ -603,6 +604,7 @@ void Admin::showHelp() const
     std::cout << " - remove-fragrance <fragrance-name> - removes the fragrance with the specified name from the catalogue" << std::endl;
     std::cout << " - add-quantity <fragrance-name> <quantity> - adds the specified quantity to the fragrance with this name" << std::endl;
     std::cout << " - print-ingredients - prints the list of available ingredients and their IDs" << std::endl;
+    std::cout << " - end - saves all data and exits the program" << std::endl;
 }
 
 void Admin::serialize(std::ostream &os) const
