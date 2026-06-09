@@ -77,22 +77,22 @@ void Purchase::serialize(std::ostream &os) const
         }
     }
 
-    int statusInt;
+    std::string statusStr;
     switch (status)
     {
     case PurchaseStatus::PENDING:
-        statusInt = 0;
+        statusStr = "PENDING";   
         break;
     case PurchaseStatus::DELIVERED:
-        statusInt = 1;
+        statusStr = "DELIVERED";
         break;
     case PurchaseStatus::CANCELLED:
-        statusInt = 2;
+        statusStr = "CANCELLED";
         break;
     default:
-        statusInt = -1;
+        statusStr = "UNKNOWN";
         break;
     }
 
-    os << ":" << statusInt << ":" << userID << ":" << finalPrice;
+    os << ":" << statusStr << ":" << userID << ":" << finalPrice;
 }
