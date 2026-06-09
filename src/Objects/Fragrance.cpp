@@ -130,6 +130,8 @@ void Fragrance::serialize(std::ostream &os) const
             }
         }
     }
+
+    os << std::endl;
 }
 
 Fragrance Fragrance::deserialize(const std::string &line)

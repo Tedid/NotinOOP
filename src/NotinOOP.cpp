@@ -820,7 +820,7 @@ Discount *NotinOOP::generateNewDiscount()
 
 size_t NotinOOP::getLastIngredientID()
 {
-    std::ifstream ingredientsFile("data/ingredients.txt");
+    std::ifstream ingredientsFile("../data/ingredients.txt");
     if (!ingredientsFile.is_open())
     {
         std::cout << "Could not open ingredients file!" << std::endl;
