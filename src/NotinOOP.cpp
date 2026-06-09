@@ -1298,6 +1298,8 @@ NotinOOP::~NotinOOP()
 
 void NotinOOP::run()
 {
+    loadData();
+
     Admin *defaultAdmin = nullptr;
     if (users.empty())
     {
