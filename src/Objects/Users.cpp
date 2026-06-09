@@ -340,6 +340,8 @@ void Buyer::serialize(std::ostream &os) const
         }
     }
 
+    os << "|";
+
     // discounts
     if (discounts.empty())
     {
@@ -356,7 +358,6 @@ void Buyer::serialize(std::ostream &os) const
             }
         }
     }
-    os << "|";
 }
 
 Buyer *Buyer::deserialize(const std::string &line, const std::vector<Fragrance> &catalogue)
