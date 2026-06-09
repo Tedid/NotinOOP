@@ -1296,7 +1296,20 @@ void NotinOOP::loadData()
         }
     }
 
-    // TODO: LOAD THE FRAGRANCES
+    // Loading the fragrances:
+    std::ifstream fragrancesFile("../data/fragrances.txt");
+    if (!fragrancesFile.is_open())
+    {
+        std::cout << "Could not open fragrances file for reading!" << std::endl;
+        return;
+    }
+
+    while (std::getline(fragrancesFile, line))
+    {
+        Fragrance fragrance = Fragrance::deserialize(line);
+        catalogue.push_back(fragrance);
+    }
+    fragrancesFile.close();
 }
 
 NotinOOP::NotinOOP()
@@ -1346,6 +1359,7 @@ void NotinOOP::run()
 
     std::string commandLine;
     std::cout << "> ";
+
     while (std::getline(std::cin, commandLine))
     {
         Utils::toLower(commandLine);
