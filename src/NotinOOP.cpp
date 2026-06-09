@@ -1271,7 +1271,10 @@ void NotinOOP::loadData()
         }
         else if (userType == "B")
         {
-            Buyer *buyer = Buyer::deserialize(line, catalogue);
+            std::string theRestOfLine;
+            std::getline(ss, theRestOfLine);
+
+            Buyer *buyer = Buyer::deserialize(theRestOfLine, catalogue);
             users.push_back(buyer);
         }
         else
@@ -1307,6 +1310,18 @@ void NotinOOP::run()
         defaultAdmin = new Admin(DEFAULT_ADMIN_ID, "admin", "admin");
         users.push_back(defaultAdmin);
         std::cout << "Default admin account created! Username: admin, Password: admin" << std::endl;
+    }
+    else
+    {
+        // Check for default admin:
+        for (int i = 0; i < users.size(); i++)
+        {
+            if (users[i]->getUserID() == DEFAULT_ADMIN_ID)
+            {
+                defaultAdmin = (Admin *)users[i];
+                break;
+            }
+        }
     }
 
     activeUser = defaultAdmin;

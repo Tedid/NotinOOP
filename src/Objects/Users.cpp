@@ -321,23 +321,6 @@ void Buyer::serialize(std::ostream &os) const
     }
     os << "|";
 
-    // discounts
-    if (discounts.empty())
-    {
-        os << "empty";
-    }
-    else
-    {
-        for (int i = 0; i < discounts.size(); i++)
-        {
-            discounts[i]->serialize(os); // <type:ID:percent:bonus/brand>
-            if (i != discounts.size() - 1)
-            {
-                os << " ";
-            }
-        }
-    }
-
     // purchases
     if (purchases.empty())
     {
@@ -355,14 +338,31 @@ void Buyer::serialize(std::ostream &os) const
             }
         }
     }
+
+    // discounts
+    if (discounts.empty())
+    {
+        os << "empty";
+    }
+    else
+    {
+        for (int i = 0; i < discounts.size(); i++)
+        {
+            discounts[i]->serialize(os); // <type:ID:percent:bonus/brand>
+            if (i != discounts.size() - 1)
+            {
+                os << " ";
+            }
+        }
+    }
+    os << "|";
 }
 
 Buyer *Buyer::deserialize(const std::string &line, const std::vector<Fragrance> &catalogue)
 {
     std::stringstream ss(line);
 
-    std::string typeStr, idStr, username, password, balanceStr, reviewsRemovedStr;
-    std::getline(ss, typeStr, '|');
+    std::string idStr, username, password, balanceStr, reviewsRemovedStr;
     std::getline(ss, idStr, '|');
     std::getline(ss, username, '|');
     std::getline(ss, password, '|');
@@ -382,7 +382,7 @@ Buyer *Buyer::deserialize(const std::string &line, const std::vector<Fragrance> 
     std::string fragranceIDStr;
     while (wishlistSS >> fragranceIDStr)
     {
-        if (fragranceIDStr == "none" || fragranceIDStr.empty())
+        if (fragranceIDStr == "empty" || fragranceIDStr.empty())
         {
             continue;
         }
@@ -417,7 +417,7 @@ Buyer *Buyer::deserialize(const std::string &line, const std::vector<Fragrance> 
     std::string cartFragranceIDStr;
     while (cartSS >> cartFragranceIDStr)
     {
-        if (cartFragranceIDStr == "none" || cartFragranceIDStr.empty())
+        if (cartFragranceIDStr == "empty" || cartFragranceIDStr.empty())
         {
             continue;
         }
@@ -454,6 +454,11 @@ Buyer *Buyer::deserialize(const std::string &line, const std::vector<Fragrance> 
 
     while (purchasesSS >> purchaseInfoStr)
     {
+        if (purchaseInfoStr == "empty" || purchaseInfoStr.empty())
+        {
+            break;
+        }
+
         size_t purchaseID;
         int userID;
         float finalPrice;
@@ -467,11 +472,6 @@ Buyer *Buyer::deserialize(const std::string &line, const std::vector<Fragrance> 
 
         while (fragrancesSS >> fragranceIDStr)
         {
-            if (fragranceIDStr == "none" || fragranceIDStr.empty())
-            {
-                continue;
-            }
-
             size_t targetID = std::stoull(fragranceIDStr);
 
             const Fragrance *foundFragrance = nullptr;
@@ -527,29 +527,40 @@ Buyer *Buyer::deserialize(const std::string &line, const std::vector<Fragrance> 
 
     while (discountsSS >> discountInfoStr)
     {
-        std::string typeStr;
-        size_t discountID;
-        int percent;
+        if (discountInfoStr == "empty" || discountInfoStr.empty())
+        {
+            break;
+        }
+
+        //Example str: B:5000000:8:28.42 D:5000001:22 D:5000002:8 B:5000003:8:24.22 D:5000004:8
+        std::string typeStr, discountIDStr, percentStr;
 
         std::stringstream discountInfoSS(discountInfoStr);
-        discountInfoSS >> typeStr >> discountID >> percent;
+        std::getline(discountInfoSS, typeStr, ':');
+        std::getline(discountInfoSS, discountIDStr, ':');
+        std::getline(discountInfoSS, percentStr, ':');
 
-        if (typeStr == "DEFAULT")
+
+        size_t discountID = std::stoull(discountIDStr);
+        int percent = std::stoi(percentStr);
+
+        if (typeStr == "D")
         {
             Discount *loadedDiscount = new Discount(discountID, percent);
             buyer->addToDiscounts(loadedDiscount);
         }
-        else if (typeStr == "BRAND")
+        else if (typeStr == "BR")
         {
             std::string brandStr;
-            discountInfoSS >> brandStr;
+            std::getline(discountInfoSS, brandStr, ':');
             Discount *loadedDiscount = new BrandDiscount(discountID, percent, brandStr);
             buyer->addToDiscounts(loadedDiscount);
         }
-        else if (typeStr == "BONUS")
+        else if (typeStr == "B")
         {
-            float bonus;
-            discountInfoSS >> bonus;
+            std::string bonusStr;
+            std::getline(discountInfoSS, bonusStr, ':');
+            float bonus = std::stof(bonusStr);
             Discount *loadedDiscount = new BonusDiscount(discountID, percent, bonus);
             buyer->addToDiscounts(loadedDiscount);
         }
@@ -570,12 +581,12 @@ Admin::Admin(size_t id, const std::string &name, const std::string &pass) : User
 Admin::Admin(const std::string &str) : User(0, "", "")
 {
     std::stringstream ss(str);
-    size_t id;
-    std::string username, password;
+    std::string id, username, password;
+    std::getline(ss, id, '|');
+    std::getline(ss, username, '|');
+    std::getline(ss, password, '|');
 
-    ss >> id >> username >> password;
-
-    userID = id;
+    userID = std::stoull(id);
     this->username = username;
     this->password = password;
 
