@@ -1319,7 +1319,10 @@ void NotinOOP::run()
     while (std::getline(std::cin, commandLine))
     {
         if (commandLine == "end")
+        {
+            saveData();
             break;
+        }
         processCommand(commandLine);
 
         std::cout << std::endl
