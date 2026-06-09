@@ -1194,7 +1194,7 @@ void NotinOOP::printAvailableIngredients() const
 void NotinOOP::saveData() const
 {
     // Saving the IDs:
-    std::ofstream stateFile("data/system_state.txt");
+    std::ofstream stateFile("../data/system_state.txt");
     if (!stateFile.is_open())
     {
         std::cout << "Could not open system state file for writing!" << std::endl;
@@ -1209,7 +1209,7 @@ void NotinOOP::saveData() const
     stateFile.close();
 
     // Saving the users:
-    std::ofstream usersFile("data/users.txt");
+    std::ofstream usersFile("../data/users.txt");
     if (!usersFile.is_open())
     {
         std::cout << "Could not open users file for writing!" << std::endl;
@@ -1229,7 +1229,7 @@ void NotinOOP::saveData() const
 void NotinOOP::loadData()
 {
     // Loading the IDs:
-    std::ifstream stateFile("data/system_state.txt");
+    std::ifstream stateFile("../data/system_state.txt");
     if (!stateFile.is_open())
     {
         std::cout << "Could not open system state file for reading!" << std::endl;
@@ -1246,7 +1246,7 @@ void NotinOOP::loadData()
     stateFile.close();
 
     // Loading the users:
-    std::ifstream usersFile("data/users.txt");
+    std::ifstream usersFile("../data/users.txt");
     if (!usersFile.is_open())
     {
         std::cout << "Could not open users file for reading!" << std::endl;
