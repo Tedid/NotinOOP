@@ -3,6 +3,7 @@
 #include "Review.hpp"
 
 #include <ostream>
+#include <sstream>
 #include <string>
 #include <vector>
 
@@ -34,6 +35,7 @@ public:
     float getAvgRating() const;
 
     void serialize(std::ostream &os) const;
+    static Fragrance deserialize(const std::string &line);
 
     bool operator==(const Fragrance &other) const;
     bool operator!=(const Fragrance &other) const;

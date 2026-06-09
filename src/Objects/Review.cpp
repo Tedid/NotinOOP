@@ -60,3 +60,20 @@ void Review::serialize(std::ostream &os) const
     os << reviewID << ":" << fragranceName << ":" << userID << ":" << comment << ":" << rating;
 }
 
+Review Review::deserialize(const std::string &line)
+{
+    std::stringstream ss(line);
+
+    std::string reviewIDStr, fragranceName, userIDStr, comment, ratingStr;
+    std::getline(ss, reviewIDStr, ':');
+    std::getline(ss, fragranceName, ':');
+    std::getline(ss, userIDStr, ':');
+    std::getline(ss, comment, ':');
+    std::getline(ss, ratingStr, ':');
+
+    size_t reviewID = std::stoull(reviewIDStr);
+    size_t userID = std::stoull(userIDStr);
+    int rating = std::stoi(ratingStr);
+
+    return Review(reviewID, fragranceName, userID, comment, rating);
+}

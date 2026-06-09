@@ -1,7 +1,8 @@
 #pragma once
 
-#include <ostream>
+#include <iostream>
 #include <string>
+#include <sstream>
 
 class Review
 {
@@ -21,4 +22,5 @@ public:
     int getRating() const;
 
     void serialize(std::ostream &os) const;
+    static Review deserialize(const std::string &line);
 };

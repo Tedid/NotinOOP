@@ -94,7 +94,7 @@ void Fragrance::serialize(std::ostream &os) const
     // variables:
     os << fragranceID << "|" << name << "|" << brand << "|" << price << "|" << quantity << "|";
 
-    //ingredients:
+    // ingredients:
     if (ingredientIDs.empty())
     {
         os << "empty";
@@ -111,7 +111,7 @@ void Fragrance::serialize(std::ostream &os) const
         }
     }
 
-    os<< "|";
+    os << "|";
 
     // reviews:
     if (reviews.empty())
@@ -132,3 +132,50 @@ void Fragrance::serialize(std::ostream &os) const
     }
 }
 
+Fragrance Fragrance::deserialize(const std::string &line)
+{
+    std::stringstream ss(line);
+    std::string idStr, name, brand, priceStr, quantityStr, ingredientIDsStr, reviewsStr;
+    std::getline(ss, idStr, '|');
+    std::getline(ss, name, '|');
+    std::getline(ss, brand, '|');
+    std::getline(ss, priceStr, '|');
+    std::getline(ss, quantityStr, '|');
+    std::getline(ss, ingredientIDsStr, '|');
+    std::getline(ss, reviewsStr, '|');
+
+    size_t id = std::stoull(idStr);
+    float price = std::stof(priceStr);
+    int quantity = std::stoi(quantityStr);
+
+    // Ingredient IDs:
+    std::vector<size_t> ingredientIDs;
+    std::stringstream ingredientIDsSS(ingredientIDsStr);
+    std::string ingredientIDStr;
+    while (ingredientIDsSS >> ingredientIDStr)
+    {
+        if (ingredientIDStr == "empty" || ingredientIDStr.empty())
+        {
+            break;
+        }
+        size_t ingredientID = std::stoull(ingredientIDStr);
+        ingredientIDs.push_back(ingredientID);
+    }
+
+    Fragrance fragrance(id, name, brand, price, ingredientIDs, quantity);
+
+    // Reviews:
+    std::stringstream reviewsSS(reviewsStr);
+    std::string reviewStr;
+    while (reviewsSS >> reviewStr)
+    {
+        if (reviewStr == "empty" || reviewStr.empty())
+        {
+            break;
+        }
+        Review review = Review::deserialize(reviewStr);
+        fragrance.addReview(review);
+    }
+
+    return fragrance;
+}
