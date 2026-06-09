@@ -1357,13 +1357,15 @@ void NotinOOP::run()
         }
         else if (commandLine == "yo") // easter egg :D
         {
-            std::cout << "gurt." << std::endl;
+            std::cout << "gurt." << std::endl
+                      << std::endl;
             std::cout << "> ";
             continue;
         }
         else if (commandLine.empty())
         {
-            std::cout << "> ";
+            std::cout << std::endl
+                      << "> ";
             continue;
         }
 
