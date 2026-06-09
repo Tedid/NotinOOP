@@ -1134,7 +1134,7 @@ void NotinOOP::printAvailableIngredients() const
 {
     std::cout << "Available ingredients and their IDs:" << std::endl;
 
-    std::ifstream file("data/ingredients.txt");
+    std::ifstream file("../data/ingredients.txt");
 
     if (!file.is_open())
     {
@@ -1156,7 +1156,20 @@ void NotinOOP::printAvailableIngredients() const
         std::getline(ss, IDstr, '|');
         std::getline(ss, ingredientStr);
 
-        std::cout << ingredientStr << " (ID: " << IDstr << ")";
+        const int COLUMN_LENGTH = 60;
+        std::string output = ingredientStr + "(ID: " + IDstr + ")";
+        std::string restOfColumn;
+
+        if (output.length() < COLUMN_LENGTH)
+        {
+            restOfColumn = std::string(COLUMN_LENGTH - output.length(), ' ');
+        }
+        else
+        {
+            restOfColumn = "\t";
+        }
+
+        std::cout << output << restOfColumn;
         itemCount++;
 
         if (itemCount == MAX_ITEMS_PER_LINE) // every [3] times
