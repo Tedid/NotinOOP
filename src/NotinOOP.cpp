@@ -351,6 +351,8 @@ void NotinOOP::handleRegisterAdmin(const std::string &name, const std::string &p
 
     Admin *newAdmin = new Admin(nextUserID++, name, pass);
     users.push_back(newAdmin);
+
+    std::cout << "Registered successfully! New User ID: " << newAdmin->getUserID() << std::endl;
 }
 
 void NotinOOP::handleLogin(const std::string &name, const std::string &pass)
@@ -894,6 +896,8 @@ void NotinOOP::handleCheckout()
         std::cout << "Not enough money! Final price: " << discountedPrice << ", current balance: " << currentBuyer->getBalance() << std::endl;
         return;
     }
+
+    std::cout << "Purchase ID: " << nextPurchaseID << std::endl;
 
     if (bestVoucherIndex != -1)
     {
