@@ -461,7 +461,7 @@ Buyer *Buyer::deserialize(const std::string &line, const std::vector<Fragrance> 
             break;
         }
 
-        // Example str: 3000000:2000010 2000010:DELIVERED:1000001:234.45
+        // Example str: 3000000:2000010,2000010:DELIVERED:1000001:234.45
 
         std::string purchaseIDStr, fragrancesStr, statusStr, userIDStr, finalPriceStr;
         std::stringstream purchaseInfoSS(purchaseInfoStr);
@@ -479,7 +479,7 @@ Buyer *Buyer::deserialize(const std::string &line, const std::vector<Fragrance> 
         std::stringstream fragrancesSS(fragrancesStr);
         std::string fragranceIDStr;
 
-        while (fragrancesSS >> fragranceIDStr)
+        while (std::getline(fragrancesSS, fragranceIDStr, ','))
         {
             size_t targetID = std::stoull(fragranceIDStr);
 

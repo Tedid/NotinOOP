@@ -73,7 +73,7 @@ void Purchase::serialize(std::ostream &os) const
         os << fragrances[i].getID();
         if (i != fragrances.size() - 1)
         {
-            os << " ";
+            os << ",";
         }
     }
 
