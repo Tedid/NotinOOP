@@ -461,12 +461,19 @@ Buyer *Buyer::deserialize(const std::string &line, const std::vector<Fragrance> 
             break;
         }
 
-        size_t purchaseID;
-        int userID;
-        float finalPrice;
-        std::string fragrancesStr, statusStr;
+        // Example str: 3000000:2000010 2000010:DELIVERED:1000001:234.45
+
+        std::string purchaseIDStr, fragrancesStr, statusStr, userIDStr, finalPriceStr;
         std::stringstream purchaseInfoSS(purchaseInfoStr);
-        purchaseInfoSS >> purchaseID >> fragrancesStr >> statusStr >> userID >> finalPrice;
+        std::getline(purchaseInfoSS, purchaseIDStr, ':');
+        std::getline(purchaseInfoSS, fragrancesStr, ':');
+        std::getline(purchaseInfoSS, statusStr, ':');
+        std::getline(purchaseInfoSS, userIDStr, ':');
+        std::getline(purchaseInfoSS, finalPriceStr, ':');
+
+        size_t purchaseID = std::stoull(purchaseIDStr);
+        size_t userID = std::stoull(userIDStr);
+        float finalPrice = std::stof(finalPriceStr);
 
         std::vector<Fragrance> purchaseFragrances;
         std::stringstream fragrancesSS(fragrancesStr);
