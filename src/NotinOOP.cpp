@@ -80,6 +80,10 @@ void NotinOOP::processCommand(const std::string &commandLine)
         {
             handleViewCart();
         }
+        else if (command == "view-wishlist")
+        {
+            handleViewWishlist();
+        }
         else if (command == "view-bought")
         {
             handleViewBought();
@@ -454,6 +458,12 @@ void NotinOOP::handleViewCart() const
 {
     Buyer *currentBuyer = (Buyer *)activeUser;
     currentBuyer->viewCart();
+}
+
+void NotinOOP::handleViewWishlist() const
+{
+    Buyer *currentBuyer = (Buyer *)activeUser;
+    currentBuyer->viewWishlist();
 }
 
 void NotinOOP::handleViewBought() const
