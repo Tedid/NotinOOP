@@ -1258,6 +1258,22 @@ void NotinOOP::loadData()
 
     stateFile.close();
 
+    // Loading the fragrances:
+    std::string line;
+    std::ifstream fragrancesFile("../data/fragrances.txt");
+    if (!fragrancesFile.is_open())
+    {
+        std::cout << "Could not open fragrances file for reading!" << std::endl;
+        return;
+    }
+
+    while (std::getline(fragrancesFile, line))
+    {
+        Fragrance fragrance = Fragrance::deserialize(line);
+        catalogue.push_back(fragrance);
+    }
+    fragrancesFile.close();
+
     // Loading the users:
     std::ifstream usersFile("../data/users.txt");
     if (!usersFile.is_open())
@@ -1266,7 +1282,6 @@ void NotinOOP::loadData()
         return;
     }
 
-    std::string line;
     while (std::getline(usersFile, line))
     {
         std::stringstream ss(line);
@@ -1295,21 +1310,6 @@ void NotinOOP::loadData()
             std::cout << "Unknown user type in users file!" << std::endl;
         }
     }
-
-    // Loading the fragrances:
-    std::ifstream fragrancesFile("../data/fragrances.txt");
-    if (!fragrancesFile.is_open())
-    {
-        std::cout << "Could not open fragrances file for reading!" << std::endl;
-        return;
-    }
-
-    while (std::getline(fragrancesFile, line))
-    {
-        Fragrance fragrance = Fragrance::deserialize(line);
-        catalogue.push_back(fragrance);
-    }
-    fragrancesFile.close();
 }
 
 NotinOOP::NotinOOP()
