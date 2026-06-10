@@ -358,6 +358,8 @@ void Buyer::serialize(std::ostream &os) const
             }
         }
     }
+
+    os << std::endl;
 }
 
 Buyer *Buyer::deserialize(const std::string &line, const std::vector<Fragrance> &catalogue)
