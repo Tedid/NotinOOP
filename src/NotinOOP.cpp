@@ -52,7 +52,7 @@ void NotinOOP::processCommand(const std::string &commandLine)
         // Buyer commands:
         if (command == "add-to-balance")
         {
-            float money;
+            long money;
             ss >> money;
 
             if (ss.fail() || money < 0)
@@ -1271,6 +1271,20 @@ void NotinOOP::handleRemoveReview(int fragranceId, int reviewId)
     }
 
     std::cout << "Fragrance ID not found!" << std::endl;
+}
+
+void NotinOOP::handleViewFragrances() const
+{
+    if (catalogue.empty())
+    {
+        std::cout << "The catalogue is empty." << std::endl;
+        return;
+    }
+
+    for (int i = 0; i < catalogue.size(); i++)
+    {
+        std::cout << "ID: " << catalogue[i].getID() << ", Name: " << catalogue[i].getName() << ", Brand: " << catalogue[i].getBrand() << ", Price: €" << catalogue[i].getPrice() / 100.0 << ", Average Rating: " << catalogue[i].getAvgRating() << ", Quantity: " << catalogue[i].getQuantity() << std::endl;
+    }
 }
 
 void NotinOOP::printAvailableIngredients() const

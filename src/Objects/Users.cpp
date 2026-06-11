@@ -55,6 +55,7 @@ void Buyer::addToBalance(long money)
     balance += money;
 }
 
+
 void Buyer::addToWishlist(const Fragrance &fragrance)
 {
     wishlist.push_back(fragrance);
@@ -67,10 +68,10 @@ void Buyer::removeFromWishlist(const Fragrance &fragrance)
 
 void Buyer::removeAllFromWishlist(const Fragrance &fragrance)
 {
-    for (int i = cart.size() - 1; i >= 0; i--)
+    for (int i = wishlist.size() - 1; i >= 0; i--)
     {
-        if (cart[i] == fragrance)
-            cart.erase(cart.begin() + i);
+        if (wishlist[i] == fragrance)
+            wishlist.erase(wishlist.begin() + i);
     }
 }
 
@@ -93,10 +94,10 @@ void Buyer::removeFromCart(const Fragrance &fragrance)
 
 void Buyer::removeAllFromCart(const Fragrance &fragrance)
 {
-    for (int i = wishlist.size() - 1; i >= 0; i--)
+    for (int i = cart.size() - 1; i >= 0; i--)
     {
-        if (wishlist[i] == fragrance)
-            wishlist.erase(wishlist.begin() + i);
+        if (cart[i] == fragrance)
+            cart.erase(cart.begin() + i);
     }
 }
 
