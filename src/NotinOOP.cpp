@@ -64,6 +64,10 @@ void NotinOOP::processCommand(const std::string &commandLine)
                 handleAddToBalance(money);
             }
         }
+        else if (command == "view-balance")
+        {
+            handleViewBalance();
+        }
         else if (command == "add-to-wishlist")
         {
             std::string fragranceName;
@@ -396,6 +400,10 @@ void NotinOOP::handleAddToBalance(long amount)
     std::cout << "Balance updated! Current balance: " << currentBuyer->getBalance() / 100.0 << std::endl;
 }
 
+void NotinOOP::handleViewBalance() const
+{
+    Buyer *currentBuyer = (Buyer *)activeUser;
+    std::cout << "Current balance: €" << currentBuyer->getBalance() / 100.0 << std::endl;
 }
 
 void NotinOOP::handleAddToWishlist(const std::string &fragranceName)

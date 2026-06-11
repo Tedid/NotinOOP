@@ -42,6 +42,7 @@ class NotinOOP
 
     // Buyer handling:
     void handleAddToBalance(long amount);
+    void handleViewBalance() const;
     void handleAddToWishlist(const std::string &fragranceName);
     void handleRemoveFromWishlist(const std::string &fragranceName);
     void handleAddToCart(const std::string &fragranceName);

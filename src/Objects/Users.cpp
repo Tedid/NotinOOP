@@ -267,6 +267,7 @@ void Buyer::showHelp() const
 {
     std::cout << "Buyer help menu:" << std::endl;
     std::cout << " - add-to-balance <amount> - adds the specified amount to the user's balance" << std::endl;
+    std::cout << " - view-balance - shows the user's current balance" << std::endl;
     std::cout << " - add-to-wishlist <fragrance-name> - adds the fragrance with this name to the user's wishlist" << std::endl;
     std::cout << " - remove-from-wishlist <fragrance-name> - removes the fragrance with this name from the user's wishlist" << std::endl;
     std::cout << " - add-to-cart <fragrance-name> - adds the fragrance with this name to the user's cart" << std::endl;

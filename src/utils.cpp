@@ -4,7 +4,7 @@
 namespace Utils
 {
 
-    void printFragrancesByType(std::vector<Fragrance> frags, int identationSize, bool firstRowIdentation)
+    void printFragrancesByName(std::vector<Fragrance> frags, int identationSize, bool firstRowIdentation)
     {
         if (frags.empty())
         {
@@ -31,6 +31,13 @@ namespace Utils
 
             std::cout << (firstRowIdentation ? SPACES : "") << numberOfFragrances << "x " << temp.getName();
             std::cout << " - €" << (numberOfFragrances * FragrancePrice) / 100.0 ;
+
+            if(numberOfFragrances > 1)
+            {
+                std::cout << " (€" << FragrancePrice / 100.0 << " each)";
+            }
+
+            std::cout << std::endl;
 
             firstRowIdentation = true; // It's not the first row anymore
         }
