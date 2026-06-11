@@ -108,7 +108,7 @@ void NotinOOP::processCommand(const std::string &commandLine)
 
             size_t numberOfRecommendations;
             ss >> numberOfRecommendations;
-            if (ss.fail() || numberOfRecommendations <= 0 || numberOfRecommendations > MAX_RECOMMENDATIONS)
+            if (ss.fail() || numberOfRecommendations > MAX_RECOMMENDATIONS)
             {
                 std::cout << "Using default value for number of recommendations: " << DEFAULT_RECOMMENDATIONS << std::endl;
                 numberOfRecommendations = DEFAULT_RECOMMENDATIONS;
@@ -942,7 +942,7 @@ void NotinOOP::handleCheckout()
         bool isFragStoredInVector = false;
         for (int j = 0; j < uniqueFragsInCart.size(); j++)
         {
-            if (uniqueFragsInCart[j] == &cart[i])
+            if (uniqueFragsInCart[j]->getID() == cart[i].getID())
             {
                 fragQuantities[j]++;
                 isFragStoredInVector = true;
@@ -1015,7 +1015,7 @@ void NotinOOP::handleCheckout()
     newDiscount->view();
 }
 
-void NotinOOP::handleCancelPurchase(int purchaseID)
+void NotinOOP::handleCancelPurchase(size_t purchaseID)
 {
     Buyer *currentBuyer = (Buyer *)activeUser;
 
@@ -1030,17 +1030,23 @@ void NotinOOP::handleCancelPurchase(int purchaseID)
         }
     }
 
+    if (purchaseToCancel == nullptr)
+    {
+        std::cout << "Purchase not found!";
+        return;
+    }
+
     std::vector<Fragrance> purchaseFrags = purchaseToCancel->getFragrances();
-    std::vector<Fragrance *> uniqueFragsInCart;
+    std::vector<Fragrance *> uniqueFrags;
     std::vector<int> fragQuantities;
 
     // Construct a vector with the number of each fragrance:
     for (int i = 0; i < purchaseFrags.size(); i++)
     {
         bool isFragStoredInVector = false;
-        for (int j = 0; j < uniqueFragsInCart.size(); j++)
+        for (int j = 0; j < uniqueFrags.size(); j++)
         {
-            if (uniqueFragsInCart[j] == &purchaseFrags[i])
+            if (uniqueFrags[j]->getID() == purchaseFrags[i].getID())
             {
                 fragQuantities[j]++;
                 isFragStoredInVector = true;
@@ -1049,25 +1055,28 @@ void NotinOOP::handleCancelPurchase(int purchaseID)
         }
         if (!isFragStoredInVector)
         {
-            uniqueFragsInCart.push_back(&purchaseFrags[i]);
+            uniqueFrags.push_back(&purchaseFrags[i]);
             fragQuantities.push_back(1);
         }
     }
 
-    // Return frags to stock:
-    for (int i = 0; i < uniqueFragsInCart.size(); i++)
+    currentBuyer->cancelPurchase(purchaseID);
+
+    if (purchaseToCancel->getStatus() == PurchaseStatus::CANCELLED)
     {
-        for (int j = 0; j < catalogue.size(); j++)
+        // Return frags to stock:
+        for (int i = 0; i < uniqueFrags.size(); i++)
         {
-            if (catalogue[j] == *uniqueFragsInCart[i])
+            for (int j = 0; j < catalogue.size(); j++)
             {
-                catalogue[j].addQuantity(fragQuantities[i]);
-                break;
+                if (catalogue[j] == *uniqueFrags[i])
+                {
+                    catalogue[j].addQuantity(fragQuantities[i]);
+                    break;
+                }
             }
         }
     }
-
-    currentBuyer->cancelPurchase(purchaseID);
 }
 
 void NotinOOP::handleMakeReview(const std::string &fragranceName, double rating, const std::string &comment)
@@ -1085,7 +1094,7 @@ void NotinOOP::handleMakeReview(const std::string &fragranceName, double rating,
     std::cout << "Fragrance not found!" << std::endl;
 }
 
-void NotinOOP::handleBlockUser(const std::string &username)
+void NotinOOP::handleBlockUser(const std::string &username, bool confirmationNeeded = true)
 {
     for (int i = 0; i < users.size(); i++)
     {
@@ -1097,28 +1106,32 @@ void NotinOOP::handleBlockUser(const std::string &username)
                 return;
             }
 
-            while (true)
+            if (confirmationNeeded)
             {
-                std::cout << "This action will delete " << users[i]->getUsername() << "'s account. Are you sure you want to continue? (y/n): ";
-                std::string answer;
-                std::getline(std::cin, answer);
-                Utils::toLower(answer);
+                while (true)
+                {
+                    std::cout << "This action will delete " << users[i]->getUsername() << "'s account. Are you sure you want to continue? (y/n): ";
+                    std::string answer;
+                    std::getline(std::cin, answer);
+                    Utils::toLower(answer);
 
-                if (answer == "y")
-                {
-                    break;
-                }
-                else if (answer == "n")
-                {
-                    std::cout << "User not blocked!" << std::endl;
-                    return;
-                }
-                else
-                {
-                    std::cout << "Invalid answer! Please type 'y' or 'n'." << std::endl;
+                    if (answer == "y")
+                    {
+                        break;
+                    }
+                    else if (answer == "n")
+                    {
+                        std::cout << "User not blocked!" << std::endl;
+                        return;
+                    }
+                    else
+                    {
+                        std::cout << "Invalid answer! Please type 'y' or 'n'." << std::endl;
+                    }
                 }
             }
 
+            delete users[i];
             users.erase(users.begin() + i);
             std::cout << "User blocked successfully!" << std::endl;
             return;
@@ -1193,7 +1206,7 @@ void NotinOOP::handleAddQuantity(const std::string &fragranceName, int quantity)
     std::cout << "Fragrance not found!" << std::endl;
 }
 
-void NotinOOP::handleDeliverPurchase(int purchaseID)
+void NotinOOP::handleDeliverPurchase(size_t purchaseID)
 {
     for (int i = 0; i < users.size(); i++)
     {
@@ -1230,7 +1243,7 @@ void NotinOOP::handleDeliverPurchase(int purchaseID)
     std::cout << "Purchase ID not found!" << std::endl;
 }
 
-void NotinOOP::handleRemoveReview(int fragranceId, int reviewId)
+void NotinOOP::handleRemoveReview(size_t fragranceId, size_t reviewId)
 {
     for (int i = 0; i < catalogue.size(); i++)
     {
@@ -1259,7 +1272,7 @@ void NotinOOP::handleRemoveReview(int fragranceId, int reviewId)
                 else if (reviewBuyer != nullptr)
                 {
                     std::cout << "7 of " << reviewBuyer->getUsername() << "'s reviews have already been removed. Their account will be blocked! >:)" << std::endl;
-                    handleBlockUser(reviewBuyer->getUsername());
+                    handleBlockUser(reviewBuyer->getUsername(), false);
                 }
                 else
                 {

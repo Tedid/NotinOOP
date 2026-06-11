@@ -55,7 +55,6 @@ void Buyer::addToBalance(long money)
     balance += money;
 }
 
-
 void Buyer::addToWishlist(const Fragrance &fragrance)
 {
     wishlist.push_back(fragrance);
@@ -160,6 +159,7 @@ void Buyer::removeDiscount(size_t discountID)
     {
         if (discounts[i]->getID() == discountID)
         {
+            delete discounts[i];
             discounts.erase(discounts.begin() + i);
             break;
         }
@@ -545,14 +545,13 @@ Buyer *Buyer::deserialize(const std::string &line, const std::vector<Fragrance> 
             break;
         }
 
-        //Example str: B:5000000:8:28.42 D:5000001:22 D:5000002:8 B:5000003:8:24.22 D:5000004:8
+        // Example str: B:5000000:8:28.42 D:5000001:22 D:5000002:8 B:5000003:8:24.22 D:5000004:8
         std::string typeStr, discountIDStr, percentStr;
 
         std::stringstream discountInfoSS(discountInfoStr);
         std::getline(discountInfoSS, typeStr, ':');
         std::getline(discountInfoSS, discountIDStr, ':');
         std::getline(discountInfoSS, percentStr, ':');
-
 
         size_t discountID = std::stoull(discountIDStr);
         int percent = std::stoi(percentStr);

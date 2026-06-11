@@ -53,16 +53,16 @@ class NotinOOP
     void handleViewPurchases() const;
     void handleRecommend(const size_t numberOfRecommendations) const;
     void handleCheckout();
-    void handleCancelPurchase(int purchaseID);
+    void handleCancelPurchase(size_t purchaseID);
     void handleMakeReview(const std::string &fragranceName, double rating, const std::string &comment);
 
     // Admin handling:
-    void handleBlockUser(const std::string &username);
+    void handleBlockUser(const std::string &username, bool confirmationNeeded = true);
     void handleCreateFragrance(const std::string &name, const std::string &brand, long price, const std::vector<size_t> &ingredientsList);
     void handleRemoveFragrance(const std::string &fragranceName);
     void handleAddQuantity(const std::string &fragranceName, int quantity);
-    void handleDeliverPurchase(int purchaseID);
-    void handleRemoveReview(int fragranceId, int reviewId);
+    void handleDeliverPurchase(size_t purchaseID);
+    void handleRemoveReview(size_t fragranceId, size_t reviewId);
     void handleViewFragrances() const;
     void printAvailableIngredients() const;
 
