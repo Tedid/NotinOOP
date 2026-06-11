@@ -870,7 +870,7 @@ void NotinOOP::handleCheckout()
 {
     Buyer *currentBuyer = (Buyer *)activeUser;
     std::vector<Fragrance> cart = currentBuyer->getCart();
-    std::vector<Fragrance> uniqueFragsInCart;
+    std::vector<Fragrance *> uniqueFragsInCart;
     std::vector<int> fragQuantities;
 
     std::vector<Discount *> discounts = currentBuyer->getDiscounts();
@@ -900,12 +900,13 @@ void NotinOOP::handleCheckout()
         return;
     }
 
+    // Construct a vector with the number of each fragrance
     for (int i = 0; i < cart.size(); i++)
     {
         bool isFragStoredInVector = false;
         for (int j = 0; j < uniqueFragsInCart.size(); j++)
         {
-            if (uniqueFragsInCart[j] == cart[i])
+            if (uniqueFragsInCart[j] == &cart[i])
             {
                 fragQuantities[j]++;
                 isFragStoredInVector = true;
@@ -915,7 +916,7 @@ void NotinOOP::handleCheckout()
 
         if (!isFragStoredInVector)
         {
-            uniqueFragsInCart.push_back(cart[i]);
+            uniqueFragsInCart.push_back(&cart[i]);
             fragQuantities.push_back(1);
         }
     }
@@ -923,9 +924,9 @@ void NotinOOP::handleCheckout()
     // Check for availability of frags:
     for (int i = 0; i < uniqueFragsInCart.size(); i++)
     {
-        if (uniqueFragsInCart[i].getQuantity() < fragQuantities[i])
+        if (uniqueFragsInCart[i]->getQuantity() < fragQuantities[i])
         {
-            std::cout << "Not enough quantity for " << uniqueFragsInCart[i].getName() << "! Available: " << uniqueFragsInCart[i].getQuantity() << ", required: " << fragQuantities[i] << std::endl;
+            std::cout << "Not enough quantity for " << uniqueFragsInCart[i]->getName() << "! Available: " << uniqueFragsInCart[i]->getQuantity() << ", required: " << fragQuantities[i] << std::endl;
             return;
         }
     }
