@@ -33,7 +33,7 @@ class NotinOOP
 
     // Useful functions for buyers:
     Fragrance *findFragranceByName(const std::string &name);
-    int getBestDiscountIndex();
+    Discount *getBestDiscount();
     float fragrancesDiscountedPrice(const std::vector<Fragrance> &frags, Discount &discount);
     Discount *generateNewDiscount();
 

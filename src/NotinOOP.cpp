@@ -734,7 +734,7 @@ Fragrance *NotinOOP::findFragranceByName(const std::string &name)
     return nullptr;
 }
 
-int NotinOOP::getBestDiscountIndex()
+Discount* NotinOOP::getBestDiscount()
 {
     Buyer *currentBuyer = (Buyer *)activeUser;
     std::vector<Discount *> discounts = currentBuyer->getDiscounts();
@@ -742,7 +742,7 @@ int NotinOOP::getBestDiscountIndex()
 
     if (discounts.empty())
     {
-        return -1;
+        return nullptr;
     }
 
     float fragsPrice = 0.0f;
@@ -751,18 +751,18 @@ int NotinOOP::getBestDiscountIndex()
         fragsPrice += cart[i].getPrice();
     }
 
-    int minDiscountIndex = -1;
+    Discount *minDiscount = nullptr;
     for (int i = 0; i < discounts.size(); i++)
     {
         float currentDiscountPrice = fragrancesDiscountedPrice(cart, *discounts[i]);
         if (currentDiscountPrice < fragsPrice)
         {
             fragsPrice = currentDiscountPrice;
-            minDiscountIndex = i;
+            minDiscount = discounts[i];
         }
     }
 
-    return minDiscountIndex;
+    return minDiscount;
 }
 
 Discount *NotinOOP::generateNewDiscount()
@@ -885,10 +885,10 @@ void NotinOOP::handleCheckout()
     }
 
     float discountedPrice = originalPrice;
-    int bestVoucherIndex = getBestDiscountIndex();
-    if (bestVoucherIndex != -1)
+    Discount *bestDiscount = getBestDiscount();
+    if (bestDiscount != nullptr)
     {
-        discountedPrice = fragrancesDiscountedPrice(cart, *discounts[bestVoucherIndex]);
+        discountedPrice = fragrancesDiscountedPrice(cart, *bestDiscount);
     }
 
     if (currentBuyer->getBalance() < discountedPrice)
@@ -899,18 +899,18 @@ void NotinOOP::handleCheckout()
 
     std::cout << "Purchase ID: " << nextPurchaseID << std::endl;
 
-    if (bestVoucherIndex != -1)
+    if (bestDiscount != nullptr)
     {
-        std::cout << "Original price: €" << originalPrice << ". Applied discount: " << discounts[bestVoucherIndex]->getPercent() << "% off";
-        if (discounts[bestVoucherIndex]->getType() == DiscountType::BONUS_DISCOUNT)
+        std::cout << "Original price: €" << originalPrice << ". Applied discount: " << bestDiscount->getPercent() << "% off";
+        if (bestDiscount->getType() == DiscountType::BONUS_DISCOUNT)
         {
-            BonusDiscount *bonusDsc = (BonusDiscount *)discounts[bestVoucherIndex];
+            BonusDiscount *bonusDsc = (BonusDiscount *)bestDiscount;
             std::cout << " + €" << bonusDsc->getBonus() << " off";
         }
         std::cout << std::endl;
         std::cout << "Final price: €" << discountedPrice << std::endl;
 
-        currentBuyer->removeDiscount(discounts[bestVoucherIndex]->getID()); // remove used Discount
+        currentBuyer->removeDiscount(bestDiscount->getID()); // remove used Discount
     }
     else
     {
