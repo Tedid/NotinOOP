@@ -495,6 +495,7 @@ void NotinOOP::handleRecommend(const size_t numberOfRecommendations) const
     /*
      It gets the most prominent ingredients from the user's wishlist and
      takes the fragrances from the catalogue that contain them the most:
+     (Sorted by relevance: 3 then 2 then 1 most liked ingredient)
     */
 
     Buyer *currentBuyer = (Buyer *)activeUser;
@@ -614,19 +615,29 @@ void NotinOOP::handleRecommend(const size_t numberOfRecommendations) const
                 }
             }
 
-            if (hasMostLiked && hasSecondMostLiked || hasMostLiked && hasThirdMostLiked || hasSecondMostLiked && hasThirdMostLiked)
+            if ((hasMostLiked && hasSecondMostLiked) || (hasMostLiked && hasThirdMostLiked) || (hasSecondMostLiked && hasThirdMostLiked))
             {
                 bool isInWishlist = false;
                 for (int j = 0; j < wishlist.size(); j++)
                 {
-                    if (wishlist[j] == fragrance)
+                    if (wishlist[j].getID() == fragrance.getID())
                     {
                         isInWishlist = true;
                         break;
                     }
                 }
 
-                if (!isInWishlist)
+                bool isAlreadyRecommended = false;
+                for (int j = 0; j < recommendations.size(); j++)
+                {
+                    if (recommendations[j].getID() == fragrance.getID())
+                    {
+                        isAlreadyRecommended = true;
+                        break;
+                    }
+                }
+
+                if (!isInWishlist && !isAlreadyRecommended)
                 {
                     recommendations.push_back(fragrance);
                     if (recommendations.size() == numberOfRecommendations)
@@ -669,14 +680,24 @@ void NotinOOP::handleRecommend(const size_t numberOfRecommendations) const
                 bool isInWishlist = false;
                 for (int j = 0; j < wishlist.size(); j++)
                 {
-                    if (wishlist[j] == fragrance)
+                    if (wishlist[j].getID() == fragrance.getID())
                     {
                         isInWishlist = true;
                         break;
                     }
                 }
 
-                if (!isInWishlist)
+                bool isAlreadyRecommended = false;
+                for (int j = 0; j < recommendations.size(); j++)
+                {
+                    if (recommendations[j].getID() == fragrance.getID())
+                    {
+                        isAlreadyRecommended = true;
+                        break;
+                    }
+                }
+
+                if (!isInWishlist && !isAlreadyRecommended)
                 {
                     recommendations.push_back(fragrance);
                     if (recommendations.size() == numberOfRecommendations)
