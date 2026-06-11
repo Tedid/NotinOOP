@@ -46,6 +46,11 @@ void NotinOOP::processCommand(const std::string &commandLine)
         handleLogin(username, password);
         return;
     }
+    else if (command == "view-fragrances")
+    {
+        handleViewFragrances();
+        return;
+    }
 
     if (activeUser != nullptr && activeUser->getType() == UserType::BUYER)
     {

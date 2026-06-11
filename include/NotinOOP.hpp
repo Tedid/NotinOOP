@@ -63,6 +63,7 @@ class NotinOOP
     void handleAddQuantity(const std::string &fragranceName, int quantity);
     void handleDeliverPurchase(int purchaseID);
     void handleRemoveReview(int fragranceId, int reviewId);
+    void handleViewFragrances() const;
     void printAvailableIngredients() const;
 
     // File handling:
