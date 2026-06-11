@@ -734,7 +734,7 @@ Fragrance *NotinOOP::findFragranceByName(const std::string &name)
     return nullptr;
 }
 
-Discount* NotinOOP::getBestDiscount()
+Discount *NotinOOP::getBestDiscount()
 {
     Buyer *currentBuyer = (Buyer *)activeUser;
     std::vector<Discount *> discounts = currentBuyer->getDiscounts();
@@ -960,6 +960,10 @@ void NotinOOP::handleCheckout()
 
     Discount *newDiscount = generateNewDiscount(); // generate a new discount for the user
     currentBuyer->addToDiscounts(newDiscount);
+
+    std::cout << "New discount added to user! Discount details: " << std::endl;
+    newDiscount->view();
+    std::cout << std::endl;
 }
 
 void NotinOOP::handleCancelPurchase(int purchaseID)
