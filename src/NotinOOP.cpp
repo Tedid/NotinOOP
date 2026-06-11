@@ -189,6 +189,7 @@ void NotinOOP::processCommand(const std::string &commandLine)
     }
     else if (activeUser != nullptr && activeUser->getType() == UserType::ADMIN)
     {
+        // Admin commands:
         if (command == "block-user")
         {
             std::string username;
