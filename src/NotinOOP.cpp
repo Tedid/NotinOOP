@@ -189,7 +189,7 @@ void NotinOOP::processCommand(const std::string &commandLine)
         else if (command == "create-fragrance")
         {
             std::string name, brand;
-            float price = -1;
+            long price = -1;
             std::vector<size_t> ingredientsList;
 
             ss >> name >> brand >> price;
@@ -388,12 +388,14 @@ void NotinOOP::handleLogout()
     std::cout << "Logged out successfully!" << std::endl;
 }
 
-void NotinOOP::handleAddToBalance(float amount)
+void NotinOOP::handleAddToBalance(long amount)
 {
     Buyer *currentBuyer = (Buyer *)activeUser;
 
-    currentBuyer->addToBalance(amount);
-    std::cout << "Balance updated! Current balance: " << currentBuyer->getBalance() << std::endl;
+    currentBuyer->addToBalance(amount * 100);
+    std::cout << "Balance updated! Current balance: " << currentBuyer->getBalance() / 100.0 << std::endl;
+}
+
 }
 
 void NotinOOP::handleAddToWishlist(const std::string &fragranceName)
@@ -686,28 +688,28 @@ void NotinOOP::handleRecommend(const size_t numberOfRecommendations) const
 
     std::string message = "Recommended fragrances: ";
     std::cout << message;
-    Utils::printFragrancesByType(recommendations, message.size());
+    Utils::printFragrancesByName(recommendations, message.size());
 }
 
-float NotinOOP::fragrancesDiscountedPrice(const std::vector<Fragrance> &frags, Discount &discount)
+long NotinOOP::fragrancesDiscountedPrice(const std::vector<Fragrance> &frags, Discount &discount)
 {
-    float totalPrice = 0.0f;
+    long totalPrice = 0;
 
     for (int i = 0; i < frags.size(); i++)
     {
-        float currentFragPrice = frags[i].getPrice();
+        long currentFragPrice = frags[i].getPrice();
 
         if (discount.getType() == DiscountType::BRAND_DISCOUNT)
         {
             BrandDiscount *brandDsc = (BrandDiscount *)&discount;
             if (frags[i].getBrand() == brandDsc->getBrandName())
             {
-                currentFragPrice -= currentFragPrice * (brandDsc->getPercent() / 100.0f);
+                currentFragPrice -= currentFragPrice * brandDsc->getPercent() / 100;
             }
         }
         else
         {
-            currentFragPrice -= currentFragPrice * (discount.getPercent() / 100.0f);
+            currentFragPrice -= currentFragPrice * discount.getPercent() / 100;
         }
 
         totalPrice += currentFragPrice;
@@ -719,7 +721,7 @@ float NotinOOP::fragrancesDiscountedPrice(const std::vector<Fragrance> &frags, D
         totalPrice -= bonusDsc->getBonus();
     }
 
-    return (totalPrice < 0.0f) ? 0.0f : totalPrice;
+    return (totalPrice < 0) ? 0 : totalPrice;
 }
 
 Fragrance *NotinOOP::findFragranceByName(const std::string &name)
@@ -745,7 +747,7 @@ Discount *NotinOOP::getBestDiscount()
         return nullptr;
     }
 
-    float fragsPrice = 0.0f;
+    long fragsPrice = 0;
     for (int i = 0; i < cart.size(); i++)
     {
         fragsPrice += cart[i].getPrice();
@@ -754,7 +756,7 @@ Discount *NotinOOP::getBestDiscount()
     Discount *minDiscount = nullptr;
     for (int i = 0; i < discounts.size(); i++)
     {
-        float currentDiscountPrice = fragrancesDiscountedPrice(cart, *discounts[i]);
+        long currentDiscountPrice = fragrancesDiscountedPrice(cart, *discounts[i]);
         if (currentDiscountPrice < fragsPrice)
         {
             fragsPrice = currentDiscountPrice;
@@ -823,8 +825,7 @@ Discount *NotinOOP::generateNewDiscount()
         // a percentage from 5 to 20:
         int percentageDiscount = 5 + (rand() % 16);
         // a price from 10 to 80:
-        // (actually from 1000 to 8000 divided by 100)
-        float bonusPrice = (1000 + (rand() % 7001)) / 100.0f;
+        long bonusPrice = 1000 + (rand() % 7001);
 
         return new BonusDiscount(nextDiscountID++, percentageDiscount, bonusPrice);
     }
@@ -881,25 +882,22 @@ void NotinOOP::handleCheckout()
         return;
     }
 
-    float originalPrice = 0.0f;
+    long originalPrice = 0;
     for (int i = 0; i < cart.size(); i++)
     {
         originalPrice += cart[i].getPrice();
     }
 
-    float discountedPrice = originalPrice;
+    long discountedPrice = originalPrice;
     Discount *bestDiscount = getBestDiscount();
     if (bestDiscount != nullptr)
     {
         discountedPrice = fragrancesDiscountedPrice(cart, *bestDiscount);
     }
 
-    // round discounted price to 2 decimal places:
-    discountedPrice = (int)(discountedPrice * 100 + 0.5f) / 100.0f;
-
     if (currentBuyer->getBalance() < discountedPrice)
     {
-        std::cout << "Not enough money! Final price: " << discountedPrice << ", current balance: " << currentBuyer->getBalance() << std::endl;
+        std::cout << "Not enough money! Final price: " << discountedPrice / 100.0 << ", current balance: " << currentBuyer->getBalance() / 100.0 << std::endl;
         return;
     }
 
@@ -951,20 +949,20 @@ void NotinOOP::handleCheckout()
 
     if (bestDiscount != nullptr)
     {
-        std::cout << "Original price: €" << originalPrice << ". Applied discount: " << bestDiscount->getPercent() << "% off";
+        std::cout << "Original price: €" << originalPrice / 100.0 << ". Applied discount: " << bestDiscount->getPercent() << "% off";
         if (bestDiscount->getType() == DiscountType::BONUS_DISCOUNT)
         {
             BonusDiscount *bonusDsc = (BonusDiscount *)bestDiscount;
-            std::cout << " + €" << bonusDsc->getBonus() << " off";
+            std::cout << " + €" << bonusDsc->getBonus() / 100.0 << " off";
         }
         std::cout << std::endl;
-        std::cout << "Final price: €" << discountedPrice << std::endl;
+        std::cout << "Final price: €" << discountedPrice / 100.0 << std::endl;
 
         currentBuyer->removeDiscount(bestDiscount->getID()); // remove used Discount
     }
     else
     {
-        std::cout << "Final price: €" << discountedPrice << std::endl;
+        std::cout << "Final price: €" << discountedPrice / 100.0 << std::endl;
     }
 
     Purchase newPurchase(nextPurchaseID++, cart, PurchaseStatus::PENDING, currentBuyer->getUserID(), discountedPrice);
@@ -1094,7 +1092,7 @@ void NotinOOP::handleBlockUser(const std::string &username)
     std::cout << "Username not found!" << std::endl;
 }
 
-void NotinOOP::handleCreateFragrance(const std::string &name, const std::string &brand, float price, const std::vector<size_t> &ingredientsList)
+void NotinOOP::handleCreateFragrance(const std::string &name, const std::string &brand, long price, const std::vector<size_t> &ingredientsList)
 {
     Fragrance newFragrance(nextFragranceID++, name, brand, price, ingredientsList);
     catalogue.push_back(newFragrance);

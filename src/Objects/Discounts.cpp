@@ -26,7 +26,7 @@ int Discount::getPercent()
     return discountPercent;
 }
 
-BonusDiscount::BonusDiscount(size_t id, int percent, float bon) : Discount(id, percent)
+BonusDiscount::BonusDiscount(size_t id, int percent, long bon) : Discount(id, percent)
 {
     bonus = bon;
 }
@@ -62,10 +62,10 @@ void BonusDiscount::view() const
 {
     std::cout << "Bonus Discount ID[" << discountID << "]:" << std::endl;
     std::cout << "Discount percent: " << discountPercent << "%" << std::endl;
-    std::cout << "Bonus discount: " << bonus << " Euro" << std::endl;
+    std::cout << "Bonus discount: " << bonus / 100.0 << std::endl;
 }
 
-float BonusDiscount::getBonus()
+long BonusDiscount::getBonus()
 {
     return bonus;
 }
@@ -81,7 +81,7 @@ void BonusDiscount::deserialize(const std::string &str)
 
     size_t id;
     int percent;
-    float bonus;
+    long bonus;
     ss >> id >> percent >> bonus;
 
     discountID = id;

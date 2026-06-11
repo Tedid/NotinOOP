@@ -3,7 +3,7 @@
 #include <iostream>
 #include "util/utils.hpp"
 
-Purchase::Purchase(size_t ID, std::vector<Fragrance> frags, PurchaseStatus stat, size_t uID, float finalPrice)
+Purchase::Purchase(size_t ID, std::vector<Fragrance> frags, PurchaseStatus stat, size_t uID, long finalPrice)
 {
     purchaseID = ID;
     fragrances = frags;
@@ -37,7 +37,7 @@ size_t Purchase::getUserID() const
     return userID;
 }
 
-float Purchase::getFinalPrice() const
+long Purchase::getFinalPrice() const
 {
     return finalPrice;
 }
@@ -65,8 +65,8 @@ void Purchase::show(const std::string &userName) const
     std::cout << "Ordered by: " << userName << std::endl;
     std::string message = "Items ordered: ";
     std::cout << message;
-    Utils::printFragrancesByType(fragrances, message.size());
-    std::cout << "Summed price: " << finalPrice << std::endl;
+    Utils::printFragrancesByName(fragrances, message.size());
+    std::cout << "Summed price: " << finalPrice / 100.0 << std::endl;
 }
 
 void Purchase::serialize(std::ostream &os) const

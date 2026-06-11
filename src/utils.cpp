@@ -27,10 +27,10 @@ namespace Utils
                 }
             }
 
-            float FragrancePrice = temp.getPrice();
+            long FragrancePrice = temp.getPrice();
 
             std::cout << (firstRowIdentation ? SPACES : "") << numberOfFragrances << "x " << temp.getName();
-            std::cout << " - (€" << numberOfFragrances * FragrancePrice << " (€" << FragrancePrice << " each)" << std::endl;
+            std::cout << " - €" << (numberOfFragrances * FragrancePrice) / 100.0 ;
 
             firstRowIdentation = true; // It's not the first row anymore
         }

@@ -12,13 +12,13 @@ class Fragrance
     size_t fragranceID; // unique
     std::string name;
     std::string brand;
-    float price;
+    long price;
     std::vector<size_t> ingredientIDs;
     int quantity;
     std::vector<Review> reviews;
 
 public:
-    Fragrance(size_t fragranceID, const std::string &name, const std::string &brand, float price, const std::vector<size_t> &ingredientIDs, int quantity = 0);
+    Fragrance(size_t fragranceID, const std::string &name, const std::string &brand, long price, const std::vector<size_t> &ingredientIDs, int quantity = 0);
 
     void addReview(const Review &review);
     Review removeReview(size_t reviewID);
@@ -28,7 +28,7 @@ public:
     size_t getID() const;
     std::string getName() const;
     std::string getBrand() const;
-    float getPrice() const;
+    long getPrice() const;
     const std::vector<size_t> &getIngredientIDs() const;
     int getQuantity() const;
     const std::vector<Review> getReviews() const;

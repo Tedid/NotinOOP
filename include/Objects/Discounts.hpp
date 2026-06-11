@@ -28,14 +28,14 @@ public:
 
 class BonusDiscount : public Discount
 {
-    float bonus;
+    long bonus;
 
 public:
-    BonusDiscount(size_t id, int percent, float bonus);
+    BonusDiscount(size_t id, int percent, long bonus);
 
     DiscountType getType() const override;
     void view() const override;
-    float getBonus();
+    long getBonus();
 
     void serialize(std::ostream &os) const override;
     void deserialize(const std::string &str) override;

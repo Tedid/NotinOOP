@@ -34,14 +34,14 @@ class NotinOOP
     // Useful functions for buyers:
     Fragrance *findFragranceByName(const std::string &name);
     Discount *getBestDiscount();
-    float fragrancesDiscountedPrice(const std::vector<Fragrance> &frags, Discount &discount);
+    long fragrancesDiscountedPrice(const std::vector<Fragrance> &frags, Discount &discount);
     Discount *generateNewDiscount();
 
     // Useful functions for admins:
     size_t getLastIngredientID();
 
     // Buyer handling:
-    void handleAddToBalance(float amount);
+    void handleAddToBalance(long amount);
     void handleAddToWishlist(const std::string &fragranceName);
     void handleRemoveFromWishlist(const std::string &fragranceName);
     void handleAddToCart(const std::string &fragranceName);
@@ -57,7 +57,7 @@ class NotinOOP
 
     // Admin handling:
     void handleBlockUser(const std::string &username);
-    void handleCreateFragrance(const std::string &name, const std::string &brand, float price, const std::vector<size_t> &ingredientsList);
+    void handleCreateFragrance(const std::string &name, const std::string &brand, long price, const std::vector<size_t> &ingredientsList);
     void handleRemoveFragrance(const std::string &fragranceName);
     void handleAddQuantity(const std::string &fragranceName, int quantity);
     void handleDeliverPurchase(int purchaseID);

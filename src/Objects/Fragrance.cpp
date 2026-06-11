@@ -1,6 +1,6 @@
 #include "Objects/Fragrance.hpp"
 
-Fragrance::Fragrance(size_t ID, const std::string &name, const std::string &brand, float price, const std::vector<size_t> &ingredientIDs, int quantity)
+Fragrance::Fragrance(size_t ID, const std::string &name, const std::string &brand, long price, const std::vector<size_t> &ingredientIDs, int quantity)
 {
     fragranceID = ID;
     this->name = name;
@@ -49,7 +49,7 @@ std::string Fragrance::getBrand() const
     return brand;
 }
 
-float Fragrance::getPrice() const
+long Fragrance::getPrice() const
 {
     return price;
 }
@@ -147,7 +147,7 @@ Fragrance Fragrance::deserialize(const std::string &line)
     std::getline(ss, reviewsStr, '|');
 
     size_t id = std::stoull(idStr);
-    float price = std::stof(priceStr);
+    long price = std::stoll(priceStr);
     int quantity = std::stoi(quantityStr);
 
     // Ingredient IDs:

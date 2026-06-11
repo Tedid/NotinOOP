@@ -43,14 +43,14 @@ std::string User::getPassword() const
     return password;
 }
 
-Buyer::Buyer(size_t id, const std::string &name, const std::string &pass, float balance, int reviewsRemoved) : User(id, name, pass)
+Buyer::Buyer(size_t id, const std::string &name, const std::string &pass, long balance, int reviewsRemoved) : User(id, name, pass)
 {
     this->balance = balance;
     this->reviewsRemoved = reviewsRemoved;
     type = UserType::BUYER;
 }
 
-void Buyer::addToBalance(float money)
+void Buyer::addToBalance(long money)
 {
     balance += money;
 }
@@ -78,7 +78,7 @@ void Buyer::viewWishlist() const
 {
     std::string message = "Wishlisted items: ";
     std::cout << message;
-    Utils::printFragrancesByType(wishlist, message.size());
+    Utils::printFragrancesByName(wishlist, message.size());
 }
 
 void Buyer::addToCart(const Fragrance &fragrance)
@@ -104,7 +104,7 @@ void Buyer::viewCart() const
 {
     std::string message = "Items in cart: ";
     std::cout << message;
-    Utils::printFragrancesByType(cart, message.size());
+    Utils::printFragrancesByName(cart, message.size());
 }
 
 void Buyer::clearCart()
@@ -233,7 +233,7 @@ void Buyer::viewDiscounts() const
     }
 }
 
-float Buyer::getBalance() const
+long Buyer::getBalance() const
 {
     return balance;
 }
@@ -374,7 +374,7 @@ Buyer *Buyer::deserialize(const std::string &line, const std::vector<Fragrance> 
     std::getline(ss, reviewsRemovedStr, '|');
 
     size_t id = std::stoull(idStr);
-    float balance = std::stof(balanceStr);
+    long balance = std::stoll(balanceStr);
     int reviewsRemoved = std::stoi(reviewsRemovedStr);
     Buyer *buyer = new Buyer(id, username, password, balance, reviewsRemoved);
 
@@ -475,7 +475,7 @@ Buyer *Buyer::deserialize(const std::string &line, const std::vector<Fragrance> 
 
         size_t purchaseID = std::stoull(purchaseIDStr);
         size_t userID = std::stoull(userIDStr);
-        float finalPrice = std::stof(finalPriceStr);
+        long finalPrice = std::stoll(finalPriceStr);
 
         std::vector<Fragrance> purchaseFragrances;
         std::stringstream fragrancesSS(fragrancesStr);
@@ -571,7 +571,7 @@ Buyer *Buyer::deserialize(const std::string &line, const std::vector<Fragrance> 
         {
             std::string bonusStr;
             std::getline(discountInfoSS, bonusStr, ':');
-            float bonus = std::stof(bonusStr);
+            long bonus = std::stoll(bonusStr);
             Discount *loadedDiscount = new BonusDiscount(discountID, percent, bonus);
             buyer->addToDiscounts(loadedDiscount);
         }
