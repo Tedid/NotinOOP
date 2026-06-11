@@ -1,0 +1,5 @@
+nextUserID 1000010
+nextFragranceID 2000017
+nextPurchaseID 3000016
+nextReviewID 4000012
+nextDiscountID 5000056
