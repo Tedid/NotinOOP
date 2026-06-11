@@ -20,6 +20,7 @@ public:
     void setStatus(PurchaseStatus newStatus);
 
     size_t getPurchaseID() const;
+    std::vector<Fragrance> getFragrances() const;
     PurchaseStatus getStatus() const;
     size_t getUserID() const;
     float getFinalPrice() const;

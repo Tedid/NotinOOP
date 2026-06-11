@@ -931,6 +931,19 @@ void NotinOOP::handleCheckout()
         }
     }
 
+    // Remove frags from stock:
+    for (int i = 0; i < uniqueFragsInCart.size(); i++)
+    {
+        for (int j = 0; j < catalogue.size(); j++)
+        {
+            if (catalogue[j] == *uniqueFragsInCart[i])
+            {
+                catalogue[j].addQuantity(-fragQuantities[i]);
+                break;
+            }
+        }
+    }
+
     std::cout << "Purchase ID: " << nextPurchaseID << std::endl;
 
     if (bestDiscount != nullptr)
@@ -961,14 +974,62 @@ void NotinOOP::handleCheckout()
     Discount *newDiscount = generateNewDiscount(); // generate a new discount for the user
     currentBuyer->addToDiscounts(newDiscount);
 
-    std::cout << "New discount added to user! Discount details: " << std::endl;
+    std::cout << std::endl
+              << "New discount added to user! Discount details: " << std::endl;
     newDiscount->view();
-    std::cout << std::endl;
 }
 
 void NotinOOP::handleCancelPurchase(int purchaseID)
 {
     Buyer *currentBuyer = (Buyer *)activeUser;
+
+    Purchase *purchaseToCancel = nullptr;
+    std::vector<Purchase> &purchases = currentBuyer->getPurchases();
+    for (int i = 0; i < purchases.size(); i++)
+    {
+        if (purchases[i].getPurchaseID() == purchaseID)
+        {
+            purchaseToCancel = &purchases[i];
+            break;
+        }
+    }
+
+    std::vector<Fragrance> purchaseFrags = purchaseToCancel->getFragrances();
+    std::vector<Fragrance *> uniqueFragsInCart;
+    std::vector<int> fragQuantities;
+
+    // Construct a vector with the number of each fragrance:
+    for (int i = 0; i < purchaseFrags.size(); i++)
+    {
+        bool isFragStoredInVector = false;
+        for (int j = 0; j < uniqueFragsInCart.size(); j++)
+        {
+            if (uniqueFragsInCart[j] == &purchaseFrags[i])
+            {
+                fragQuantities[j]++;
+                isFragStoredInVector = true;
+                break;
+            }
+        }
+        if (!isFragStoredInVector)
+        {
+            uniqueFragsInCart.push_back(&purchaseFrags[i]);
+            fragQuantities.push_back(1);
+        }
+    }
+
+    // Return frags to stock:
+    for (int i = 0; i < uniqueFragsInCart.size(); i++)
+    {
+        for (int j = 0; j < catalogue.size(); j++)
+        {
+            if (catalogue[j] == *uniqueFragsInCart[i])
+            {
+                catalogue[j].addQuantity(fragQuantities[i]);
+                break;
+            }
+        }
+    }
 
     currentBuyer->cancelPurchase(purchaseID);
 }

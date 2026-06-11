@@ -22,6 +22,11 @@ size_t Purchase::getPurchaseID() const
     return purchaseID;
 }
 
+std::vector<Fragrance> Purchase::getFragrances() const
+{
+    return fragrances;
+}
+
 PurchaseStatus Purchase::getStatus() const
 {
     return status;
