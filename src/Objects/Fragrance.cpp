@@ -71,13 +71,18 @@ const std::vector<Review> Fragrance::getReviews() const
 
 float Fragrance::getAvgRating() const
 {
+    int numberOfRatings = reviews.size();
+    if (numberOfRatings == 0)
+    {
+        return 0.0f;
+    }
+
     int sum = 0;
-    int numberOfRatings = getReviews().size();
     for (int i = 0; i < numberOfRatings; i++)
     {
-        sum += getReviews()[i].getRating();
+        sum += reviews[i].getRating();
     }
-    return sum / numberOfRatings;
+    return (float)sum / numberOfRatings;
 }
 
 bool Fragrance::operator==(const Fragrance &other) const
