@@ -894,6 +894,9 @@ void NotinOOP::handleCheckout()
         discountedPrice = fragrancesDiscountedPrice(cart, *bestDiscount);
     }
 
+    // round discounted price to 2 decimal places:
+    discountedPrice = (int)(discountedPrice * 100 + 0.5f) / 100.0f;
+
     if (currentBuyer->getBalance() < discountedPrice)
     {
         std::cout << "Not enough money! Final price: " << discountedPrice << ", current balance: " << currentBuyer->getBalance() << std::endl;
